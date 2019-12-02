@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+
+  jenkins-master:
+    build:
+      context: ./master
+    ports:
+      - "18080:8080"
+    user: root
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock  # TODO move that to jenkins agent
+      - $HOME/jenkins:/var/jenkins_home # TODO move that to jenkins agent
+      - $HOME/git:/home/git

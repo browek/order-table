@@ -1,10 +1,5 @@
-import { SideNavComponent } from './../side-nav/side-nav.component';
-import { NavService } from './../shared/services/nav.service';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { faSearch, faWrench } from '@fortawesome/free-solid-svg-icons';
-import { MatSidenav } from '@angular/material';
-
-
 
 @Component({
   selector: 'app-home',
@@ -36,7 +31,6 @@ export class HomeComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-
   }
 
   sidenavToggle() {

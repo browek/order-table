@@ -1,0 +1,40 @@
+version: '3'
+services:
+
+  db-mysql:
+    image: mysql:5.7
+    restart: always
+    container_name: order-table-db
+    environment:
+      - MYSQL_DATABASE=order_table_db
+      - MYSQL_ROOT_PASSWORD=zaq1@WSX
+    ports:
+      - "6033:3306"
+    volumes:
+      - /usr/app/order-table-db:/var/lib/mysql
+  
+  client:
+    build:
+      context: ../../frontend
+      dockerfile: Dockerfile.dev
+    container_name: order-table-client
+    ports:
+      - "4200:4200"
+    volumes:
+      - /app/node_modules
+      - ../../frontend:/app
+
+  backend:
+    restart: always
+    build:
+      context: ../../backend
+      dockerfile: Dockerfile.dev
+    container_name: order-table-backend
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db-mysql/order_table_db
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=zaq1@WSX
+    ports:
+      - "9080:8080"
+    depends_on:
+      - db-mysql
