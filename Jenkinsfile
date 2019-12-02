@@ -1,6 +1,16 @@
 pipeline {
     agent any
 
+    node {
+        def app
+
+        stage('Build backend image') {
+            dir('backend') {
+                app = docker.build("order-table-backend")
+            }
+        }
+    }
+
     stages {
         stage('Build') {
             stages {
