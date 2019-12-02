@@ -1,4 +1,4 @@
-package com.venues.SecurityTest;
+package com.table.order.SecurityTest;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
