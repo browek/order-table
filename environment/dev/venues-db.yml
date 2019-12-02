@@ -1,0 +1,11 @@
+version: '3'
+services:
+  database:
+    image: mysql:5.7
+    restart: always
+    container_name: venues-db
+    environment:
+      MYSQL_ROOT_PASSWORD: zaq1@WSX
+      MYSQL_DATABASE: venues
+    ports:
+      - "6033:3306"

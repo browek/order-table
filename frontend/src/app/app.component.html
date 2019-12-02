@@ -1,0 +1,5 @@
+<body [background]=bgImg>
+<app-nav-bar></app-nav-bar>
+<app-side-nav [isOpen]="isOpen"></app-side-nav>
+<app-home (homeSidenav)="checkStatus()" ></app-home>
+</body>
