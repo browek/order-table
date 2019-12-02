@@ -1,4 +1,4 @@
-package com.venues.model.security;
+package com.table.order.model.security;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class UserCredentials {
 
-    private String username;
-    private String password;
-
+	private String username;
+	private String password;
 
 }

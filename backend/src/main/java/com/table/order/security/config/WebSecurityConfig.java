@@ -1,8 +1,5 @@
-package com.venues.security.config;
+package com.table.order.security.config;
 
-import com.venues.security.JwtAuthenticationEntryPoint;
-import com.venues.security.JwtAuthenticationFilter;
-import com.venues.security.JwtLoginFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +16,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import com.table.order.security.JwtAuthenticationEntryPoint;
+import com.table.order.security.JwtAuthenticationFilter;
+import com.table.order.security.JwtLoginFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -54,7 +55,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public BCryptPasswordEncoder encoder() {
-        return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder(11);
     }
 
     @Bean

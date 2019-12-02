@@ -10,4 +10,8 @@ CREATE TABLE `user` (
 `password` varchar(255),
 `id_role` bigint,
 PRIMARY KEY (`id`),
-constraint FKrhfovtciq1l558cw6udg0h0d3 foreign key(id_role) references role (id) on delete cascade);
+CONSTRAINT FKrhfovtciq1l558cw6udg0h0d3 
+	FOREIGN KEY(id_role) 
+	REFERENCES role (id) 
+	ON DELETE NO ACTION
+	ON UPDATE CASCADE);

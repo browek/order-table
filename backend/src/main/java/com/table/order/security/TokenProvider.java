@@ -1,46 +1,55 @@
-package com.venues.security;
+package com.table.order.security;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.stereotype.Component;
+import static com.table.order.model.security.Constants.ACCESS_TOKEN_VALIDITY_SECONDS;
+import static com.table.order.model.security.Constants.AUTHORITIES_KEY;
+import static com.table.order.model.security.Constants.HEADER_STRING;
+import static com.table.order.model.security.Constants.SIGNING_KEY;
+import static com.table.order.model.security.Constants.TOKEN_PREFIX;
+
+import java.security.Key;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.DatatypeConverter;
-import java.security.Key;
-import java.util.*;
-import java.util.stream.Collectors;
 
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import static com.venues.model.security.Constants.*;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 
-@Component
 public class TokenProvider {
 
-
+	private TokenProvider() {}
+	
     public static String generateToken(String username, String userRole) {
         Key secretKey = generateSecretKey();
-        Map<String, Object> authorityClaims = new HashMap<String, Object>();
+        Map<String, Object> authorityClaims = new HashMap<>();
         authorityClaims.put(AUTHORITIES_KEY, userRole);
-        String JWT = Jwts.builder().setClaims(authorityClaims)
+        String token = Jwts.builder().setClaims(authorityClaims)
                 .setSubject(username)
                 .setExpiration(new Date(System.currentTimeMillis() + ACCESS_TOKEN_VALIDITY_SECONDS * 1000))
                 .signWith(secretKey,SignatureAlgorithm.HS256)
                 .compact();
-        return TOKEN_PREFIX + " " + JWT;
+        
+        return TOKEN_PREFIX + " " + token;
     }
 
     public static Key generateSecretKey(){
         byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(SIGNING_KEY);
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
-        Key key = new SecretKeySpec(apiKeySecretBytes,signatureAlgorithm.getJcaName());
-        return key;
+        
+        return new SecretKeySpec(apiKeySecretBytes,signatureAlgorithm.getJcaName());
     }
 
     public static void addTokenToResponse(HttpServletResponse res,String token){

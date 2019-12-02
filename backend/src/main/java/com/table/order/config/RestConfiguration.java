@@ -1,4 +1,4 @@
-package com.venues.config;
+package com.table.order.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;

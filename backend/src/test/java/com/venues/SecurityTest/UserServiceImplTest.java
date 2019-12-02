@@ -1,17 +1,18 @@
 package com.venues.SecurityTest;
 
-import com.venues.model.security.Role;
-import com.venues.model.security.User;
-import com.venues.model.security.UserCredentials;
-import com.venues.repository.UserRepository;
-import com.venues.service.RoleService;
-import com.venues.service.implementation.UserServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import com.table.order.model.security.Role;
+import com.table.order.model.security.User;
+import com.table.order.model.security.UserCredentials;
+import com.table.order.repository.UserRepository;
+import com.table.order.service.RoleService;
+import com.table.order.service.implementation.UserServiceImpl;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;

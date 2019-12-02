@@ -1,6 +1,6 @@
 package com.venues.SecurityTest;
 
-import static com.venues.security.TokenProvider.*;
+import static com.table.order.security.TokenProvider.*;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 
