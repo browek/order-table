@@ -17,6 +17,7 @@ services:
     build:
       context: ../../frontend
       dockerfile: Dockerfile.dev
+    image: order-table-client-image:latest
     container_name: order-table-client
     ports:
       - "4200:4200"
@@ -29,6 +30,7 @@ services:
     build:
       context: ../../backend
       dockerfile: Dockerfile.dev
+    image: order-table-backend-image:latest
     container_name: order-table-backend
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://db-mysql/order_table_db
