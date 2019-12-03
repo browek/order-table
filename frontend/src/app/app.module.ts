@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 
-import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import {
@@ -28,6 +28,10 @@ import { SideNavComponent } from './side-nav/side-nav.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AgmCoreModule } from '@agm/core';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {AccessTokenInterceptor} from './shared/auth/access-token-interceptor';
+import {AppRoutingModule} from './app-routing.module';
+
 
 @NgModule({
   declarations: [
@@ -43,6 +47,8 @@ import { AgmCoreModule } from '@agm/core';
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
+    HttpClientModule,
+    AppRoutingModule,
     MatMenuModule,
     MatButtonModule,
     MatDialogModule,
@@ -59,7 +65,16 @@ import { AgmCoreModule } from '@agm/core';
       apiKey: 'AIzaSyDFhBAj941EfWxzxb6R7EGXnRLflnnvtyo'
     })
   ],
-  providers: [{provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}, AuthService, NavService],
+  providers: [
+    {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},
+    AuthService,
+    NavService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AccessTokenInterceptor,
+      multi: true,
+    }
+  ],
   bootstrap: [AppComponent],
   entryComponents: [LoginDialogComponent, RegisterDialogComponent, SideNavComponent]
 })
