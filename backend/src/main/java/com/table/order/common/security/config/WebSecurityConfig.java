@@ -17,7 +17,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import com.google.common.collect.ImmutableList;
 import com.table.order.common.security.JwtAuthenticationEntryPoint;
 import com.table.order.common.security.JwtAuthenticationFilter;
 import com.table.order.common.security.JwtLoginFilter;
@@ -42,13 +41,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-    	http.cors().and().csrf().disable()
-    		.authorizeRequests()
+        http.csrf().disable().cors().and().authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/api/users/signupClient").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/users/signupRestaurateur").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/login").permitAll()
                 .antMatchers("/**").authenticated()
-            .and()
+                .and()
                 .addFilterBefore(new JwtLoginFilter("/api/login", authenticationManager()),
                         UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new JwtAuthenticationFilter(),
@@ -68,8 +66,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		config.setAllowCredentials(true);
 		config.addAllowedOrigin("*");
 		config.addAllowedHeader("*");
-		config.setAllowedHeaders(ImmutableList.of("Authorization", "Cache-Control", "Content-Type"));
-		config.setAllowedMethods(ImmutableList.of("HEAD", "OPTIONS", "GET", "POST", "PUT", "DELETE"));
+		config.addExposedHeader("Authorization");
+		config.addAllowedMethod("OPTIONS");
+		config.addAllowedMethod("GET");
+		config.addAllowedMethod("POST");
+		config.addAllowedMethod("PUT");
+		config.addAllowedMethod("PATCH");
+		config.addAllowedMethod("DELETE");
 		source.registerCorsConfiguration("/**", config);
 		return source;
 	}
