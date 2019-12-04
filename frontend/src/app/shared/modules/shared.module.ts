@@ -20,12 +20,20 @@ import {
 } from '@angular/material';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+
+import {
+  faSearch,
+  faWrench
+} from '@fortawesome/free-solid-svg-icons';
+
+// Add an icon to the library for convenient access in other components
+library.add(
+  faSearch,
+  faWrench
+);
 
 @NgModule({
-  declarations: [],
-  imports: [
-    CommonModule
-  ],
   exports: [
     CommonModule,
     FormsModule,

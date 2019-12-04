@@ -1,3 +1,4 @@
+import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { DialogService } from '@shared/services/dialog.service';
 import { AgmCoreModule } from '@agm/core';
 import { NgModule } from '@angular/core';
@@ -29,7 +30,11 @@ import { CompareValidatorDirective } from '@shared/validators/compare-validator.
     })
   ],
   providers: [
-    DialogService
+    DialogService,
+    {
+      provide: LocationStrategy,
+      useClass: PathLocationStrategy
+    }
   ],
   entryComponents: [
     LoginDialogComponent,

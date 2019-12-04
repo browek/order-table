@@ -1,19 +1,18 @@
-import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { Location } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-side-nav',
   templateUrl: './side-nav.component.html',
-  styleUrls: ['./side-nav.component.scss'],
-  providers: [Location, { provide: LocationStrategy, useClass: PathLocationStrategy }],
+  styleUrls: ['./side-nav.component.scss']
 })
 export class SideNavComponent implements OnInit {
 
   location: Location;
 
   geo = navigator.geolocation;
-  lat;
-  lng;
+  latitude;
+  longitude;
 
   @Input()
   isOpen;
@@ -28,8 +27,8 @@ export class SideNavComponent implements OnInit {
 
         console.log('Szerokość ' + location.coords.latitude);
         console.log('Długość ' + location.coords.longitude);
-        this.lat = location.coords.latitude;
-        this.lng = location.coords.longitude;
+        this.latitude = location.coords.latitude;
+        this.longitude = location.coords.longitude;
 
       });
     } else {

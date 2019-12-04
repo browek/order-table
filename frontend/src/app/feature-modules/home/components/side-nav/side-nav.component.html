@@ -16,8 +16,8 @@
       <mat-radio-button #radbutt1 class="col" value="1">Moja lokalizacja</mat-radio-button>
       <mat-radio-button #radbutt2 class="col" value="2">Wybierz lokalizację</mat-radio-button>
       <div *ngIf="checkrad(radbutt1)" class="col-12">
-          <agm-map [latitude]="lat" [longitude]="lng">
-            <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+          <agm-map [latitude]="latitude" [longitude]="longitude">
+            <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
           </agm-map>
       </div>
 
