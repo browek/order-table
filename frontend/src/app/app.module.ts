@@ -18,7 +18,8 @@ import {
   MatIconModule,
   MatSidenavModule,
   MatButtonToggleModule,
-  MatRadioModule} from '@angular/material';
+  MatRadioModule,
+  MatTableModule} from '@angular/material';
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 import { RegisterDialogComponent } from './register-dialog/register-dialog.component';
 import { CompareValidatorDirective } from './shared/validators/compare-validator.directive';
@@ -31,6 +32,8 @@ import { AgmCoreModule } from '@agm/core';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AccessTokenInterceptor} from './shared/auth/access-token-interceptor';
 import {AppRoutingModule} from './app-routing.module';
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import { UserService } from './shared/services/user. service';
 
 
 
@@ -43,7 +46,8 @@ import {AppRoutingModule} from './app-routing.module';
     RegisterDialogComponent,
     CompareValidatorDirective,
     HomeComponent,
-    SideNavComponent
+    SideNavComponent,
+    AdminPanelComponent
   ],
   imports: [
     BrowserModule,
@@ -63,6 +67,7 @@ import {AppRoutingModule} from './app-routing.module';
     MatSidenavModule,
     MatButtonToggleModule,
     MatRadioModule,
+    MatTableModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDFhBAj941EfWxzxb6R7EGXnRLflnnvtyo'
     })
@@ -71,6 +76,7 @@ import {AppRoutingModule} from './app-routing.module';
     {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},
     AuthService,
     NavService,
+    UserService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AccessTokenInterceptor,
@@ -78,6 +84,6 @@ import {AppRoutingModule} from './app-routing.module';
     }
   ],
   bootstrap: [AppComponent],
-  entryComponents: [LoginDialogComponent, RegisterDialogComponent, SideNavComponent]
+  entryComponents: [LoginDialogComponent, RegisterDialogComponent, SideNavComponent, AdminPanelComponent]
 })
 export class AppModule { }

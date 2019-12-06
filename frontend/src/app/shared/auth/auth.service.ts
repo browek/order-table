@@ -4,7 +4,7 @@ import {HttpClient, HttpResponse} from '@angular/common/http';
 import {AccountInfo, Role} from '../model/account-info';
 
 const API_URL = environment.apiUrl;
-export const AUTHORIZATION_HEADER = 'authorization';
+export const AUTHORIZATION_HEADER = 'Authorization';
 const AUTHORIZATION_KEY = 'authorization';
 const USERNAME_KEY = 'username';
 const ROLE_KEY = 'role';
@@ -57,7 +57,7 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.removeItem(AUTHORIZATION_HEADER);
+    localStorage.removeItem(AUTHORIZATION_KEY);
     localStorage.removeItem(USERNAME_KEY);
     localStorage.removeItem(ROLE_KEY);
   }
