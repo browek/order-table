@@ -4,6 +4,7 @@ import { LoginDialogComponent } from '../login-dialog/login-dialog.component';
 import { RegisterDialogComponent } from '../register-dialog/register-dialog.component';
 import {DialogService} from '../shared/services/dialog.service';
 import {AUTHORIZATION_HEADER, AuthService} from '../shared/auth/auth.service';
+import { AdminPanelComponent } from '../admin-panel/admin-panel.component';
 
 @Component({
   selector: 'app-nav-bar',
@@ -12,7 +13,7 @@ import {AUTHORIZATION_HEADER, AuthService} from '../shared/auth/auth.service';
 })
 export class NavBarComponent implements OnInit {
 
-  constructor(public authService: AuthService, private dialogService: DialogService) { }
+  constructor(public authService: AuthService, private dialogService: DialogService, public dialog: MatDialog) { }
 
   ngOnInit() {
   }
@@ -44,4 +45,20 @@ export class NavBarComponent implements OnInit {
     this.authService.logout();
   }
 
+  
+
+  openAdminPanel(): void {
+    const dialogRef = this.dialog.open(AdminPanelComponent, {
+      width: '700px',
+     
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    
+    });
+  }
+
 }
+
+

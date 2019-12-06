@@ -7,6 +7,7 @@ services:
       context: ./master
     ports:
       - "18080:8080"
+    container_name: jenkins-master
     user: root
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock  # TODO move that to jenkins agent
