@@ -1,0 +1,22 @@
+<div class="text-center">
+  <h1 class="mat-h1">Moja restauracja</h1>
+  <hr>
+</div>
+<ng-container *ngIf="restaurantDetails">
+  <div>
+    <p>Nazwa: {{restaurantDetails.name}}</p>
+    <p>Lokalizacja: {{restaurantDetails.location.country}}, {{restaurantDetails.location.city}}, {{restaurantDetails.location.address}}</p>
+    <p>Ocena: {{restaurantDetails.rating}}</p>
+    <p>Strona internetowa: <a>{{restaurantDetails.websiteUrl}}</a></p>
+  </div>
+
+  <div class="text-center">
+    <button mat-button color="warn" (click)="unassignRestaurant()">Usuń restauracje</button>
+  </div>
+</ng-container>
+<ng-container *ngIf="!restaurantDetails">
+  <div>
+    <mat-spinner class="mx-auto"></mat-spinner>
+  </div>
+</ng-container>
+

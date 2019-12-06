@@ -83,8 +83,15 @@ export class AuthService {
   }
 
 
-  register(login: string, password: string, email: string, onFail?: () => void, onSuccess?: () => void) {
-    this.http.post(`${API_URL}/users/signupClient`, {username: login, password: password})
+  register(login: string, password: string, email: string, userType: string ,onFail?: () => void, onSuccess?: () => void) {
+    let url = `${API_URL}/users/signup`;
+    if (userType === 'RESTAURATEUR') {
+      url = url + 'Restaurateur';
+    } else {
+      url = url + 'Client';
+    }
+
+    this.http.post(url, {username: login, password: password})
       .subscribe(success => {
         this.login(login, password);
 

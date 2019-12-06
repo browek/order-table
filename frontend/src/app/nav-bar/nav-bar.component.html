@@ -6,7 +6,7 @@
       <button *ngIf="!isLogged()" mat-menu-item (click)="registerDialog()">Rejestracja</button>
       <button *ngIf="isAdmin()" mat-menu-item (click)="openAdminPanel()">Panel Administracyjny</button>
       <button *ngIf="isClient()" mat-menu-item>Panel Użytkownika</button>
-      <button *ngIf="isRestaurateur()" mat-menu-item >Panel Restauratora</button>
+      <button *ngIf="isRestaurateur()" mat-menu-item routerLink="/restaurateur/myrestaurant" >Panel Restauratora</button>
       <button *ngIf="isLogged()" mat-menu-item (click)="logout()">Wyloguj</button>
 
     </mat-menu>

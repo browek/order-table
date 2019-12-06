@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {HomeComponent} from './home/home.component';
+import {RestaurateurPanelComponent} from './feature-modules/restaurateur-panel/components/restaurateur-panel/restaurateur-panel.component';
 
 const appRoutes: Routes = [
   {
@@ -11,6 +12,10 @@ const appRoutes: Routes = [
     path: '',
     redirectTo: '/home',
     pathMatch: 'full'
+  },
+  {
+    path: 'restaurateur/myrestaurant',
+    component: RestaurateurPanelComponent
   }
 ];
 

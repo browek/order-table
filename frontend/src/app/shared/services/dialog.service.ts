@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material';
-import { LoginDialogComponent } from '@features/home/components/login-dialog/login-dialog.component';
-import { RegisterDialogComponent } from '@features/home/components/register-dialog/register-dialog.component';
+import {SideNavComponent} from '../../side-nav/side-nav.component';
+import {Injectable} from '@angular/core';
+import {MatDialog} from '@angular/material';
+import {LoginDialogComponent} from '../../login-dialog/login-dialog.component';
+import {RegisterDialogComponent} from '../../register-dialog/register-dialog.component';
 
 @Injectable({
   providedIn: 'root'
@@ -27,5 +28,6 @@ export class DialogService {
   closeAllDialogs() {
     this.dialog.closeAll();
   }
+
 
 }
