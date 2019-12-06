@@ -1,0 +1,72 @@
+[
+  {
+      "inSearchResults": 1,
+      "id": "58dfe6fae7f1cf4b9b0fb067",
+      "name": "Lidl",
+      "location": {
+          "id": 0,
+          "address": "Marii Skłodowskiej-Curie 11",
+          "lat": 50.26005,
+          "lng": 22.411102,
+          "state": "Województwo podkarpackie",
+          "city": "Leżajsk",
+          "country": "Polska"
+      }
+  },
+  {
+      "inSearchResults": 1,
+      "id": "562f93e3498e31d7b44e588e",
+      "name": "Biedronka",
+      "location": {
+          "id": 0,
+          "address": null,
+          "lat": 50.265389,
+          "lng": 22.417501,
+          "state": null,
+          "city": null,
+          "country": "Polska"
+      }
+  },
+  {
+      "inSearchResults": 1,
+      "id": "599c0db98194fc41f1bf8177",
+      "name": "Galeria Pilawa",
+      "location": {
+          "id": 0,
+          "address": "Kopernika 5A",
+          "lat": 50.26102,
+          "lng": 22.416292,
+          "state": "Województwo podkarpackie",
+          "city": "Leżajsk",
+          "country": "Polska"
+      }
+  },
+  {
+      "inSearchResults": 1,
+      "id": "562b7e96498e46b42746cc76",
+      "name": "Stokrotka",
+      "location": {
+          "id": 0,
+          "address": null,
+          "lat": 50.260916,
+          "lng": 22.416096,
+          "state": null,
+          "city": null,
+          "country": "Polska"
+      }
+  },
+  {
+      "inSearchResults": 1,
+      "id": "5631cd6e498ee065d0dfa37b",
+      "name": "Poczta",
+      "location": {
+          "id": 0,
+          "address": null,
+          "lat": 50.259564,
+          "lng": 22.419485,
+          "state": null,
+          "city": null,
+          "country": "Polska"
+      }
+  }
+]
