@@ -1,9 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 
-
-
-
 @Component({
   selector: 'app-side-nav',
   templateUrl: './side-nav.component.html',

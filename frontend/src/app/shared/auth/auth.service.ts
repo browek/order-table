@@ -4,7 +4,7 @@ import {HttpClient, HttpResponse} from '@angular/common/http';
 import {AccountInfo, Role} from '../model/account-info';
 
 const API_URL = environment.apiUrl;
-export const AUTHORIZATION_HEADER = 'Authorization';
+export const AUTHORIZATION_HEADER = 'authorization';
 const AUTHORIZATION_KEY = 'authorization';
 const USERNAME_KEY = 'username';
 const ROLE_KEY = 'role';
@@ -57,7 +57,7 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.removeItem(AUTHORIZATION_KEY);
+    localStorage.removeItem(AUTHORIZATION_HEADER);
     localStorage.removeItem(USERNAME_KEY);
     localStorage.removeItem(ROLE_KEY);
   }
@@ -83,15 +83,8 @@ export class AuthService {
   }
 
 
-  register(login: string, password: string, email: string, userType: string ,onFail?: () => void, onSuccess?: () => void) {
-    let url = `${API_URL}/users/signup`;
-    if (userType === 'RESTAURATEUR') {
-      url = url + 'Restaurateur';
-    } else {
-      url = url + 'Client';
-    }
-
-    this.http.post(url, {username: login, password: password})
+  register(login: string, password: string, email: string, onFail?: () => void, onSuccess?: () => void) {
+    this.http.post(`${API_URL}/users/signupClient`, {username: login, password: password})
       .subscribe(success => {
         this.login(login, password);
 

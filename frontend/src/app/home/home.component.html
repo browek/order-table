@@ -3,7 +3,7 @@
 
 <div class="center">
 
-  <!-- <div class="row">
+  <div class="row">
     <div class="input">
       <input class="form-control" placeholder="Wyszukaj miejsce">
     </div>
@@ -11,9 +11,35 @@
       <fa-icon class="fa-lg" [icon]="faSearch"></fa-icon>
     </div>
     <div class="icon">
-        <button mat-icon-button (click)="sidenavToggle()">
-      <fa-icon class="fa-lg" [icon]="faWrench"></fa-icon>
-        </button>
+      <button mat-icon-button (click)="sidenavToggle()">
+        <fa-icon class="fa-lg" [icon]="faWrench"></fa-icon>
+      </button>
     </div>
   </div>
-</div> -->
+
+    <div class="row">
+      <agm-map [latitude]="lat" [longitude]="lng" [zoom]="14">
+          <agm-marker [iconUrl]="{url:customerMapIcon, labelOrigin:{x:15,y:-8}}" [latitude]="lat" [longitude]="lng" [label]="customerLabel">
+              <agm-info-window>
+                Tu jesteś
+              </agm-info-window>
+          </agm-marker>
+          <span *ngIf="arrVenues">
+          <agm-marker
+            *ngFor="let venue of arrVenues"
+            [iconUrl]="{url:shopMapIcon, labelOrigin:{x:15,y:-8}}"
+            [latitude]="venue.location.lat"
+            [longitude]="venue.location.lng"
+            [label]="venue.name">
+              <agm-info-window>
+                <p><b>{{venue.name}}</b></p>
+                Adres: {{venue.location.address}}<br>
+                Miasto: {{venue.location.city}}<br>
+                Kraj:{{venue.location.country}}
+              </agm-info-window>
+          </agm-marker>
+        </span>
+      </agm-map>
+
+  </div>
+</div>

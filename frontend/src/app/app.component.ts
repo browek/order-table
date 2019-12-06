@@ -9,10 +9,11 @@ export class AppComponent {
   title = 'app';
 
   backgroundImg = [
-    '/assets/background/1.jpg',
-    '/assets/background/2.jpg',
-    '/assets/background/3.jpg',
-    '/assets/background/4.jpg'
+    // '/assets/background/1.jpg',
+    // '/assets/background/2.jpg',
+    // '/assets/background/3.jpg',
+    // '/assets/background/4.jpg',
+    '/assets/background/5.jpg'
   ];
   randomNumber = Math.floor(Math.random() * this.backgroundImg.length);
   bgImg = this.backgroundImg[this.randomNumber];

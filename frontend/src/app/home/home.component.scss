@@ -1,17 +1,28 @@
 .center
 {
+  background-color: rgba($color: #000000, $alpha: 0.5);
   margin: auto;
-  margin-top: 300px;
-  width: 30%;
+  margin-top: 100px;
+  width: 40%;
   display: block;
+  padding-left: 15px;
+  padding-right: 15px;
+
     .input
     {
       width: 80%;
+      margin: 10px;
     }
     .icon
     {
+      width: 5%;
       margin: auto;
       color: white;
     }
-
+      agm-map
+      {
+        width: 100%;
+        height: 600px;
+      }
 }
+

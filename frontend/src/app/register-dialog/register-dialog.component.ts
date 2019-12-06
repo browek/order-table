@@ -25,19 +25,16 @@ export class RegisterDialogComponent implements OnInit {
       password: new FormControl(null, [Validators.required, Validators.minLength(6)]),
       passwordConfirm: new FormControl(null, Validators.required),
       email: new FormControl(null, [Validators.required, Validators.email]),
-      userType: new FormControl('CLIENT')
       },
     );
     console.log(this.registerControl);
   }
   register(registerControl: FormGroup) {
-    console.log(registerControl.value.userType);
     if (registerControl.valid) {
       this.authService.register(
         registerControl.value.login,
         registerControl.value.password,
         registerControl.value.email,
-        registerControl.value.userType,
         this.onFail, this.onSuccess);
     }
   }
