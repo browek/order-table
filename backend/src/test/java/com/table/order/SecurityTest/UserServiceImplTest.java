@@ -1,5 +1,9 @@
 package com.table.order.SecurityTest;
 
+import com.table.order.common.security.exception.UnauthorizedException;
+import com.table.order.common.service.RoleService;
+import com.table.order.common.service.UserService;
+import com.table.order.common.service.helper.UserHelper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -11,12 +15,11 @@ import com.table.order.common.security.model.Role;
 import com.table.order.common.security.model.User;
 import com.table.order.common.security.model.UserCredentials;
 import com.table.order.common.repository.UserRepository;
-import com.table.order.common.service.RoleService;
-import com.table.order.common.service.implementation.UserServiceImpl;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 
@@ -26,13 +29,16 @@ public class UserServiceImplTest {
     UserRepository userRepository;
 
     @Mock
+    UserHelper userHelper;
+
+    @Mock
     BCryptPasswordEncoder bcryptEncoder;
 
     @Mock
     RoleService roleService;
 
     @InjectMocks
-    UserServiceImpl userService;
+    UserService userService;
 
 
     User user;
@@ -46,28 +52,34 @@ public class UserServiceImplTest {
         MockitoAnnotations.initMocks(this);
 
         role = new Role(3L, "ROLE_USER", "User Role");
-        user = new User(1L, "name", "password", role);
+        user = new User(1L, "name", "password", null,role);
         userCredentials = new UserCredentials("name", "pd");
         user1 = new User();
     }
 
-//    @Test
-//    public void saveUser_Test() {
-//        when(userRepository.save(any(User.class))).thenReturn(user);
-//        User insertedUser = userService.save(userCredentials);
-//
-//        assertAll(
-//                () -> assertNotNull(insertedUser),
-//                () -> assertEquals(user, insertedUser)
-//        );
-//    }
+    @Test
+    public void updateRestaurantIdForLoggedUser_IncorrectAuthorities_shouldThrowException() {
+        String restaurantApiId = "venueId";
 
-//    @Test
-//    public void saveUserFail_Test() {
-//        when(userRepository.save(any(User.class))).thenReturn(null);
-//
-//        assertNull(userService.save(userCredentials));
-//    }
+        when(userHelper.isLoggedRestaurateur()).thenReturn(false);
+
+        assertThrows(UnauthorizedException.class, () ->
+            userService.assignRestaurantToLoggedUser(restaurantApiId)
+        );
+    }
+
+    @Test
+    public void updateRestaurantIdForLoggedUser_CorrectAuthorities_shouldTellDbToUpdateUser() throws UnauthorizedException {
+        String restaurantApiId = "venueId";
+        String dumbo = "dumbo";
+
+        when(userHelper.getLoggedUserUsername()).thenReturn(dumbo);
+        when(userHelper.isLoggedRestaurateur()).thenReturn(true);
+
+        userService.assignRestaurantToLoggedUser(restaurantApiId);
+
+        verify(userRepository).updateRestarantIdByUsername(dumbo, restaurantApiId);
+    }
 
     @Test
     public void getAuthority_Test() {

@@ -13,8 +13,11 @@ import com.table.order.common.security.model.UserCredentials;
 @RepositoryRestController
 public class RegisterController {
 
-	@Autowired
 	private UserService userService;
+
+	public RegisterController(UserService userService) {
+		this.userService = userService;
+	}
 
 	@PostMapping(value = "/users/signupClient")
 	public ResponseEntity<?> saveClient(@RequestBody UserCredentials user) {

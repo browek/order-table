@@ -1,8 +1,9 @@
 package com.table.order.common.security.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -23,15 +24,14 @@ import com.table.order.common.security.JwtLoginFilter;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
     private UserDetailsService userDetailsService;
 
-    @Autowired
-    private JwtAuthenticationEntryPoint unauthorizedHandler;
-
+    public WebSecurityConfig(@Qualifier("userService") @Lazy UserDetailsService userDetailsService, JwtAuthenticationEntryPoint unauthorizedHandler) {
+        this.userDetailsService = userDetailsService;
+    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -39,12 +39,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(encoder());
     }
 
+    private final String[] PUBLIC_GET_PATHS = {"/api/venues/searchBy"};
+
+    private final String[] PUBLIC_POST_PATHS = { "/api/users/signupClient", 
+    		"/api/users/signupRestaurateur", "/api/login", "/api/venues/search" };
+    
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().cors().and().authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/api/users/signupClient").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/users/signupRestaurateur").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/login").permitAll()
+    	http.cors().and().csrf().disable()
+    		.authorizeRequests()
+                .antMatchers(HttpMethod.POST, PUBLIC_POST_PATHS).permitAll()
+				.antMatchers(HttpMethod.GET, PUBLIC_GET_PATHS).permitAll()
                 .antMatchers("/**").authenticated()
                 .and()
                 .addFilterBefore(new JwtLoginFilter("/api/login", authenticationManager()),
@@ -58,7 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public BCryptPasswordEncoder encoder() {
         return new BCryptPasswordEncoder(11);
     }
-
+    
     @Bean
 	CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration config = new CorsConfiguration();

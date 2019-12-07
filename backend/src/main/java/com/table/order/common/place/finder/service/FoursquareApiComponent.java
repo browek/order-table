@@ -36,4 +36,22 @@ public class FoursquareApiComponent {
         return uriVariables;
     }
 
+    public String getFoursquareExploreUrlByCity(){
+        return FOURSQUARE_API_URL + "/explore?client_id={clientId}&client_secret={clientSecret}&" + "v={version}&limit={limit}&near={city}&query={query}&" + "fbclid=IwAR3NFUJgyrfv2D4469fepWHwpkAq8ntBpFakzYjciZSXoGkj3gmJuKu5tSM";
+    }
+
+
+    public Map<String, Object> getFoursquareUriVariablesByCity(String query, String city) {
+        Map<String, Object> uriVariables = new HashMap<>();
+        uriVariables.put("clientId", clientId);
+        uriVariables.put("clientSecret", clientSecret);
+        uriVariables.put("version", "20180323");
+        uriVariables.put("limit", 5);
+        uriVariables.put("city", city);
+        uriVariables.put("query", query);
+
+        return uriVariables;
+    }
+
+
 }
