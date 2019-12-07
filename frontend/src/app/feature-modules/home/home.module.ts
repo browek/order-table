@@ -12,6 +12,7 @@ import {
 import { HomeRoutingModule } from './home-routing.module';
 import { SharedModule } from '@shared/modules/shared.module';
 import { CompareValidatorDirective } from '@shared/validators/compare-validator.directive';
+import { VenueService } from '@shared/services/venue.service';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { CompareValidatorDirective } from '@shared/validators/compare-validator.
     {
       provide: LocationStrategy,
       useClass: PathLocationStrategy
-    }
+    },
+    VenueService
   ],
   entryComponents: [
     LoginDialogComponent,

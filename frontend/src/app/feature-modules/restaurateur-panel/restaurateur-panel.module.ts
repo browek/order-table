@@ -13,6 +13,7 @@ import {
 import { MyRestaurantComponent } from './components/restaurateur-panel/subcomponents/my-restaurant/my-restaurant.component';
 import { AssignRestaurantComponent } from './components/restaurateur-panel/subcomponents/assign-restaurant/assign-restaurant.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { RestaurantRoutingModule } from './restaurant-routing.module';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     MatCardModule,
     MatProgressSpinnerModule,
     MatStepperModule,
-    MatListModule
+    MatListModule,
+    RestaurantRoutingModule
   ],
   declarations: [RestaurateurPanelComponent, MyRestaurantComponent, AssignRestaurantComponent],
   providers: [RestaurateurService],

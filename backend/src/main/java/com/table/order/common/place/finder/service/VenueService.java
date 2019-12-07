@@ -21,6 +21,16 @@ public class VenueService {
     @Autowired
     private FoursquareApiComponent foursquareApiComponent;
 
+    public List<Venue> searchVenuesByCity(String query, String city){
+        String url = foursquareApiComponent.getFoursquareExploreUrlByCity();
+        Map<String, Object> uriVariables = foursquareApiComponent.getFoursquareUriVariablesByCity(query, city);
+
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseFromFoursquare foursquareResponse = restTemplate.getForObject(url, ResponseFromFoursquare.class, uriVariables);
+
+        return getVenuesFromResponse(foursquareResponse);
+    }
+
 
     public List<Venue> searchVenues(Request request) {
         String url = foursquareApiComponent.getFoursquareExploreUrl();

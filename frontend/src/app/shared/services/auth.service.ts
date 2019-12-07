@@ -1,4 +1,3 @@
-import { environment } from '@env/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { AccountInfo, Role } from '../models/account-info';
@@ -6,7 +5,6 @@ import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { UserRegistrationDetails, UserCredentials } from '../models';
 
-const API_URL = environment.apiUrl;
 export const AUTHORIZATION_HEADER = 'Authorization';
 const AUTHORIZATION_KEY = 'authorization';
 const USERNAME_KEY = 'username';
@@ -22,7 +20,7 @@ export class AuthService {
 
   login(userCredentials: UserCredentials): Observable<any> {
     return this.http
-      .post<AccountInfo>(`${API_URL}/login`, userCredentials, { observe: 'response' })
+      .post<AccountInfo>('/api/login', userCredentials, { observe: 'response' })
       .pipe(
         tap((response: HttpResponse<AccountInfo>) => {
           const token = response.headers.get(AUTHORIZATION_HEADER);
@@ -75,7 +73,7 @@ export class AuthService {
 
 
   register(registrationDetails: UserRegistrationDetails): Observable<any> {
-    let url = `${API_URL}/users/signup`;
+    let url = 'api/users/signup';
     if (registrationDetails.userType === 'RESTAURATEUR') {
       url = url + 'Restaurateur';
     } else {

@@ -21,12 +21,12 @@ services:
     ports:
       - '4300:80'
 
-  client:
-    build:
-      context: ./frontend
-    container_name: order-table-client
-    volumes:
-      - /app/node_modules
+  # client:
+  #   build:
+  #     context: ./frontend
+  #   container_name: order-table-client
+  #   volumes:
+  #     - /app/node_modules
 
   backend:
     restart: always

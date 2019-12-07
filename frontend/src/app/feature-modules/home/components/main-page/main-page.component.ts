@@ -1,7 +1,7 @@
+import { VenueDetails } from './../../../../shared/models/venue-details';
+import { VenueService } from './../../../../shared/services/venue.service';
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Location } from '@angular/common';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-main-page',
@@ -11,21 +11,20 @@ import { environment } from 'src/environments/environment';
 export class MainPageComponent implements OnInit {
 
   location: Location;
+  latitude: number;
+  longitude: number;
 
   geo = navigator.geolocation;
-  lat;
-  lng;
   customerLabel = 'Tu jesteś';
   customerMapIcon = 'assets/icons/customer-map-marker.svg';
   shopMapIcon = 'assets/icons/shop-map-marker.svg';
-  arrVenues: string [];
+  arrVenues: VenueDetails[];
+
+  userQuery = '';
 
   public isOpen = false;
 
-
-
-  constructor(private httpService: HttpClient, location: Location) {
-    this.location = location;
+  constructor(private venueService: VenueService) {
   }
 
   ngOnInit() {
@@ -34,39 +33,26 @@ export class MainPageComponent implements OnInit {
 
         console.log('Szerokość ' + location.coords.latitude);
         console.log('Długość ' + location.coords.longitude);
-        this.lat = location.coords.latitude;
-        this.lng = location.coords.longitude;
-
+        this.latitude = location.coords.latitude;
+        this.longitude = location.coords.longitude;
       });
     } else {
       console.log('niedostępny');
     }
-    this.httpService.get(environment.apiUrl+'/venues/search').subscribe(
-      data => {
-        this.arrVenues = data as string [];
-        console.log(this.arrVenues);
-      },
-      (err: HttpErrorResponse) => {
-        console.log (err.message);
-      }
-    );
   }
 
   sidenavToggle() {
     this.isOpen = !this.isOpen;
   }
 
-  searchVenue(){
-    this.httpService.get(environment.apiUrl+'/venues/search').subscribe(
-      data => {
-        this.arrVenues = data as string [];
-        console.log(this.arrVenues);
-      },
-      (err: HttpErrorResponse) => {
-        console.log (err.message);
-      }
-    );
-    
+  findVenues() {
+    this.venueService.getVenues({
+      lat: this.latitude,
+      lng: this.longitude,
+      query: this.userQuery
+    }).subscribe(response => {
+      this.arrVenues = response;
+    });
   }
 
 }
