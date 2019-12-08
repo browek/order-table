@@ -32,7 +32,24 @@ export class RestaurateurService {
     return this.http.put<void>(`${this.RESTAURANTS_PATH}/unassign`, null);
   }
 
-  getRestaurants(httpParams: HttpParams | any) {
-    return this.http.get(`${this.RESTAURANTS_PATH}`, { params: httpParams });
+  getRestaurants(httpParams?: HttpParams | any) {
+    return this.http.get(`${this.RESTAURANTS_PATH}/search/findAllByCurrentUser`, { params: httpParams });
+  }
+
+  getReservationRequests(restaurantId: number) {
+    const params = new HttpParams()
+      .set('restaurantId', `${restaurantId}`)
+      .set('status', 'SEND');
+    return this.http.get(`${this.RESTAURANTS_PATH}/reservations`, { params: params});
+  }
+
+  acceptReservation(id: number) {
+    console.log(id);
+    return this.http.put(`${this.RESTAURANTS_PATH}/reservations/accept`, {}, {params: new HttpParams().set('reservation_id', `${id}`)});
+  }
+
+  rejectReservation(id: number) {
+    console.log(id);
+    return this.http.put(`${this.RESTAURANTS_PATH}/reservations/reject`, {}, {params: new HttpParams().set('reservation_id', `${id}`)});
   }
 }

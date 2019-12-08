@@ -27,6 +27,7 @@ import {
   MatSortModule,
   MatAutocompleteModule,
   MatTooltipModule,
+  MatSelectModule
 } from '@angular/material';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -68,6 +69,7 @@ library.add(
     MatSortModule,
     MatAutocompleteModule,
     MatTooltipModule,
+    MatSelectModule,
     FontAwesomeModule
   ]
 })

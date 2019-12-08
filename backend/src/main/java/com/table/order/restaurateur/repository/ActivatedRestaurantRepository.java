@@ -11,13 +11,11 @@ import com.table.order.restaurateur.model.ActivatedRestaurant;
 
 @RepositoryRestResource(collectionResourceRel = "restaurants", path = "restaurants")
 public interface ActivatedRestaurantRepository extends PagingAndSortingRepository<ActivatedRestaurant, Integer> {
-	
+
 	ActivatedRestaurant findByApiId(@Param("apiId") String apiId);
 
-    boolean existsByApiId(String apiId);
-    
-    @Override
-    @Query("SELECT r FROM Restaurant r WHERE r.owner.username = ?#{ authentication?.name } "
-    		+ "AND r.active = true")
-    Page<ActivatedRestaurant> findAll(Pageable pageable);
+	boolean existsByApiId(String apiId);
+
+	@Query("SELECT r FROM Restaurant r WHERE r.owner.username = ?#{ authentication?.name } AND active = true")
+	Page<ActivatedRestaurant> findAllByCurrentUser(Pageable pageable);
 }

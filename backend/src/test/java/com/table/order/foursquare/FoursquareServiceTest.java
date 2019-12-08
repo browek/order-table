@@ -1,5 +1,6 @@
 package com.table.order.foursquare;
 
+import com.table.order.common.exceptions.VenueException;
 import com.table.order.foursquare.model.FoundVenue;
 import com.table.order.foursquare.repository.FoursquareRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,7 +25,7 @@ class FoursquareServiceTest {
     }
 
     @Test
-    void searchForFoodVenues_correctData_returnDataFromRepository() {
+    void searchForFoodVenues_correctData_returnDataFromRepository() throws VenueException {
         String restaurant = "restaurant";
         String city = "city";
 

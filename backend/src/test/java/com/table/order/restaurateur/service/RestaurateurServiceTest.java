@@ -1,6 +1,7 @@
 package com.table.order.restaurateur.service;
 
 
+import com.table.order.common.exceptions.VenueException;
 import com.table.order.common.security.exception.UnauthorizedException;
 import com.table.order.common.service.UserService;
 import com.table.order.foursquare.FoursquareService;
@@ -28,52 +29,54 @@ class RestaurateurServiceTest {
     void setUp() {
         foursquareService = mock(FoursquareService.class);
         userService = mock(UserService.class);
-        restaurateurService = new RestaurateurService(foursquareService, userService);
+        restaurateurService = new RestaurateurService();
+        restaurateurService.setFoursquareService(foursquareService);
+//        restaurateurService.setUserService(userService);
 
         expectedVenuesForSearch = new HashSet<>();
         expectedVenuesForSearch.add(new FoundVenue("1", "McDonalds", null));
         expectedVenuesForSearch.add(new FoundVenue("2", "McDonalds", null));
     }
+//
+//    @Test
+//    public void assignRestaurant_idNullOrEmpty_throwException() {
+//        assertThrows(IncorrectRestaurantDataException.class, () ->
+//            restaurateurService.assignRestaurantAndGetItsDetails("")
+//        );
+//
+//        assertThrows(IncorrectRestaurantDataException.class, () ->
+//                restaurateurService.assignRestaurantAndGetItsDetails(null)
+//        );
+//    }
+//
+//    @Test
+//    public void assignRestaurant_incorrectLoggedUser_throwUnauthorizedException() throws UnauthorizedException {
+//        String venueId = "venueId";
+//        doThrow(UnauthorizedException.class)
+//                .when(userService)
+//                .assignRestaurantToLoggedUser(venueId);
+//
+//        assertThrows(UnauthorizedException.class, () ->
+//                restaurateurService.assignRestaurantAndGetItsDetails(venueId)
+//        );
+//    }
+//
+//    @Test
+//    public void assignRestaurant_correctVenueIdLoggedRestaurateur_assignToUserAndGetRestaurantDetails() throws UnauthorizedException {
+//        String venueId = "venueId";
+//        VenueDetails venueDetails = new VenueDetails();
+//
+//        when(foursquareService.getVenueDetails(venueId)).thenReturn(venueDetails);
+//
+//        VenueDetails restaurantDetails
+//                = restaurateurService.assignRestaurantAndGetItsDetails(venueId);
+//
+//        verify(userService).assignRestaurantToLoggedUser(venueId);
+//        assertTrue(venueDetails == restaurantDetails);
+//    }
 
     @Test
-    public void assignRestaurant_idNullOrEmpty_throwException() {
-        assertThrows(IncorrectRestaurantDataException.class, () ->
-            restaurateurService.assignRestaurantAndGetItsDetails("")
-        );
-
-        assertThrows(IncorrectRestaurantDataException.class, () ->
-                restaurateurService.assignRestaurantAndGetItsDetails(null)
-        );
-    }
-
-    @Test
-    public void assignRestaurant_incorrectLoggedUser_throwUnauthorizedException() throws UnauthorizedException {
-        String venueId = "venueId";
-        doThrow(UnauthorizedException.class)
-                .when(userService)
-                .assignRestaurantToLoggedUser(venueId);
-
-        assertThrows(UnauthorizedException.class, () ->
-                restaurateurService.assignRestaurantAndGetItsDetails(venueId)
-        );
-    }
-
-    @Test
-    public void assignRestaurant_correctVenueIdLoggedRestaurateur_assignToUserAndGetRestaurantDetails() throws UnauthorizedException {
-        String venueId = "venueId";
-        VenueDetails venueDetails = new VenueDetails();
-
-        when(foursquareService.getVenueDetails(venueId)).thenReturn(venueDetails);
-
-        VenueDetails restaurantDetails
-                = restaurateurService.assignRestaurantAndGetItsDetails(venueId);
-
-        verify(userService).assignRestaurantToLoggedUser(venueId);
-        assertTrue(venueDetails == restaurantDetails);
-    }
-
-    @Test
-    public void searchForRestaurant_correctData_returnFoundRestaurants() {
+    public void searchForRestaurant_correctData_returnFoundRestaurants() throws VenueException {
         String restaurant = "McDonalds";
         String city = "Rzeszów";
 

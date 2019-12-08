@@ -57,28 +57,28 @@ public class UserServiceImplTest {
 		user1 = new User();
 	}
 
-	@Test
-	public void updateRestaurantIdForLoggedUser_IncorrectAuthorities_shouldThrowException() {
-		String restaurantApiId = "venueId";
+//	@Test
+//	public void updateRestaurantIdForLoggedUser_IncorrectAuthorities_shouldThrowException() {
+//		String restaurantApiId = "venueId";
+//
+//		when(userHelper.isLoggedRestaurateur()).thenReturn(false);
+//
+//		assertThrows(UnauthorizedException.class, () -> userService.assignRestaurantToLoggedUser(restaurantApiId));
+//	}
 
-		when(userHelper.isLoggedRestaurateur()).thenReturn(false);
-
-		assertThrows(UnauthorizedException.class, () -> userService.assignRestaurantToLoggedUser(restaurantApiId));
-	}
-
-	@Test
-	public void updateRestaurantIdForLoggedUser_CorrectAuthorities_shouldTellDbToUpdateUser()
-			throws UnauthorizedException {
-		String restaurantApiId = "venueId";
-		String dumbo = "dumbo";
-
-		when(userHelper.getLoggedUserUsername()).thenReturn(dumbo);
-		when(userHelper.isLoggedRestaurateur()).thenReturn(true);
-
-		userService.assignRestaurantToLoggedUser(restaurantApiId);
-
-		verify(userRepository).updateRestarantIdByUsername(dumbo, restaurantApiId);
-	}
+//	@Test
+//	public void updateRestaurantIdForLoggedUser_CorrectAuthorities_shouldTellDbToUpdateUser()
+//			throws UnauthorizedException {
+//		String restaurantApiId = "venueId";
+//		String dumbo = "dumbo";
+//
+//		when(userHelper.getLoggedUserUsername()).thenReturn(dumbo);
+//		when(userHelper.isLoggedRestaurateur()).thenReturn(true);
+//
+//		userService.assignRestaurantToLoggedUser(restaurantApiId);
+//
+//		verify(userRepository).updateRestarantIdByUsername(dumbo, restaurantApiId);
+//	}
 
 	@Test
 	public void getAuthority_Test() {

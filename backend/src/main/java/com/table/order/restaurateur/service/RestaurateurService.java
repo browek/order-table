@@ -1,8 +1,13 @@
 package com.table.order.restaurateur.service;
 
+import java.util.List;
 import java.util.Set;
 
+import com.table.order.common.model.dto.ReservationDTO;
+import com.table.order.common.security.exception.UnauthorizedException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.table.order.client.service.ClientService;
@@ -31,6 +36,9 @@ public class RestaurateurService {
     private RestaurantRepository restaurantRepository;
     private ReservationRequestRepository reservationRequestRepository;
     private ClientService clientService;
+
+    public RestaurateurService() {
+    }
 
     @Autowired
     public RestaurateurService(FoursquareService foursquareService, UserHelper userHelper, 
@@ -90,16 +98,27 @@ public class RestaurateurService {
         return activatedRestaurantRepository.findByApiId(apiId);
     }
 
-    public ReservationRequest acceptReservation(Long reservationId) {
+    public ReservationRequest acceptReservation(Long reservationId) throws UnauthorizedException {
+        checkReservationOwner(reservationId);
+
         ReservationRequest reservationRequest = reservationRequestRepository.getOne(reservationId);
         reservationRequest.setStatus(ReservationRequestStatus.ACCEPTED);
         return reservationRequestRepository.save(reservationRequest);
     }
 
-    public ReservationRequest rejectReservation(Long reservationId) {
+    public ReservationRequest rejectReservation(Long reservationId) throws UnauthorizedException {
+        checkReservationOwner(reservationId);
+
         ReservationRequest reservationRequest = reservationRequestRepository.getOne(reservationId);
         reservationRequest.setStatus(ReservationRequestStatus.REJECTED);
         return reservationRequestRepository.save(reservationRequest);
+    }
+
+    private void checkReservationOwner(Long reservationId) throws UnauthorizedException {
+        String loggedUserUsername = userHelper.getLoggedUserUsername();
+        if (!reservationRequestRepository.existsByRestaurantOwnerUsernameAndId(loggedUserUsername, reservationId))
+            throw new UnauthorizedException();
+
     }
 
     public boolean restaurantIsRegistered(String venueApiId) {
@@ -112,4 +131,21 @@ public class RestaurateurService {
         return activatedRestaurantRepository.save(restaurant);
     }
 
+    public List<ReservationDTO> getReservationsByRestaurantId(
+            Integer restaurantId,
+            ReservationRequestStatus status) {
+
+        String loggedUserUsername = userHelper.getLoggedUserUsername();
+        return reservationRequestRepository.findAllByRestaurantIdAndStatus(
+                restaurantId,
+                status,
+                loggedUserUsername
+        );
+    }
+
+
+    @Autowired
+    public void setFoursquareService(FoursquareService foursquareService) {
+        this.foursquareService = foursquareService;
+    }
 }

@@ -1,33 +1,76 @@
-<div class="container mt-3">
-  <div class="row">
-    <app-header [currentPageName]="'Pytania o rezerwacje'"></app-header>
+<ng-container *ngIf="restaurantsLoadingError">
+  Błąd podczas pobierania danych o restauracjach
+</ng-container>
+
+<ng-container *ngIf="restaurantsLoading && !restaurantsLoadingError">
+  <div class="p-4">
+    <mat-spinner class="mx-auto"></mat-spinner>
   </div>
-</div>
+</ng-container>
 
-<div class="container p-4 layout-container">
-  <div *ngIf="reservationRequests.length === 0" class="text-center">
-    <span class="mat-body-strong">Brak pytań o rezerwacje</span>
+<ng-container *ngIf="!restaurantsLoading && !restaurantsLoadingError">
+  <div class="container mt-3">
+    <div class="row">
+      <app-header [currentPageName]="'Pytania o rezerwacje'"></app-header>
+    </div>
   </div>
 
-  <div class="row">
-
-    <div class="col-12 col-md-4 mt-3" *ngFor="let request of reservationRequests">
-      <mat-card>
-        <mat-card-header>
-          <mat-card-subtitle>Data rezerwacji: {{request.dateAndTime | date :'medium'}}</mat-card-subtitle>
-        </mat-card-header>
-
-        <mat-card-content>
-          <p>Liczba osób: {{request.numberOfPersons}}</p>
-          <p>Załączona wiadomość: {{request.message}}</p>
-        </mat-card-content>
-
-        <mat-card-actions>
-          <button mat-raised-button color="primary">LIKE</button>
-          <button mat-raised-button color="warn">Odrzuć</button>
-        </mat-card-actions>
+  <div class="container pl-4 pr-4 pb-4 pt-2 layout-container">
+    <div *ngIf="restaurants.length !== 0" class="text-center" style="font-size: 0.7rem">
+      <mat-card class="row">
+        <mat-form-field class="col-12 col-md-6">
+          <mat-select (selectionChange)="selectRestaurant($event)" placeholder="Wybierz restaurację">
+            <mat-option *ngFor="let restaurant of restaurants" [value]="restaurant.id">
+              <span class="mat-body-strong">{{restaurant.name}}</span> <span style="font-size: 0.5rem">@{{restaurant.city}}</span>
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </mat-card>
     </div>
 
+    <div *ngIf="reservationRequests.length === 0 && selectedRestaurantId !== undefined && !reservationRequestsLoading" class="text-center pt-2">
+    <span class="mat-body-strong">
+      Brak pytań o rezerwacje
+    </span>
+    </div>
+
+    <ng-container *ngIf="reservationRequestsLoadingError">
+      <span class="mat-body-strong">
+        Błąd podczas pobierania pytań o rezerwacje
+      </span>
+    </ng-container>
+
+    <ng-container *ngIf="reservationRequestsLoading && !reservationRequestsLoadingError">
+      <div>
+        <mat-spinner class="mx-auto"></mat-spinner>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="!reservationRequestsLoading && !reservationRequestsLoadingError">
+      <div class="row">
+        <div class="col-12 col-md-4 mt-3" *ngFor="let request of reservationRequests">
+          <mat-card>
+            <mat-card-header>
+              <mat-card-subtitle>Data rezerwacji: {{request.dateAndTime | date :'dd/MM/yyyy'}} r.</mat-card-subtitle>
+            </mat-card-header>
+
+            <mat-card-content>
+              <p>Liczba osób: {{request.numberOfPersons}}</p>
+              <p *ngIf="request.message">Załączona wiadomość: {{request.message}}</p>
+              <p *ngIf="!request.message" class="mat-body-strong text-center">Brak wiadomości</p>
+              <p>Rezerwujący: {{request.clientUsername}}</p>
+            </mat-card-content>
+
+            <mat-card-actions class="text-center">
+              <button mat-raised-button color="primary" (click)="acceptReservation(request.id)">Akceptuj</button>
+              <button mat-raised-button color="warn" (click)="rejectReservation(request.id)">Odrzuć</button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+
+      </div>
+    </ng-container>
+
   </div>
-</div>
+</ng-container>
+
