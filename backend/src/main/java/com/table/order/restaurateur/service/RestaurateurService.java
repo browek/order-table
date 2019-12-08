@@ -7,6 +7,7 @@ import com.table.order.client.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.table.order.common.exceptions.VenueException;
 import com.table.order.common.model.ReservationRequest;
 import com.table.order.common.model.ReservationRequestStatus;
 import com.table.order.common.repository.ReservationRequestRepository;
@@ -40,14 +41,14 @@ public class RestaurateurService {
 		this.reservationRequestRepository = reservationRequestRepository;
 	}
 
-	public Set<FoundVenue> searchForRestaurant(String restaurant, String city) {
+	public Set<FoundVenue> searchForRestaurant(String restaurant, String city) throws VenueException {
         if (StringUtils.isNullOrEmpty(restaurant) || StringUtils.isNullOrEmpty(city))
             throw new IncorrectRestaurantDataException();
 
         return foursquareService.searchForFoodVenues(restaurant, city);
     }
 
-    public Restaurant saveRestaurantWithCurrentUser(String venueId) {
+    public Restaurant saveRestaurantWithCurrentUser(String venueId) throws VenueException {
         if (StringUtils.isNullOrEmpty(venueId)) {
             throw new IncorrectRestaurantDataException();
         }
@@ -60,7 +61,7 @@ public class RestaurateurService {
 		return restaurantRepository.save(restaurant);
     }
     
-    private Restaurant findRestaurantOrGetNewIfNotExists(String venueId) {
+    private Restaurant findRestaurantOrGetNewIfNotExists(String venueId) throws VenueException {
     	Restaurant restaurant = restaurantRepository.findByApiId(venueId);
     	
     	if (restaurant != null)
@@ -69,7 +70,7 @@ public class RestaurateurService {
     	return createRestaurant(venueId);
     }
 
-    private Restaurant createRestaurant(String venueId) {
+    private Restaurant createRestaurant(String venueId) throws VenueException {
         VenueDetails venueDetails = foursquareService.getVenueDetails(venueId);
         
         Restaurant restaurant = new Restaurant();

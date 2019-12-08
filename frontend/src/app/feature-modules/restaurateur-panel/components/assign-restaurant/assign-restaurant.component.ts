@@ -14,13 +14,10 @@ import { ToastrService } from 'ngx-toastr';
 export class AssignRestaurantComponent implements OnInit {
 
   firstFormGroup: FormGroup;
-
   foundVenues: Venue[] = [];
-
   selectedRestaurant: Venue;
 
   listIsLoading = true;
-  listIsEmpty = false;
 
   constructor(
     private restaurService: RestaurateurService,
@@ -29,7 +26,6 @@ export class AssignRestaurantComponent implements OnInit {
     private toastr: ToastrService
   ) {
     this.listIsLoading = true;
-    this.listIsEmpty = false;
   }
 
   ngOnInit() {
@@ -53,13 +49,15 @@ export class AssignRestaurantComponent implements OnInit {
   }
 
   handleSuccessfulSearch = (venues: Venue[]) => {
+    if (!venues.length) {
+      this.toastr.error('Nie znaleziono żadnych restauracji o podanych kryteriach', 'Błąd!');
+    }
     this.foundVenues = venues;
     this.listIsLoading = false;
-    this.listIsEmpty = ! (!!this.foundVenues.length);
   }
 
   handleErrorSearch = (error: HttpErrorResponse) => {
-    this.listIsEmpty = true;
+    this.toastr.error(error.error.message, 'Błąd!');
     this.listIsLoading = false;
   }
 

@@ -3,8 +3,10 @@ package com.table.order.foursquare.repository;
 import java.util.Set;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import com.table.order.common.exceptions.VenueException;
 import com.table.order.common.place.finder.service.FoursquareApiComponent;
 import com.table.order.foursquare.model.FoundVenue;
 import com.table.order.foursquare.model.VenueDetails;
@@ -20,23 +22,32 @@ public class FoursquareRepository {
 		this.foursquareApiComponent = foursquareApiComponent;
 	}
 
-	public Set<FoundVenue> findFoodVenuesByNameAndCity(String name, String city) {
+	public Set<FoundVenue> findFoodVenuesByNameAndCity(String name, String city) throws VenueException {
 		RestTemplate restTemplate = new RestTemplate();
 
-		return restTemplate.getForObject(
-					foursquareApiComponent.getSearchUrlByCategoryFoodFormat(), 
-					FoundVenueResponse.class,
+		try {
+			return restTemplate.getForObject(
+					foursquareApiComponent.getSearchUrlByCategoryFoodFormat(),
+					FoundVenueResponse.class, 
 					foursquareApiComponent.getSearchUrlDataWithFoodCategory(name, city)
 				).getVenues();
+		} 
+		catch (HttpClientErrorException ex) {
+			throw new VenueException(ex.getMessage());
+		}
 	}
 
-	public VenueDetails getVenueDetails(String venueId) {
+	public VenueDetails getVenueDetails(String venueId) throws VenueException {
 		RestTemplate restTemplate = new RestTemplate();
-
-		return restTemplate.getForObject(
-				foursquareApiComponent.getDetailsUrlFormat(), 
-				VenueDetailsResponse.class,
-				foursquareApiComponent.getDetailsUrlData(venueId)
-			).getVenueDetails();
+		try {
+			return restTemplate.getForObject(
+					foursquareApiComponent.getDetailsUrlFormat(), 
+					VenueDetailsResponse.class,
+					foursquareApiComponent.getDetailsUrlData(venueId)
+				).getVenueDetails();
+		} 
+		catch (HttpClientErrorException ex) {
+			throw new VenueException(ex.getMessage());
+		}
 	}
 }

@@ -35,10 +35,6 @@
             <button mat-raised-button color="primary" matStepperNext [disabled]="!selectedRestaurant?.foursquareId">Przypisz</button>
           </div>
 
-          <div *ngIf="listIsEmpty" class="text-center">
-            <span class="mat-error" style="font-size: 0.6rem">Nie znaleziono wyników, wróć i spróbuj ponownie</span>
-          </div>
-
           <div *ngIf="listIsLoading">
             <mat-spinner class="mx-auto"></mat-spinner>
           </div>

@@ -1,5 +1,6 @@
 package com.table.order.foursquare;
 
+import com.table.order.common.exceptions.VenueException;
 import com.table.order.common.util.StringUtils;
 import com.table.order.foursquare.model.FoundVenue;
 import com.table.order.foursquare.model.VenueDetails;
@@ -17,11 +18,11 @@ public class FoursquareService {
         this.foursquareRepository = foursquareRepository;
     }
 
-    public Set<FoundVenue> searchForFoodVenues(String restaurant, String city) {
+    public Set<FoundVenue> searchForFoodVenues(String restaurant, String city) throws VenueException {
         return foursquareRepository.findFoodVenuesByNameAndCity(restaurant, city);
     }
 
-    public VenueDetails getVenueDetails(String venueId) {
+    public VenueDetails getVenueDetails(String venueId) throws VenueException {
         if (StringUtils.isNullOrEmpty(venueId))
             return null;
 
