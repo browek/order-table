@@ -1,15 +1,15 @@
-<div class="container center mt-5 mat-elevation-z10">
+<div class="container mt-5 mat-elevation-z10">
 
-  <div class="row input-row-container">
-    <mat-form-field class="input col-12 col-md-8">
+  <div class="row input-row-container p-2">
+    <mat-form-field class="col-12 col-md-8">
       <input matInput placeholder="Wyszukaj" [(ngModel)]="userQuery">
     </mat-form-field>
-    <div class="icon col-6 col-md-2 text-center">
+    <div class="my-auto mx-auto col-6 col-md-2 text-center">
       <button mat-icon-button (click)="findVenues()" [disabled]="!userQuery.length" color="primary">
         <fa-icon class="fa-lg" icon="search"></fa-icon>
       </button>
     </div>
-    <div class="icon col-6 col-md-2 text-center">
+    <div class="my-auto mx-auto col-6 col-md-2 text-center">
       <button mat-icon-button (click)="sidenavToggle()" color="primary">
         <fa-icon class="fa-lg" icon="wrench"></fa-icon>
       </button>
@@ -33,9 +33,7 @@
             <p class="info-content" *ngIf="venue.location.city">Miasto: {{venue.location.city}}</p>
             <p class="info-content" *ngIf="venue.location.country">Kraj:{{venue.location.country}}</p>
             <button mat-raised-button color="primary" *ngIf="venue.isRegistered" (click)="isLogged() && reservationDialog(venue.id)"
-              matTooltip="Zaloguj się aby dokonać rezerwacji"
-              matTooltipClass="tooltip-reservation"
-              matTooltipDisabled="!isLogged()">Rezerwacja</button>
+              matTooltip="Zaloguj się aby dokonać rezerwacji" matTooltipClass="tooltip-reservation" [matTooltipDisabled]="isLogged()">Rezerwacja</button>
           </agm-info-window>
         </agm-marker>
       </span>

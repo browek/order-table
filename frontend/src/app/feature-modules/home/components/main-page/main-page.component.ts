@@ -7,12 +7,13 @@ import { GoogleLocation } from '@shared/models/google-location';
 import { VenueDetails } from '@shared/models/venue-details';
 import { GeoLocationService } from '@shared/services/geo-location.service';
 import { Subscription } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.None
 })
 export class MainPageComponent implements OnInit, OnDestroy {
 
@@ -40,7 +41,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   constructor(private venueService: VenueService, private dialogService: DialogService,
     private geoLocationService: GeoLocationService, private authService: AuthService,
-    private sidenavService: SidenavService
+    private sidenavService: SidenavService, private toastr: ToastrService
   ) {
   }
 
@@ -78,9 +79,15 @@ export class MainPageComponent implements OnInit, OnDestroy {
       lat: this.selectedUserLocation.lat,
       lng: this.selectedUserLocation.lng,
       query: this.userQuery
-    }).subscribe(response => {
-      this.arrVenues = response;
-    });
+    })
+    .subscribe(this.handleSuccessResponse);
+  }
+
+  private handleSuccessResponse = (response: VenueDetails[]) => {
+    this.arrVenues = response;
+    if (!this.arrVenues.length) {
+      this.toastr.info('Nie znaleziono żadnych miejsc o podanym kryterium');
+    }
   }
 
   private initUserLocation() {
