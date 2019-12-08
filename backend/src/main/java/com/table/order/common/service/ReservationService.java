@@ -31,7 +31,7 @@ public class ReservationService {
     }
 
     private String validateMessage(String message) {
-        return message.trim().isEmpty() ? null : message.trim();
+        return message == null || message.trim().isEmpty() ? null : message.trim();
     }
 
     @Autowired

@@ -23,9 +23,9 @@ export class ReservationDialogComponent implements OnInit {
 
   ngOnInit() {
     this.reservationForm = new FormGroup({
-      numberOfPersons: new FormControl(null, [Validators.required]),
+      numberOfPersons: new FormControl(null, [Validators.required, Validators.min(1), Validators.max(1000)]),
       date: new FormControl(null, [Validators.required]),
-      message: new FormControl(null, [Validators.required])
+      message: new FormControl(null)
     });
   }
 
