@@ -1,11 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Venue, VenueWithDetails, RestaurantToSearch } from '../model';
+import { Venue, VenueWithDetails, RestaurantToSearch } from '../models';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class RestaurateurService {
 
   constructor(private http: HttpClient) {
@@ -30,5 +28,9 @@ export class RestaurateurService {
 
   unassignRestaurant(): Observable<void> {
     return this.http.put<void>(`/api/restaurants/unassign`, null);
+  }
+
+  getRestaurants(httpParams: HttpParams | any) {
+    return this.http.get('api/restaurants', { params: httpParams });
   }
 }

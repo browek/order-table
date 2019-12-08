@@ -10,9 +10,7 @@ const AUTHORIZATION_KEY = 'authorization';
 const USERNAME_KEY = 'username';
 const ROLE_KEY = 'role';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class AuthService {
 
   constructor(private http: HttpClient) {

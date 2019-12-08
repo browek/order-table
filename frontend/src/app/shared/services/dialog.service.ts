@@ -25,10 +25,10 @@ export class DialogService {
     });
   }
 
-  openReservationDialog() {
+  openReservationDialog(restaurantApiId: string) {
     this.dialog.open(ReservationDialogComponent, {
       width: '350px',
-      data: {}
+      data: {restaurantApiId: restaurantApiId}
     });
   }
 

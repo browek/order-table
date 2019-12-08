@@ -9,6 +9,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Data
@@ -28,6 +30,9 @@ public class ReservationRequest {
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservation")
+    private Set<Notification> notifications;
+
     private Integer numberOfPersons;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
@@ -37,4 +42,17 @@ public class ReservationRequest {
     @Enumerated(EnumType.STRING)
     private ReservationRequestStatus status;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ReservationRequest that = (ReservationRequest) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id);
+    }
 }

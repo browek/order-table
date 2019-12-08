@@ -4,6 +4,7 @@ import { Restaurant } from '../../models';
 import { MatPaginator, MatSort } from '@angular/material';
 import { merge, of } from 'rxjs';
 import { startWith, switchMap, map, catchError } from 'rxjs/operators';
+import { RestaurateurService } from '@app/shared/services';
 
 @Component({
   selector: 'app-restaurants',
@@ -18,11 +19,15 @@ export class RestaurantsComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private http: HttpClient) { }
+  constructor(private restaurantService: RestaurateurService) { }
 
   ngOnInit() {
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
     this.paginator.pageSize = 5;
+    this.handleTableChanges();
+  }
+
+  handleTableChanges = () => {
     merge(this.sort.sortChange, this.paginator.page, this.paginator.pageSize)
       .pipe(
         startWith({}),
@@ -33,7 +38,7 @@ export class RestaurantsComponent implements OnInit {
             size: this.paginator.pageSize + ''
           };
 
-          return this.http.get('api/restaurants', { params: params } );
+          return this.restaurantService.getRestaurants(params);
         }),
         map((data: any) => {
           this.resultsLength = data.page.totalElements;
@@ -43,7 +48,8 @@ export class RestaurantsComponent implements OnInit {
         catchError(() => {
           return of([]);
         })
-      ).subscribe(data => this.restaurants = data);
+      )
+      .subscribe(data => this.restaurants = data);
   }
 
 }

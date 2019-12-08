@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Venue, RestaurantToSearch, VenueWithDetails } from '@app/shared/model';
+import { Venue, RestaurantToSearch, VenueWithDetails } from '@app/shared/models';
 import { RestaurateurService } from '@app/shared/services/restaurateur.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
