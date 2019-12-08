@@ -3,6 +3,10 @@
 
 $bg-color: #424242;
 
+html, body {
+  height: 100%;
+}
+
 .layout-container {
   @include mat-elevation(5);
   background-color: lighten($bg-color, 20%);

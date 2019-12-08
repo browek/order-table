@@ -12,7 +12,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class ClientReservation {
 
-    String apiId;
+    String id;
 
     int numberOfPersons;
 

@@ -2,7 +2,7 @@ CREATE TABLE `reservation_request` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `asking_user_id` INT NOT NULL,
   `reciving_user_id` INT NOT NULL,
-  `numer_of_persons` INT NOT NULL DEFAULT 0,
+  `number_of_persons` INT NOT NULL DEFAULT 0,
   `date_and_time` DATETIME NOT NULL,
   `message` VARCHAR(512) NULL,
   PRIMARY KEY (`id`),

@@ -10,4 +10,6 @@ import com.table.order.restaurateur.model.Restaurant;
 public interface RestaurantRepository extends JpaRepository<Restaurant, Integer> {
 	
 	Restaurant findByApiId(@Param("apiId") String apiId);
+
+    boolean existsByApiId(String apiId);
 }

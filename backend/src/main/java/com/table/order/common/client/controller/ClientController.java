@@ -20,16 +20,16 @@ public class ClientController {
     @Autowired
     private ClientService clientService;
 
-//    @PreAuthorize("hasAuthority('ROLE_CLIENT')")
-//    @PostMapping("/sendReservationRequest")
-//    public ResponseEntity<?> sendReservationRequest(@RequestBody ClientReservation clientReservation) {
-//        try {
-//            clientService.sendReservationRequest(clientReservation);
-//            return ResponseEntity.ok().build();
-//        } catch (IncorrectRestaurantDataException e) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//    }
+    @PreAuthorize("hasAuthority('ROLE_CLIENT')")
+    @PostMapping("/sendReservationRequest")
+    public ResponseEntity<?> sendReservationRequest(@RequestBody ClientReservation clientReservation) {
+        try {
+            clientService.sendReservationRequest(clientReservation);
+            return ResponseEntity.ok().build();
+        } catch (IncorrectRestaurantDataException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
 
 }

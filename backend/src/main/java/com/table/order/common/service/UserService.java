@@ -2,7 +2,6 @@ package com.table.order.common.service;
 
 import java.util.Set;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,7 +17,6 @@ import com.table.order.common.security.model.User;
 import com.table.order.common.security.model.UserCredentials;
 
 @Service
-@Qualifier("userService")
 public class UserService implements UserDetailsService {
 
     private UserRepository userRepository;
@@ -69,6 +67,7 @@ public class UserService implements UserDetailsService {
         newUser.setUsername(user.getUsername());
         newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
         newUser.setRoles(role);
+        newUser.setEnabled(true);
 
         return userRepository.save(newUser);
     }

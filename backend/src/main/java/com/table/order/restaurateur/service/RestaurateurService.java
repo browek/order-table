@@ -87,4 +87,8 @@ public class RestaurateurService {
         reservationRequest.setStatus(ReservationRequestStatus.REJECTED);
         return reservationRequestRepository.save(reservationRequest);
     }
+
+    public boolean restaurantIsRegistered(String venueApiId) {
+        return restaurantRepository.existsByApiId(venueApiId);
+    }
 }

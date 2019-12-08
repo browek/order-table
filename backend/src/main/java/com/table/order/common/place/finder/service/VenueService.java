@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import com.table.order.restaurateur.service.RestaurateurService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,13 +18,12 @@ import com.table.order.common.place.finder.model.froursquare.dto.Group;
 import com.table.order.common.place.finder.model.froursquare.dto.Item;
 import com.table.order.common.place.finder.model.froursquare.dto.ResponseFromFoursquare;
 import com.table.order.common.place.finder.model.froursquare.dto.VenueDTO;
-import com.table.order.common.service.UserService;
 
 @Service
 public class VenueService {
 
     private FoursquareApiComponent foursquareApiComponent;
-    private UserService userService;
+    private RestaurateurService restaurateurService;
 
     public List<VenueMapDTO> searchVenuesByCity(String query, String city){
         String url = foursquareApiComponent.getFoursquareExploreUrlByCity();
@@ -39,7 +39,7 @@ public class VenueService {
         return venues.stream().map(venue -> {
             VenueMapDTO dto = new ModelMapper().map(venue, VenueMapDTO.class);
             dto.setId(venue.getApiId());
-//            dto.setIsRegistered(userService.isRestaurateurRegistered(venue.getApiId()));
+            dto.setIsRegistered(restaurateurService.restaurantIsRegistered(venue.getApiId()));
             return dto;
         }).collect(Collectors.toList());
     }
@@ -77,8 +77,8 @@ public class VenueService {
     }
 
     @Autowired
-    public void setUserService(UserService userService) {
-        this.userService = userService;
+    public void setRestaurateurService(RestaurateurService restaurateurService) {
+        this.restaurateurService = restaurateurService;
     }
 }
 

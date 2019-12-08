@@ -23,29 +23,7 @@ public class RestaurateurRestController {
         this.restaurateurService = restaurateurService;
     }
 
-    @PreAuthorize("hasAuthority('ROLE_RESTAURATEUR')")
-    @GetMapping("/search")
-    public ResponseEntity<Set<FoundVenue>> searchRestaurants(
-            @RequestParam("restaurant_name") String restaurantName,
-            @RequestParam("city") String city) {
 
-        Set<FoundVenue> foundVenues
-                = restaurateurService.searchForRestaurant(restaurantName, city);
-
-        return ResponseEntity.ok(foundVenues);
-    }
-
-    @PutMapping("/reservation/accept")
-    public ResponseEntity<?> acceptReservation(@RequestParam("reservation_id") Long reservationId) {
-        restaurateurService.acceptReservation(reservationId);
-        return ResponseEntity.ok().build();
-    }
-
-    @PutMapping("/reservation/reject")
-    public ResponseEntity<?> rejectReservation(@RequestParam("reservation_id") Long reservationId) {
-        restaurateurService.rejectReservation(reservationId);
-        return ResponseEntity.ok().build();
-    }
 
 
 }
