@@ -25,3 +25,14 @@
 .bold {
   font-weight: bold;
 }
+
+.mat-raised-button[disabled] {
+  border: 1px solid  #1b1b1b;
+  background-color: #302f2f;
+  color: #d1d1d1;
+}
+
+.tooltip-reservation {
+  font-size: 0.8rem;
+  background-color: #b71c1c;
+}

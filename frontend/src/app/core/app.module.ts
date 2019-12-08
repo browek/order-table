@@ -8,7 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app-component/app.component';
 
 import { SharedModule } from '@shared/modules';
-import { AuthService, AccessTokenInterceptor } from '@shared/services';
+import { AuthService, AccessTokenInterceptor } from '@app/core/services';
 import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({

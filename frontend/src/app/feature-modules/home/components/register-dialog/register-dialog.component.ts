@@ -1,4 +1,4 @@
-import { AuthService } from '@shared/services/auth.service';
+import { AuthService } from '@app/core/services';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';

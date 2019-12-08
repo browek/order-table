@@ -32,7 +32,10 @@
             <p class="info-content" *ngIf="venue.location.address">Adres: {{venue.location.address}}</p>
             <p class="info-content" *ngIf="venue.location.city">Miasto: {{venue.location.city}}</p>
             <p class="info-content" *ngIf="venue.location.country">Kraj:{{venue.location.country}}</p>
-            <button mat-raised-button color="primary" *ngIf="venue.isRegistered" (click)="reservationDialog(venue.id)">Rezerwacja</button>
+            <button mat-raised-button color="primary" *ngIf="venue.isRegistered" (click)="isLogged() && reservationDialog(venue.id)"
+              matTooltip="Zaloguj się aby dokonać rezerwacji"
+              matTooltipClass="tooltip-reservation"
+              matTooltipDisabled="!isLogged()">Rezerwacja</button>
           </agm-info-window>
         </agm-marker>
       </span>

@@ -1,5 +1,6 @@
+import { AuthService } from '@app/core/services';
 import { AgmMap } from '@agm/core';
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { SidenavService } from '@app/shared/modules/side-nav-layout/services';
 import { DialogService, VenueService } from '@app/shared/services';
 import { GoogleLocation } from '@shared/models/google-location';
@@ -10,7 +11,8 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
-  styleUrls: ['./main-page.component.scss']
+  styleUrls: ['./main-page.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class MainPageComponent implements OnInit, OnDestroy {
 
@@ -37,7 +39,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
   private sidenavOpened = false;
 
   constructor(private venueService: VenueService, private dialogService: DialogService,
-    private geoLocationService: GeoLocationService,
+    private geoLocationService: GeoLocationService, private authService: AuthService,
     private sidenavService: SidenavService
   ) {
   }
@@ -107,6 +109,10 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   reservationDialog(venueId: string) {
     this.dialogService.openReservationDialog(venueId);
+  }
+
+  isLogged(): boolean {
+    return this.authService.isLogged();
   }
 
 }
