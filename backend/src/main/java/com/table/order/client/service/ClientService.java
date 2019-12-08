@@ -3,6 +3,7 @@ package com.table.order.client.service;
 
 import com.table.order.client.model.NewReservation;
 import com.table.order.common.model.ReservationRequest;
+import com.table.order.common.repository.ReservationRequestRepository;
 import com.table.order.common.repository.UserRepository;
 import com.table.order.common.security.model.User;
 import com.table.order.common.service.ReservationService;
@@ -18,15 +19,14 @@ public class ClientService {
 
     @Autowired
     UserRepository userRepository;
-
-    @Autowired
-    private ReservationService reservationService;
-
-    @Autowired
-    private RestaurateurService restaurateurService;
-
     @Autowired
     UserHelper userHelper;
+    @Autowired
+    ReservationRequestRepository reservationRequestRepository;
+    @Autowired
+    private ReservationService reservationService;
+    @Autowired
+    private RestaurateurService restaurateurService;
 
     public ReservationRequest sendReservationRequest(NewReservation newReservation) {
         Restaurant restaurant =
@@ -39,6 +39,10 @@ public class ClientService {
         return reservationService.saveNew(newReservation, client, restaurant);
     }
 
+    public ReservationRequest deleteReservation(ReservationRequest reservationRequest) {
+        reservationRequest.setActive(false);
+        return reservationRequestRepository.save(reservationRequest);
+    }
 
 
 }

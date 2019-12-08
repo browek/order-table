@@ -1,7 +1,9 @@
 package com.table.order.restaurateur.service;
 
 import java.util.Set;
+import java.util.stream.Collectors;
 
+import com.table.order.client.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,9 @@ public class RestaurateurService {
     private UserHelper userHelper;
     private RestaurantRepository restaurantRepository; 
     private ReservationRequestRepository reservationRequestRepository;
+
+    @Autowired
+    ClientService clientService;
 
     @Autowired
     public RestaurateurService(FoursquareService foursquareService, UserHelper userHelper,
@@ -95,4 +100,11 @@ public class RestaurateurService {
     public boolean restaurantIsRegistered(String venueApiId) {
         return restaurantRepository.existsByApiId(venueApiId);
     }
+
+    public Restaurant deleteRestaurant(Restaurant restaurant) {
+        restaurant.setActive(false);
+        restaurant.getReservationRequests().stream().map(r -> clientService.deleteReservation(r)).collect(Collectors.toList());
+        return restaurantRepository.save(restaurant);
+    }
+
 }

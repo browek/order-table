@@ -1,73 +1,86 @@
 package com.table.order.common.security.model;
 
-import java.util.Objects;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.table.order.common.model.Activated;
 import com.table.order.common.model.Notification;
 import com.table.order.common.model.ReservationRequest;
 import com.table.order.restaurateur.model.Restaurant;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.Where;
+
+import javax.persistence.*;
+import java.util.Objects;
+import java.util.Set;
 
 @Data
 @Entity
 @RequiredArgsConstructor
 @NoArgsConstructor
-public class User {
+@Where(clause = "active='1'")
+public class User implements Activated {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@NonNull
-	private Long id;
-	
-	@NonNull
-	private String username;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NonNull
+    private Long id;
 
-	@JsonIgnore
-	@NonNull
-	private String password;
-	
-	private boolean enabled;
+    @NonNull
+    private String username;
 
-	@JsonIgnore
-	@ManyToOne
-	@NonNull
-	@JoinColumn(name = "id_role")
-	private Role roles;
-	
-	@OneToMany(mappedBy = "owner")
-	private Set<Restaurant> restaurants;
+    @JsonIgnore
+    @NonNull
+    private String password;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "client")
-	private Set<ReservationRequest> sendReservationRequests;
+    private boolean enabled;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "receivedUser")
-	private Set<Notification> notifications;
+    @JsonIgnore
+    @ManyToOne
+    @NonNull
+    @JoinColumn(name = "id_role")
+    private Role roles;
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		User user = (User) o;
-		return Objects.equals(id, user.id);
-	}
+    @OneToMany(mappedBy = "owner")
+    private Set<Restaurant> restaurants;
 
-	@Override
-	public int hashCode() {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "client")
+    private Set<ReservationRequest> sendReservationRequests;
 
-		return Objects.hash(id);
-	}
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "receivedUser")
+    private Set<Notification> notifications;
+
+    private boolean active = true;
+
+    @Override
+    public boolean isActive() {
+        return this.active;
+    }
+
+    @Override
+    public void setActive(boolean value) {
+        this.active = value;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id);
+    }
 }
+
+
+
+
+
+

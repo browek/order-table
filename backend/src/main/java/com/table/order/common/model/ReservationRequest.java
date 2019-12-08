@@ -5,6 +5,7 @@ import com.table.order.restaurateur.model.Restaurant;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Where;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -16,7 +17,8 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReservationRequest {
+@Where(clause = "active='1'")
+public class ReservationRequest implements Activated {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,6 +44,18 @@ public class ReservationRequest {
     @Enumerated(EnumType.STRING)
     private ReservationRequestStatus status;
 
+    private boolean active = true;
+
+    @Override
+    public boolean isActive() {
+        return this.active;
+    }
+
+    @Override
+    public void setActive(boolean value) {
+        this.active = value;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -56,3 +70,8 @@ public class ReservationRequest {
         return Objects.hash(id);
     }
 }
+
+
+
+
+
