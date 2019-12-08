@@ -7,5 +7,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: zaq1@WSX
       MYSQL_DATABASE: order_table_db
+    volumes:
+      - ./custom.cnf:/etc/mysql/conf.d/custom.cnf
     ports:
       - "6033:3306"

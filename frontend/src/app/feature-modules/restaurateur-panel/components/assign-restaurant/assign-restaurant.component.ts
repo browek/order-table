@@ -50,7 +50,7 @@ export class AssignRestaurantComponent implements OnInit {
 
   handleSuccessfulSearch = (venues: Venue[]) => {
     if (!venues.length) {
-      this.toastr.error('Nie znaleziono żadnych restauracji o podanych kryteriach', 'Błąd!');
+      this.toastr.info('Nie znaleziono żadnych restauracji o podanych kryteriach');
     }
     this.foundVenues = venues;
     this.listIsLoading = false;

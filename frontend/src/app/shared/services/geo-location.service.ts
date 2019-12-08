@@ -18,8 +18,9 @@ export class GeoLocationService {
 
   public getCurrentPosition = (): Observable<Position> => {
     return Observable.create((observer: Observer<Position>) => {
-      navigator.geolocation.watchPosition((pos: Position) => {
+      navigator.geolocation.getCurrentPosition((pos: Position) => {
         observer.next(pos);
+        observer.complete();
       },
         this.handleError,
         {
