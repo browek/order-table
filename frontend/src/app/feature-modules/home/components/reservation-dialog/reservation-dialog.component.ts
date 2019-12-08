@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {ReservationService} from '@shared/services/reservation.service';
+// import {ReservationService} from '@shared/services/reservation.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 
 @Component({
@@ -13,7 +13,8 @@ export class ReservationDialogComponent implements OnInit {
   public reservationForm: FormGroup;
   sendError = false;
 
-  constructor(private reservationService: ReservationService,
+  constructor(
+    // private reservationService: ReservationService,
               private dialogRef: MatDialogRef<ReservationDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any) {
   }
@@ -31,18 +32,18 @@ export class ReservationDialogComponent implements OnInit {
     const date: Date = this.reservationForm.controls['date'].value;
     const message: string = this.reservationForm.controls['message'].value;
 
-    this.reservationService
-      .sendReservation({
-        restaurantApiId: this.data.restaurantApiId,
-        numberOfPersons: numberOfPersons,
-        dateAndTime: date,
-        message: message
-      })
-      .subscribe(reservation => {
-        this.dialogRef.close();
-      }, error => {
-        this.sendError = true;
-      });
+    // this.reservationService
+    //   .sendReservation({
+    //     restaurantApiId: this.data.restaurantApiId,
+    //     numberOfPersons: numberOfPersons,
+    //     dateAndTime: date,
+    //     message: message
+    //   })
+    //   .subscribe(reservation => {
+    //     this.dialogRef.close();
+    //   }, error => {
+    //     this.sendError = true;
+    //   });
   }
 
 }

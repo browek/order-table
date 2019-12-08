@@ -1,72 +1,105 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Location } from '@angular/common';
-import { environment } from 'src/environments/environment';
+import { AgmMap } from '@agm/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { SidenavService } from '@app/shared/modules/side-nav-layout/services';
+import { DialogService, VenueService } from '@app/shared/services';
+import { GoogleLocation } from '@shared/models/google-location';
+import { VenueDetails } from '@shared/models/venue-details';
+import { GeoLocationService } from '@shared/services/geo-location.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.scss']
 })
-export class MainPageComponent implements OnInit {
+export class MainPageComponent implements OnInit, OnDestroy {
 
-  location: Location;
+  selectedUserLocation: GoogleLocation = {
+    lat: 0,
+    lng: 0,
+    zoom: 6
+  };
+
+  @ViewChild(AgmMap) map: AgmMap;
 
   geo = navigator.geolocation;
-  lat;
-  lng;
   customerLabel = 'Tu jesteś';
   customerMapIcon = 'assets/icons/customer-map-marker.svg';
   shopMapIcon = 'assets/icons/shop-map-marker.svg';
-  arrVenues: string [];
+  registeredIcon = 'assets/icons/registered-map-maker.svg';
+  arrVenues: VenueDetails[];
+  isRegistered: boolean;
 
-  public isOpen = false;
+  subscription: Subscription;
 
+  userQuery = '';
 
+  private sidenavOpened = false;
 
-  constructor(private httpService: HttpClient, location: Location) {
-    this.location = location;
+  constructor(private venueService: VenueService, private dialogService: DialogService,
+    private geoLocationService: GeoLocationService,
+    private sidenavService: SidenavService
+  ) {
   }
 
   ngOnInit() {
-    if (this.geo) {
-      this.geo.getCurrentPosition((location) => {
+    this.initUserLocation();
+    this.subscription = this.subscribeUserSelectedLocation();
+  }
 
-        console.log('Szerokość ' + location.coords.latitude);
-        console.log('Długość ' + location.coords.longitude);
-        this.lat = location.coords.latitude;
-        this.lng = location.coords.longitude;
+  private subscribeUserSelectedLocation(): Subscription {
+    return this.sidenavService.selectedLocation
+      .subscribe(this.setSelectedLocation);
+  }
 
-      });
-    } else {
-      console.log('niedostępny');
+  private setSelectedLocation = (location) => {
+    if (location) {
+      const loc = location.geometry.location;
+      this.selectedUserLocation = {
+        lat: loc.lat(),
+        lng: loc.lng(),
+        zoom: 6
+      };
     }
-    this.httpService.get(environment.apiUrl+'/venues/search').subscribe(
-      data => {
-        this.arrVenues = data as string [];
-        console.log(this.arrVenues);
-      },
-      (err: HttpErrorResponse) => {
-        console.log (err.message);
-      }
-    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   sidenavToggle() {
-    this.isOpen = !this.isOpen;
+    this.sidenavOpened = !this.sidenavOpened;
+    this.sidenavService.setSidenavOpened(this.sidenavOpened);
   }
 
-  searchVenue(){
-    this.httpService.get(environment.apiUrl+'/venues/search').subscribe(
-      data => {
-        this.arrVenues = data as string [];
-        console.log(this.arrVenues);
-      },
-      (err: HttpErrorResponse) => {
-        console.log (err.message);
-      }
-    );
-    
+  findVenues() {
+    this.venueService.getVenues({
+      lat: this.selectedUserLocation.lat,
+      lng: this.selectedUserLocation.lng,
+      query: this.userQuery
+    }).subscribe(response => {
+      this.arrVenues = response;
+    });
+  }
+
+  private initUserLocation() {
+    this.geoLocationService.getCurrentPosition()
+      .subscribe((position: Position) => {
+        this.selectedUserLocation.lat = position.coords.latitude;
+        this.selectedUserLocation.lng = position.coords.longitude;
+      });
+  }
+
+  checkRegistered(isRegistered: boolean) {
+    if (isRegistered === true) {
+      return this.registeredIcon;
+    } else {
+      return this.shopMapIcon;
+    }
+  }
+
+  reservationDialog(venueId: string) {
+    this.dialogService.openReservationDialog(venueId);
   }
 
 }

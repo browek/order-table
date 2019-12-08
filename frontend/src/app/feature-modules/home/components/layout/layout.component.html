@@ -1,0 +1,38 @@
+<app-layout [toolbarColor]="'accent'">
+  <div header>
+    <div class="float-right">
+      <app-nav-bar></app-nav-bar>
+    </div>
+  </div>
+
+  <div nav-list-items>
+    <div class="mt-4 container" mat-list-item>
+      <mat-radio-group class="row">
+        <mat-radio-button #myLocation value="1">Moja lokalizacja</mat-radio-button>
+        <mat-radio-button #selectedLocation value="2">Wybierz lokalizację</mat-radio-button>
+      </mat-radio-group>
+
+      <div *ngIf="myLocation.checked">
+        <agm-map [latitude]="userLocation.lat" [longitude]="userLocation.lng">
+          <agm-marker [latitude]="userLocation.lat" [longitude]="userLocation.lng"></agm-marker>
+        </agm-map>
+      </div>
+
+      <ng-container *ngIf="selectedLocation.checked">
+        <mat-form-field>
+          <input type="text" placeholder="Podaj lokalizację" matInput [formControl]="selectedLocationControl"
+            [matAutocomplete]="autoComplete">
+          <mat-autocomplete #autoComplete="matAutocomplete" (optionSelected)="setUserLocation($event)">
+            <mat-option *ngFor="let option of locations | async" [value]="option.formatted_address">
+              {{option.formatted_address}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </ng-container>
+    </div>
+  </div>
+
+  <div sidenav-content>
+    <router-outlet></router-outlet>
+  </div>
+</app-layout>

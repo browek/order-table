@@ -28,6 +28,7 @@ dependencies {
 	implementation('org.springframework.boot:spring-boot-starter-data-rest')
 	implementation('org.springframework.boot:spring-boot-starter-security')
 	implementation('org.springframework.boot:spring-boot-starter-web')
+	implementation('org.springframework.security:spring-security-data')
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter'
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
@@ -38,6 +39,7 @@ dependencies {
 	
 	compileOnly 'org.projectlombok:lombok:1.18.4'
 	
+	compile group: 'org.modelmapper', name: 'modelmapper', version: '2.3.2'
 	compile group: 'com.google.guava', name: 'guava', version: '27.0-jre'
 	compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.0'
 	compile 'io.jsonwebtoken:jjwt-api:0.10.5'
@@ -49,11 +51,11 @@ dependencies {
 	testCompile('org.mockito:mockito-junit-jupiter:2.18.3')
 	
 	testCompile(
-            'org.junit.jupiter:junit-jupiter-api:5.1.0'
+            'org.junit.jupiter:junit-jupiter-api:5.1.0',
+            'org.junit.jupiter:junit-jupiter-engine:5.1.0',
+            'org.junit.vintage:junit-vintage-engine:5.1.0'
     )
     testRuntime(
-            'org.junit.jupiter:junit-jupiter-engine:5.1.0',
-            'org.junit.vintage:junit-vintage-engine:5.1.0',
             'org.junit.platform:junit-platform-launcher:1.1.0',
             'org.junit.platform:junit-platform-runner:1.1.0'
 	)

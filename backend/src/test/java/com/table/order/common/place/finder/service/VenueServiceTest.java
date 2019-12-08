@@ -1,16 +1,22 @@
 package com.table.order.common.place.finder.service;
 
-import com.table.order.common.place.finder.model.Venue;
-import com.table.order.common.place.finder.model.froursquare.dto.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.table.order.common.place.finder.model.Venue;
+import com.table.order.common.place.finder.model.froursquare.dto.Group;
+import com.table.order.common.place.finder.model.froursquare.dto.Item;
+import com.table.order.common.place.finder.model.froursquare.dto.LocationDTO;
+import com.table.order.common.place.finder.model.froursquare.dto.Response;
+import com.table.order.common.place.finder.model.froursquare.dto.ResponseFromFoursquare;
+import com.table.order.common.place.finder.model.froursquare.dto.VenueDTO;
 
 class VenueServiceTest {
 

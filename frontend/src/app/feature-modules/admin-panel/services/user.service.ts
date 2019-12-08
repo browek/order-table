@@ -1,10 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from '@env/environment';
-import { User } from '@shared/models/user';
-
-const API_URL = environment.apiUrl;
+import { User } from '@shared/models';
 
 @Injectable()
 export class UserService {
@@ -14,15 +11,19 @@ export class UserService {
   }
 
   getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(`${API_URL}/users`);
+    return this.http.get<User[]>('api/users');
   }
 
   deleteUser(id: Number) {
-    return this.http.delete(`${API_URL}/users/${id}`);
+    return this.http.delete(`/api/users/${id}`);
   }
 
-  banUser(user: User) {
-    return this.http.put(`${API_URL}/users/${user.id}`, user);
+  disableUser(userId: number) {
+    const params = {
+      userId: userId + ''
+    };
+
+    return this.http.get('/api/users/search/disableUserAccount', { params: params });
   }
 
 }

@@ -1,6 +1,6 @@
-body
-{
-  width: 100%;
+@import 'variables';
+
+.bg-image {
+  background-image: url($bg-img-path);
   height: 100%;
-  position: fixed;
 }

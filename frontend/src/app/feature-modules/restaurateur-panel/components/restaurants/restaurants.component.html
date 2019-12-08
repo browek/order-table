@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12 mt-3">
+      <app-header [currentPageName]="'Restauracje'" class="float-left"></app-header>
+      <button mat-raised-button color="primary" class="float-right"
+        [routerLink]="['/restaurant-panel/assign-restaurant']">Dodaj restauracje
+      </button>
+    </div>
+  </div>
+  <div class="mat-elevation-z8">
+    <div class="table-container">
+      <table mat-table [dataSource]="restaurants" matSort matSortActive="city" matSortDisableClear matSortDirection="asc">
+        <!-- Number Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef>ID</th>
+          <td mat-cell *matCellDef="let row">{{row.id}}</td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Nazwa</th>
+          <td mat-cell *matCellDef="let row">{{row.name}}</td>
+        </ng-container>
+
+        <!-- Street Column -->
+        <ng-container matColumnDef="street">
+          <th mat-header-cell *matHeaderCellDef>Ulica</th>
+          <td mat-cell *matCellDef="let row">{{row.street}}</td>
+        </ng-container>
+
+        <!-- City Column -->
+        <ng-container matColumnDef="city">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>
+            Miasto
+          </th>
+          <td mat-cell *matCellDef="let row">{{row.city}}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="['id', 'name', 'street', 'city']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['id', 'name', 'street', 'city'];"></tr>
+      </table>
+    </div>
+
+    <mat-paginator [length]="resultsLength" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+  </div>
+</div>

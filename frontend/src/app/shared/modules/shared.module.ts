@@ -16,7 +16,16 @@ import {
   MatSidenavModule,
   MatButtonToggleModule,
   MatRadioModule,
-  MatTableModule
+  MatTableModule,
+  MatGridListModule,
+  MatToolbarModule,
+  MatListModule,
+  MatProgressSpinnerModule,
+  MatStepperModule,
+  MatCardModule,
+  MatPaginatorModule,
+  MatSortModule,
+  MatAutocompleteModule,
 } from '@angular/material';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -45,9 +54,18 @@ library.add(
     MatInputModule,
     MatIconModule,
     MatSidenavModule,
+    MatToolbarModule,
+    MatListModule,
     MatButtonToggleModule,
     MatRadioModule,
     MatTableModule,
+    MatGridListModule,
+    MatProgressSpinnerModule,
+    MatStepperModule,
+    MatCardModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatAutocompleteModule,
     FontAwesomeModule
   ]
 })

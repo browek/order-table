@@ -11,10 +11,19 @@ const appRoutes: Routes = [
     path: 'home',
     loadChildren: '@features/home/home.module#HomeModule'
   },
-  // {
-  //   path: 'admin-panel',
-  //   loadChildren: '@features/admin-panel/admin-panel.module#AdminPanelModule'
-  // } // TODO
+  {
+    path: 'admin-panel',
+    loadChildren: '@features/admin-panel/admin-panel.module#AdminPanelModule'
+  },
+  {
+    path: 'restaurant-panel',
+    loadChildren: '@features/restaurateur-panel/restaurateur-panel.module#RestaurateurPanelModule'
+  },
+  {
+    path: '**',
+    redirectTo: 'home',
+    pathMatch: 'full'
+  }
 ];
 
 @NgModule({

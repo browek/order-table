@@ -1,30 +1,36 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Venue, VenueWithDetails } from '../model/resturateur-venue-models';
+import { Venue, VenueWithDetails, RestaurantToSearch } from '../models';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class RestaurateurService {
 
   constructor(private http: HttpClient) {
   }
 
-  searchRestaurants(restaurantName: string, city: string): Observable<Venue[]> {
-    return this.http.get<Venue[]>(`/api/restaurants/search`,
-      {
-        params: new HttpParams().set('restaurant_name', restaurantName).set('city', city)
-      });
+  searchRestaurants(restaurantToSearch: RestaurantToSearch): Observable<Venue[]> {
+    const params = {
+      restaurant_name: restaurantToSearch.restaurantName,
+      city: restaurantToSearch.city
+    };
+
+    return this.http.get<Venue[]>(`/api/restaurants/search`, { params });
   }
 
   assignRestaurant(restaurantVenueId: string): Observable<VenueWithDetails> {
-    return this.http.put<VenueWithDetails>(`/api/restaurants/assign`, null, {
-      params: new HttpParams().set('foursquare_id', restaurantVenueId)
-    });
+    const params = {
+      foursquare_id: restaurantVenueId
+    };
+
+    return this.http.put<VenueWithDetails>(`/api/restaurants/assign`, null, { params });
   }
 
   unassignRestaurant(): Observable<void> {
     return this.http.put<void>(`/api/restaurants/unassign`, null);
+  }
+
+  getRestaurants(httpParams: HttpParams | any) {
+    return this.http.get('api/restaurants', { params: httpParams });
   }
 }

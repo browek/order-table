@@ -1,34 +1,29 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {RestaurateurService} from '../../shared/services/restaurateur.service';
-import { RestaurateurPanelComponent } from './components/restaurateur-panel/restaurateur-panel.component';
+import { NgModule } from '@angular/core';
+import { SideNavLayoutModule, SharedModule, PageHeaderModule } from '@app/shared/modules';
+import { RestaurateurService } from '@shared/services/restaurateur.service';
+import { RestaurantRoutingModule } from './restaurant-routing.module';
 import {
-  MatButtonModule,
-  MatCardModule,
-  MatFormFieldModule,
-  MatInputModule, MatListModule,
-  MatProgressSpinnerModule,
-  MatStepperModule
-} from '@angular/material';
-import { MyRestaurantComponent } from './components/restaurateur-panel/subcomponents/my-restaurant/my-restaurant.component';
-import { AssignRestaurantComponent } from './components/restaurateur-panel/subcomponents/assign-restaurant/assign-restaurant.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+  RestaurateurLayoutComponent,
+  AssignRestaurantComponent,
+  ReservationRequestsComponent
+} from './components';
+import { RestaurantsComponent } from './components/restaurants/restaurants.component';
 
 @NgModule({
+  declarations: [
+    RestaurateurLayoutComponent,
+    AssignRestaurantComponent,
+    ReservationRequestsComponent,
+    RestaurantsComponent
+  ],
   imports: [
     CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatCardModule,
-    MatProgressSpinnerModule,
-    MatStepperModule,
-    MatListModule
+    SharedModule,
+    SideNavLayoutModule,
+    RestaurantRoutingModule,
+    PageHeaderModule
   ],
-  declarations: [RestaurateurPanelComponent, MyRestaurantComponent, AssignRestaurantComponent],
-  providers: [RestaurateurService],
-  exports: [RestaurateurPanelComponent]
+  providers: [RestaurateurService]
 })
 export class RestaurateurPanelModule { }

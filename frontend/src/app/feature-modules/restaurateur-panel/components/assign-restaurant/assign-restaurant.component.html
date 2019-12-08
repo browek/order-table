@@ -1,5 +1,10 @@
-<div class="container mt-4 p-4">
+<div class="container p-4">
   <div class="row">
+    <div class="col-12">
+      <app-header [currentPageName]="'Dodaj restauracje'" [previousPagePath]="'/restaurant-panel/restaurants'"></app-header>
+    </div>
+  </div>
+  <div class="row mt-2">
     <div class="col-12">
       <mat-horizontal-stepper [linear]="true" #stepper>
         <mat-step [stepControl]="firstFormGroup">
@@ -41,8 +46,7 @@
           <div *ngIf="!listIsLoading">
             <mat-action-list #venues>
               <div *ngFor="let venue of foundVenues">
-                <button mat-list-item (click)="selectedRestaurant = venue"
-                [ngClass]="{'list-item-selected': selectedRestaurant?.foursquareId===venue.foursquareId,
+                <button mat-list-item (click)="selectedRestaurant = venue" [ngClass]="{'list-item-selected': selectedRestaurant?.foursquareId===venue.foursquareId,
                   'list-item-not-selected': selectedRestaurant?.foursquareId!==venue.foursquareId}">
                   <b>{{venue?.name}}</b>&nbsp;{{venue?.location?.city}}@{{venue?.location?.address}}
                 </button>
