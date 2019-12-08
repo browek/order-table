@@ -1,5 +1,6 @@
 package com.table.order.common.security.model;
 
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -12,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.table.order.common.model.EventMessage;
+import com.table.order.common.model.Notification;
 import com.table.order.common.model.ReservationRequest;
 import com.table.order.restaurateur.model.Restaurant;
 
@@ -50,12 +51,23 @@ public class User {
 	@OneToMany(mappedBy = "owner")
 	private Set<Restaurant> restaurants;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "askingUser")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "client")
 	private Set<ReservationRequest> sendReservationRequests;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "recivingUser")
-	private Set<ReservationRequest> receivedReservationRequests;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "receivedUser")
+	private Set<Notification> notifications;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-	private Set<EventMessage> eventMessages;
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		User user = (User) o;
+		return Objects.equals(id, user.id);
+	}
+
+	@Override
+	public int hashCode() {
+
+		return Objects.hash(id);
+	}
 }

@@ -1,1 +1,0 @@
-ALTER TABLE `user` ADD restaurant_api_id VARCHAR(64) NULL;

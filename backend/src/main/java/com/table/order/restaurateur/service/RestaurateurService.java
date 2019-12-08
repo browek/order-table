@@ -47,7 +47,7 @@ public class RestaurateurService {
             throw new IncorrectRestaurantDataException();
         }
         
-        Restaurant restaurant = getRestaurant(venueId);
+        Restaurant restaurant = findRestaurantOrGetNewIfNotExists(venueId);
         User loggedUser = userHelper.getLoggedUser();
         
         restaurant.setOwner(loggedUser);
@@ -55,7 +55,7 @@ public class RestaurateurService {
 		return restaurantRepository.save(restaurant);
     }
     
-    private Restaurant getRestaurant(String venueId) {
+    private Restaurant findRestaurantOrGetNewIfNotExists(String venueId) {
     	Restaurant restaurant = restaurantRepository.findByApiId(venueId);
     	
     	if (restaurant != null)
@@ -74,6 +74,10 @@ public class RestaurateurService {
         restaurant.setStreet(venueDetails.getLocation().getCity());
         
         return restaurant;
+    }
+
+    public Restaurant getRestaurantByApiId(String apiId) {
+        return restaurantRepository.findByApiId(apiId);
     }
 
     public ReservationRequest acceptReservation(Long reservationId) {

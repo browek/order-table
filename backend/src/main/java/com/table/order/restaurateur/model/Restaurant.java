@@ -1,17 +1,17 @@
 package com.table.order.restaurateur.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.table.order.common.model.ReservationRequest;
 import com.table.order.common.security.model.User;
 
 import lombok.Data;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Data
@@ -34,5 +34,22 @@ public class Restaurant {
 	@ManyToOne(optional = false)
 	@JsonIgnore
 	private User owner;
-	
+
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurant")
+	private Set<ReservationRequest> reservationRequests;
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Restaurant that = (Restaurant) o;
+		return Objects.equals(id, that.id);
+	}
+
+	@Override
+	public int hashCode() {
+
+		return Objects.hash(id);
+	}
 }
