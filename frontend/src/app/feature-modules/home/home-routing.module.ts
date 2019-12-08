@@ -10,11 +10,10 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        pathMatch: 'full',
-        redirectTo: 'home'
+        redirectTo: 'map'
       },
       {
-        path: 'home',
+        path: 'map',
         component: MainPageComponent,
       }
     ]

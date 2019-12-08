@@ -1,16 +1,16 @@
-<div class="container center">
+<div class="container center mt-5 mat-elevation-z10">
 
-  <div class="row">
-    <div class="input">
-      <input class="form-control" [(ngModel)]="userQuery" placeholder="Wyszukaj miejsce">
-    </div>
+  <div class="row input-row-container">
+    <mat-form-field class="input">
+      <input matInput placeholder="Wyszukaj miejsce" [(ngModel)]="userQuery">
+    </mat-form-field>
     <div class="icon">
-      <button mat-icon-button (click)="findVenues()">
+      <button mat-icon-button (click)="findVenues()" [disabled]="!userQuery.length" color="primary">
         <fa-icon class="fa-lg" icon="search"></fa-icon>
       </button>
     </div>
     <div class="icon">
-      <button mat-icon-button (click)="sidenavToggle()">
+      <button mat-icon-button (click)="sidenavToggle()" color="primary">
         <fa-icon class="fa-lg" icon="wrench"></fa-icon>
       </button>
     </div>
@@ -21,17 +21,17 @@
       <agm-marker [iconUrl]="{url:customerMapIcon, labelOrigin:{x:15,y:-8}}" [latitude]="selectedUserLocation.lat"
         [longitude]="selectedUserLocation.lng" [label]="customerLabel">
         <agm-info-window>
-          Tu jesteś
+          <p class="info-content bold">Tu jesteś</p>
         </agm-info-window>
       </agm-marker>
       <span *ngIf="arrVenues">
-        <agm-marker *ngFor="let venue of arrVenues" [iconUrl]="{url:checkRegistered(venue.isRegistered), labelOrigin:{x:15,y:-8}}"
+        <agm-marker *ngFor="let venue of arrVenues" [iconUrl]="{url:getIcon(venue.isRegistered), labelOrigin:{x:15,y:-8}}"
           [latitude]="venue.location.lat" [longitude]="venue.location.lng" [label]="venue.name">
           <agm-info-window>
-            <p><b>{{venue.name}}</b></p>
-            Adres: {{venue.location.address}}<br>
-            Miasto: {{venue.location.city}}<br>
-            Kraj:{{venue.location.country}}<br>
+            <p class="info-content bold">{{venue.name}}</p>
+            <p class="info-content" *ngIf="venue.location.address">Adres: {{venue.location.address}}</p>
+            <p class="info-content" *ngIf="venue.location.city">Miasto: {{venue.location.city}}</p>
+            <p class="info-content" *ngIf="venue.location.country">Kraj:{{venue.location.country}}</p>
             <button mat-raised-button color="primary" *ngIf="venue.isRegistered" (click)="reservationDialog(venue.id)">Rezerwacja</button>
           </agm-info-window>
         </agm-marker>

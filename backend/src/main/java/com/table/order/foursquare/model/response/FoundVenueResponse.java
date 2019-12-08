@@ -1,36 +1,37 @@
 package com.table.order.foursquare.model.response;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
-import com.table.order.foursquare.model.FoundVenue;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import java.io.Serializable;
+import java.util.Collections;
 import java.util.Set;
 
+import com.table.order.foursquare.model.FoundVenue;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Data
-public class FoundVenueResponse {
+@AllArgsConstructor
+@NoArgsConstructor
+public class FoundVenueResponse implements Serializable {
 
-//    @JsonProperty("venues")
-    private Set<FoundVenue> venues;
+	private static final long serialVersionUID = 3663084140946967088L;
+	
+	private Response response;
+	
+	public Set<FoundVenue> getVenues() {
+		if (response != null) {
+			return response.getVenues();
+		}
+		return Collections.emptySet();
+	}
+}
 
-    @SuppressWarnings("unchecked")
-    @JsonProperty(value = "response")
-    private void unpackResponse(Map<String,Object> response) {
-        this.venues = new HashSet<>();
-
-        List<Map> venues = (List<Map>) response.get("venues");
-
-        for (Map venue : venues) {
-            this.venues.add(FoundVenue.createFromJsonMap(venue));
-        }
-    }
-
-
-
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+class Response implements Serializable {
+	
+	private static final long serialVersionUID = 812589584662864950L;
+	private Set<FoundVenue> venues;
 }

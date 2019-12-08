@@ -26,7 +26,7 @@ public class VenueService {
     private RestaurateurService restaurateurService;
 
     public List<VenueMapDTO> searchVenuesByCity(String query, String city){
-        String url = foursquareApiComponent.getFoursquareExploreUrlByCity();
+        String url = foursquareApiComponent.getExploreUrlByCityFormat();
         Map<String, Object> uriVariables = foursquareApiComponent.getFoursquareUriVariablesByCity(query, city);
 
         RestTemplate restTemplate = new RestTemplate();
@@ -45,7 +45,7 @@ public class VenueService {
     }
 
     public List<VenueMapDTO> searchVenues(Request request) {
-        String url = foursquareApiComponent.getFoursquareExploreUrl();
+        String url = foursquareApiComponent.getExploreUrlFormat();
         Map<String, Object> uriVariables = foursquareApiComponent.getFoursquareUriVariables(request);
 
         RestTemplate restTemplate = new RestTemplate();

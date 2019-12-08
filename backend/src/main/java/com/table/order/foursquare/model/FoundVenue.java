@@ -1,8 +1,8 @@
 package com.table.order.foursquare.model;
 
-import java.math.BigDecimal;
-import java.util.Map;
-import java.util.Objects;
+import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,41 +11,26 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class FoundVenue {
+public class FoundVenue implements Serializable {
 
+	private static final long serialVersionUID = 2784100798880939125L;
+
+	@JsonProperty(value = "id")
     private String foursquareId;
+	
+	@JsonProperty(value = "name")
     private String name;
+	
+	@JsonProperty(value = "location")
     private VenueLocation location;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        FoundVenue foundVenue = (FoundVenue) o;
-        return Objects.equals(foursquareId, foundVenue.foursquareId);
-    }
+	@JsonProperty(value = "id")
+	public void setFoursquareId(String id) {
+		this.foursquareId = id;
+	}
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(foursquareId);
-    }
-
-    public static FoundVenue createFromJsonMap(Map<String, Object> venue) {
-        Map<String, Object> location = (Map<String, Object>) venue.get("location");
-
-        String address = (String) location.get("address");
-        String city = (String) location.get("city");
-        String country = (String) location.get("country");
-
-        BigDecimal lat = new BigDecimal(String.valueOf(location.get("lat")));
-        BigDecimal lng = new BigDecimal(String.valueOf(location.get("lng")));
-
-        VenueLocation venueLocation = new VenueLocation(country, city, address, lat, lng);
-
-        return new FoundVenue(
-                (String) venue.get("id"),
-                (String) venue.get("name"),
-                venueLocation
-        );
-    }
+	@JsonProperty(value = "foursquareId")
+	public String getFoursquareId() {
+		return foursquareId;
+	}
 }

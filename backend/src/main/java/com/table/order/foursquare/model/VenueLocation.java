@@ -1,17 +1,20 @@
 package com.table.order.foursquare.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
-import lombok.*;
-import org.springframework.beans.BeanUtils;
-
+import java.io.Serializable;
 import java.math.BigDecimal;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-public class VenueLocation {
+@NoArgsConstructor
+public class VenueLocation implements Serializable  {
 
-    private String country;
+	private static final long serialVersionUID = 6483202936253427267L;
+	
+	private String country;
     private String city;
     private String address;
     private BigDecimal latitude;

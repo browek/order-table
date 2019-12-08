@@ -1,5 +1,6 @@
 import { MapsAPILoader } from '@agm/core';
 import { Injectable } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Observable, Observer } from 'rxjs';
 
 @Injectable({
@@ -9,7 +10,7 @@ export class GeoLocationService {
 
   private geoCoder: any;
 
-  constructor(private mapsApiLoader: MapsAPILoader) {
+  constructor(private mapsApiLoader: MapsAPILoader, private toastr: ToastrService) {
     this.mapsApiLoader.load().then(() => {
       this.geoCoder = new google.maps.Geocoder();
     });
@@ -20,12 +21,16 @@ export class GeoLocationService {
       navigator.geolocation.watchPosition((pos: Position) => {
         observer.next(pos);
       },
-        error => { console.error(error); },
+        this.handleError,
         {
           enableHighAccuracy: true
         }
       );
     });
+  }
+
+  private handleError = (error: any) => {
+    this.toastr.error(error.message, 'Błąd!');
   }
 
   public getPositions = (address: string): Observable<google.maps.GeocoderResult[]> => {

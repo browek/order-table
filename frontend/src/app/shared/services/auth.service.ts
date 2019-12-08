@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { AccountInfo, Role } from '../models/account-info';
@@ -13,7 +14,7 @@ const ROLE_KEY = 'role';
 @Injectable()
 export class AuthService {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
   }
 
   login(userCredentials: UserCredentials): Observable<any> {
@@ -47,6 +48,7 @@ export class AuthService {
     localStorage.removeItem(AUTHORIZATION_KEY);
     localStorage.removeItem(USERNAME_KEY);
     localStorage.removeItem(ROLE_KEY);
+    this.router.navigateByUrl('/home');
   }
 
   isLogged() {

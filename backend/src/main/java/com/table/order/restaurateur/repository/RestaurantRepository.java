@@ -1,7 +1,7 @@
 package com.table.order.restaurateur.repository;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -17,6 +17,6 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Integer>
     boolean existsByApiId(String apiId);
     
     @Override
-    @Query("SELECT r FROM Restaurant r WHERE r.owner.username = ?#{ authentication.username }")
-    List<Restaurant> findAll();
+    @Query("SELECT r FROM Restaurant r WHERE r.owner.username = ?#{ authentication?.name }")
+    Page<Restaurant> findAll(Pageable pageable);
 }

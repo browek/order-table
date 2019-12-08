@@ -1,47 +1,24 @@
-<div>
-  <form [formGroup]="reservationForm" (ngSubmit)="sendReservation()">
-    <div class="text-center form-label">
-      Podaj ilość rezerwowanych miejsc
-    </div>
-    <div class="text-center">
-      <input type="number" min="1" max="10000" id="quantity" formControlName="numberOfPersons">
-      <div>
-        <mat-error *ngIf="reservationForm.controls['numberOfPersons'].hasError('required')">
-          <span class="error-label">
-            <strong>Pole wymagane</strong>
-          </span>
-        </mat-error>
+<div class="container">
+  <div class="row">
+    <form [formGroup]="reservationForm" (ngSubmit)="sendReservation()" class="form-container">
+      <mat-form-field class="form-field">
+        <input matInput placeholder="Ilość rezerwowanych miejsc" formControlName="numberOfPersons" type="number" min="1"
+          max="1000" />
+        <mat-error *ngIf="reservationForm.controls['numberOfPersons'].hasError('required')">Pole wymagane</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <input matInput placeholder="Data" formControlName="date" type="datetime-local" />
+        <mat-error *ngIf="reservationForm.controls['date'].hasError('required')">Pole wymagane</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <textarea formControlName="message" matInput placeholder="Wiadomość (opcionalnie)"></textarea>
+      </mat-form-field>
+
+      <div class="text-center">
+        <button mat-raised-button color="primary" type="submit" [disabled]="reservationForm.invalid">Rezerwuj</button>
       </div>
-    </div>
-    <div class="text-center form-label">
-      Podaj datę
-    </div>
-    <div class="text-center">
-      <input type="datetime-local" id="date" formControlName="date">
-      <div>
-        <mat-error *ngIf="reservationForm.controls['date'].hasError('required')">
-          <span class="error-label">
-            <strong>Pole wymagane</strong>
-          </span>
-        </mat-error>
-      </div>
-    </div>
-    <div class="text-center form-label">
-      Wiadomość (opcionalnie)
-    </div>
-    <div class="row">
-      <textarea formControlName="message" rows="4" cols="50"></textarea>
-    </div>
-    <div class="text-center">
-      <button mat-raised-button color="primary" type="submit">Rezerwuj</button>
-    </div>
-    <div *ngIf="sendError" class="error-label">
-      <mat-error>
-        Błąd podczas wysyłania zapytania o stolik
-      </mat-error>
-    </div>
-  </form>
+    </form>
+  </div>
 </div>
-
-
-

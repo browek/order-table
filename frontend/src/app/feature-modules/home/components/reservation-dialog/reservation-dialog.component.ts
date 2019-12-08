@@ -1,7 +1,8 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {ReservationService} from '@shared/services/reservation.service';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { ReservationService } from '@shared/services/reservation.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-reservation-dialog',
@@ -15,8 +16,9 @@ export class ReservationDialogComponent implements OnInit {
 
   constructor(
     private reservationService: ReservationService,
-              private dialogRef: MatDialogRef<ReservationDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any) {
+    private dialogRef: MatDialogRef<ReservationDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private toastr: ToastrService) {
   }
 
   ngOnInit() {
@@ -29,20 +31,16 @@ export class ReservationDialogComponent implements OnInit {
 
   sendReservation() {
     const numberOfPersons: number = this.reservationForm.controls['numberOfPersons'].value;
-    const date: Date = this.reservationForm.controls['date'].value;
+    const dateAndTime: Date = this.reservationForm.controls['date'].value;
     const message: string = this.reservationForm.controls['message'].value;
 
     this.reservationService
-      .sendReservation({
-        restaurantApiId: this.data.restaurantApiId,
-        numberOfPersons: numberOfPersons,
-        dateAndTime: date,
-        message: message
-      })
+      .sendReservation({ restaurantApiId: this.data.restaurantApiId, numberOfPersons, dateAndTime, message })
       .subscribe(reservation => {
         this.dialogRef.close();
+        this.toastr.success('Prośba o rezerwacje została wysłana');
       }, error => {
-        this.sendError = true;
+        this.toastr.error('Błąd podczas wysyłania zapytania o stolik');
       });
   }
 

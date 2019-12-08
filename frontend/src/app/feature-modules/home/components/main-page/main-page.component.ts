@@ -58,7 +58,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
       this.selectedUserLocation = {
         lat: loc.lat(),
         lng: loc.lng(),
-        zoom: 6
+        zoom: 15
       };
     }
   }
@@ -90,12 +90,19 @@ export class MainPageComponent implements OnInit, OnDestroy {
       });
   }
 
-  checkRegistered(isRegistered: boolean) {
+  getIcon(isRegistered: boolean) {
     if (isRegistered === true) {
       return this.registeredIcon;
     } else {
       return this.shopMapIcon;
     }
+  }
+
+  getMarkerLabel(name: string) {
+    return {
+      color: 'red',
+      text: name
+    };
   }
 
   reservationDialog(venueId: string) {

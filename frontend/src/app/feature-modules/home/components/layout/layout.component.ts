@@ -58,7 +58,7 @@ export class LayoutComponent implements OnInit {
         map((data: any) => {
           return data && data;
         }),
-        catchError((error) => {
+        catchError((error: any) => {
           return of([]);
         }),
         tap((data: any[]) => {

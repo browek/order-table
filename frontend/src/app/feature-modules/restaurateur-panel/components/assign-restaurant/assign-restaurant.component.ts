@@ -63,6 +63,10 @@ export class AssignRestaurantComponent implements OnInit {
     this.listIsLoading = false;
   }
 
+  selectRestaurant(restaurant: Venue) {
+    this.selectedRestaurant = restaurant;
+  }
+
   assign() {
     this.restaurService
       .assignRestaurant(this.selectedRestaurant.foursquareId)

@@ -1,4 +1,5 @@
 export interface VenueDetails {
+  id?: number;
   query: string;
   lat: number;
   lng: number;
