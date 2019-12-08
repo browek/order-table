@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { SideNavLayoutModule, SharedModule } from '@app/shared/modules';
+import { SideNavLayoutModule, SharedModule, PageHeaderModule } from '@app/shared/modules';
 import { RestaurateurService } from '@shared/services/restaurateur.service';
 import { RestaurantRoutingModule } from './restaurant-routing.module';
 import {
@@ -8,20 +8,22 @@ import {
   AssignRestaurantComponent,
   ReservationRequestsComponent
 } from './components';
+import { RestaurantsComponent } from './components/restaurants/restaurants.component';
 
 @NgModule({
   declarations: [
     RestaurateurLayoutComponent,
     AssignRestaurantComponent,
-    ReservationRequestsComponent
+    ReservationRequestsComponent,
+    RestaurantsComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
     SideNavLayoutModule,
-    RestaurantRoutingModule
+    RestaurantRoutingModule,
+    PageHeaderModule
   ],
-  providers: [RestaurateurService],
-  exports: []
+  providers: [RestaurateurService]
 })
 export class RestaurateurPanelModule { }

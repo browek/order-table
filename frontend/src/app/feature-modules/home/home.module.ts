@@ -1,3 +1,6 @@
+import { SideNavLayoutModule } from '@app/shared/modules';
+import { GeoLocationService } from '@shared/services/geo-location.service';
+import { GoogleMapsAPIWrapper } from '@agm/core/services';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { DialogService } from '@shared/services/dialog.service';
 import { AgmCoreModule } from '@agm/core';
@@ -7,15 +10,15 @@ import {
   LoginDialogComponent,
   RegisterDialogComponent,
   MainPageComponent,
-  SideNavComponent,
-  ReservationDialogComponent
+  ReservationDialogComponent,
+  LayoutComponent
 } from './components';
 import { HomeRoutingModule } from './home-routing.module';
 import { SharedModule } from '@shared/modules/shared.module';
 import { CompareValidatorDirective } from '@shared/validators/compare-validator.directive';
 import { VenueService } from '@shared/services/venue.service';
-import {ReservationService} from '@shared/services/reservation.service';
-
+import { SidenavService } from '@app/shared/modules/side-nav-layout/services';
+// import {ReservationService} from '@shared/services/reservation.service';
 
 @NgModule({
   declarations: [
@@ -23,16 +26,17 @@ import {ReservationService} from '@shared/services/reservation.service';
     LoginDialogComponent,
     RegisterDialogComponent,
     MainPageComponent,
-    SideNavComponent,
     CompareValidatorDirective,
-    ReservationDialogComponent
+    ReservationDialogComponent,
+    LayoutComponent
   ],
   imports: [
     SharedModule,
     HomeRoutingModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDFhBAj941EfWxzxb6R7EGXnRLflnnvtyo'
-    })
+      apiKey: 'AIzaSyDeOn1yZdl6o6xUyv17VLAW1A0szWaRcMY'
+    }),
+    SideNavLayoutModule
   ],
   providers: [
     DialogService,
@@ -41,12 +45,14 @@ import {ReservationService} from '@shared/services/reservation.service';
       useClass: PathLocationStrategy
     },
     VenueService,
-    ReservationService
+    GoogleMapsAPIWrapper,
+    GeoLocationService,
+    SidenavService
+    // ReservationService -- is missing
   ],
   entryComponents: [
     LoginDialogComponent,
     RegisterDialogComponent,
-    SideNavComponent,
     ReservationDialogComponent
   ]
 })

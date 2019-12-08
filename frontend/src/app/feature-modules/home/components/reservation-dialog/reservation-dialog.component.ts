@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {ReservationService} from '@shared/services/reservation.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {ReservationService} from '@shared/services/reservation.service';
 
 @Component({
   selector: 'app-reservation-dialog',
@@ -13,7 +13,8 @@ export class ReservationDialogComponent implements OnInit {
   public reservationForm: FormGroup;
   sendError = false;
 
-  constructor(private reservationService: ReservationService,
+  constructor(
+    private reservationService: ReservationService,
               private dialogRef: MatDialogRef<ReservationDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any) {
   }

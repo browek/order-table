@@ -1,7 +1,4 @@
-<app-nav-bar></app-nav-bar>
-<app-side-nav [isOpen]="isOpen"></app-side-nav>
-
-<div class="center">
+<div class="container center">
 
   <div class="row">
     <div class="input">
@@ -20,15 +17,16 @@
   </div>
 
   <div class="row">
-    <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="14">
-      <agm-marker [iconUrl]="{url:customerMapIcon, labelOrigin:{x:15,y:-8}}" [latitude]="latitude" [longitude]="longitude" [label]="customerLabel">
+    <agm-map [latitude]="selectedUserLocation.lat" [longitude]="selectedUserLocation.lng" [zoom]="selectedUserLocation.zoom">
+      <agm-marker [iconUrl]="{url:customerMapIcon, labelOrigin:{x:15,y:-8}}" [latitude]="selectedUserLocation.lat"
+        [longitude]="selectedUserLocation.lng" [label]="customerLabel">
         <agm-info-window>
           Tu jesteś
         </agm-info-window>
       </agm-marker>
       <span *ngIf="arrVenues">
-        <agm-marker *ngFor="let venue of arrVenues" [iconUrl]="{url:checkRegistered(venue.isRegistered), labelOrigin:{x:15,y:-8}}" [latitude]="venue.location.lat"
-          [longitude]="venue.location.lng" [label]="venue.name">
+        <agm-marker *ngFor="let venue of arrVenues" [iconUrl]="{url:checkRegistered(venue.isRegistered), labelOrigin:{x:15,y:-8}}"
+          [latitude]="venue.location.lat" [longitude]="venue.location.lng" [label]="venue.name">
           <agm-info-window>
             <p><b>{{venue.name}}</b></p>
             Adres: {{venue.location.address}}<br>
