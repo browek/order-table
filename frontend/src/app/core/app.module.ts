@@ -1,4 +1,3 @@
-import { AgmCoreModule } from '@agm/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material';
@@ -9,7 +8,6 @@ import { AppComponent } from './app-component/app.component';
 
 import { SharedModule } from '@shared/modules';
 import { AuthService, AccessTokenInterceptor } from '@shared/services';
-import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -18,10 +16,6 @@ import { ToastrModule } from 'ngx-toastr';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot(),
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDeOn1yZdl6o6xUyv17VLAW1A0szWaRcMY'
-    }),
     SharedModule,
     HttpClientModule,
     AppRoutingModule

@@ -1,26 +1,20 @@
-import { AgmMap } from '@agm/core';
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { SidenavService } from '@app/shared/modules/side-nav-layout/services';
-import { DialogService, VenueService } from '@app/shared/services';
-import { GoogleLocation } from '@shared/models/google-location';
-import { VenueDetails } from '@shared/models/venue-details';
-import { GeoLocationService } from '@shared/services/geo-location.service';
-import { Subscription } from 'rxjs';
+import { VenueDetails } from './../../../../shared/models/venue-details';
+import { VenueService } from './../../../../shared/services/venue.service';
+import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
+import { DialogService } from '@app/shared/services';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.scss']
 })
-export class MainPageComponent implements OnInit, OnDestroy {
+export class MainPageComponent implements OnInit {
 
-  selectedUserLocation: GoogleLocation = {
-    lat: 0,
-    lng: 0,
-    zoom: 6
-  };
-
-  @ViewChild(AgmMap) map: AgmMap;
+  location: Location;
+  latitude: number;
+  longitude: number;
 
   geo = navigator.geolocation;
   customerLabel = 'Tu jesteś';
@@ -28,66 +22,41 @@ export class MainPageComponent implements OnInit, OnDestroy {
   shopMapIcon = 'assets/icons/shop-map-marker.svg';
   registeredIcon = 'assets/icons/registered-map-maker.svg';
   arrVenues: VenueDetails[];
-  isRegistered: boolean;
-
-  subscription: Subscription;
+  isRegistered;
 
   userQuery = '';
 
-  private sidenavOpened = false;
+  public isOpen = false;
 
-  constructor(private venueService: VenueService, private dialogService: DialogService,
-    private geoLocationService: GeoLocationService,
-    private sidenavService: SidenavService
-  ) {
+  constructor(private venueService: VenueService, private dialogService: DialogService, public dialog: MatDialog) {
   }
 
   ngOnInit() {
-    this.initUserLocation();
-    this.subscription = this.subscribeUserSelectedLocation();
-  }
+    this.getLocation();
 
-  private subscribeUserSelectedLocation(): Subscription {
-    return this.sidenavService.selectedLocation
-      .subscribe(this.setSelectedLocation);
-  }
-
-  private setSelectedLocation = (location) => {
-    if (location) {
-      const loc = location.geometry.location;
-      this.selectedUserLocation = {
-        lat: loc.lat(),
-        lng: loc.lng(),
-        zoom: 6
-      };
-    }
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 
   sidenavToggle() {
-    this.sidenavOpened = !this.sidenavOpened;
-    this.sidenavService.setSidenavOpened(this.sidenavOpened);
+    this.isOpen = !this.isOpen;
   }
 
   findVenues() {
     this.venueService.getVenues({
-      lat: this.selectedUserLocation.lat,
-      lng: this.selectedUserLocation.lng,
+      lat: this.latitude,
+      lng: this.longitude,
       query: this.userQuery
     }).subscribe(response => {
       this.arrVenues = response;
     });
   }
 
-  private initUserLocation() {
-    this.geoLocationService.getCurrentPosition()
-      .subscribe((position: Position) => {
-        this.selectedUserLocation.lat = position.coords.latitude;
-        this.selectedUserLocation.lng = position.coords.longitude;
+  getLocation() {
+    if (this.geo) {
+      this.geo.getCurrentPosition((location) => {
+        this.latitude = location.coords.latitude;
+        this.longitude = location.coords.longitude;
       });
+    }
   }
 
   checkRegistered(isRegistered: boolean) {
@@ -95,6 +64,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
       return this.registeredIcon;
     } else {
       return this.shopMapIcon;
+
     }
   }
 
@@ -102,4 +72,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
     this.dialogService.openReservationDialog(venueId);
   }
 
+  check() {
+    console.log(this.arrVenues);
+  }
 }

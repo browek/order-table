@@ -1,11 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {
-  RestaurateurLayoutComponent,
-  ReservationRequestsComponent,
-  AssignRestaurantComponent,
-  RestaurantsComponent
-} from './components';
+import { RestaurateurLayoutComponent, ReservationRequestsComponent, AssignRestaurantComponent } from './components';
 
 const routes: Routes = [
   {
@@ -24,10 +19,6 @@ const routes: Routes = [
       {
         path: 'assign-restaurant',
         component: AssignRestaurantComponent
-      },
-      {
-        path: 'restaurants',
-        component: RestaurantsComponent
       }
     ]
   }

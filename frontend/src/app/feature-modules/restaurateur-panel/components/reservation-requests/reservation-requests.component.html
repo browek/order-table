@@ -1,10 +1,5 @@
-<div class="container mt-4">
-  <div class="row">
-    <app-header [currentPageName]="'Pytania o rezerwacje'"></app-header>
-  </div>
-</div>
-
-<div class="container p-4 layout-container">
+<div class="container p-4 mt-4 layout-container">
+  <h2 class="text-center">Pytania o rezerwacje</h2>
   <div *ngIf="reservationRequests.length === 0" class="text-center">
     <span class="mat-body-strong">Brak pytań o rezerwacje</span>
   </div>

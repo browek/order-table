@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
-import { VenueWithDetails } from '@app/shared/models';
+import { VenueWithDetails } from '@shared/model/resturateur-venue-models';
 import { RestaurateurService } from '@shared/services/restaurateur.service';
 
 @Component({

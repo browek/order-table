@@ -1,6 +1,3 @@
-import { SideNavLayoutModule } from '@app/shared/modules';
-import { GeoLocationService } from '@shared/services/geo-location.service';
-import { GoogleMapsAPIWrapper } from '@agm/core/services';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { DialogService } from '@shared/services/dialog.service';
 import { AgmCoreModule } from '@agm/core';
@@ -10,15 +7,15 @@ import {
   LoginDialogComponent,
   RegisterDialogComponent,
   MainPageComponent,
-  ReservationDialogComponent,
-  LayoutComponent
+  SideNavComponent,
+  ReservationDialogComponent
 } from './components';
 import { HomeRoutingModule } from './home-routing.module';
 import { SharedModule } from '@shared/modules/shared.module';
 import { CompareValidatorDirective } from '@shared/validators/compare-validator.directive';
 import { VenueService } from '@shared/services/venue.service';
-import { SidenavService } from '@app/shared/modules/side-nav-layout/services';
-// import {ReservationService} from '@shared/services/reservation.service';
+import {ReservationService} from '@shared/services/reservation.service';
+
 
 @NgModule({
   declarations: [
@@ -26,17 +23,16 @@ import { SidenavService } from '@app/shared/modules/side-nav-layout/services';
     LoginDialogComponent,
     RegisterDialogComponent,
     MainPageComponent,
+    SideNavComponent,
     CompareValidatorDirective,
-    ReservationDialogComponent,
-    LayoutComponent
+    ReservationDialogComponent
   ],
   imports: [
     SharedModule,
     HomeRoutingModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDeOn1yZdl6o6xUyv17VLAW1A0szWaRcMY'
-    }),
-    SideNavLayoutModule
+      apiKey: 'AIzaSyDFhBAj941EfWxzxb6R7EGXnRLflnnvtyo'
+    })
   ],
   providers: [
     DialogService,
@@ -45,14 +41,12 @@ import { SidenavService } from '@app/shared/modules/side-nav-layout/services';
       useClass: PathLocationStrategy
     },
     VenueService,
-    GoogleMapsAPIWrapper,
-    GeoLocationService,
-    SidenavService
-    // ReservationService -- is missing
+    ReservationService
   ],
   entryComponents: [
     LoginDialogComponent,
     RegisterDialogComponent,
+    SideNavComponent,
     ReservationDialogComponent
   ]
 })
