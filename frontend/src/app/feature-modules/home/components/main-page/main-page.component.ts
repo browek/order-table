@@ -54,12 +54,11 @@ export class MainPageComponent implements OnInit, OnDestroy {
       .subscribe(this.setSelectedLocation);
   }
 
-  private setSelectedLocation = (location) => {
+  private setSelectedLocation = (location: GoogleLocation) => {
     if (location) {
-      const loc = location.geometry.location;
       this.selectedUserLocation = {
-        lat: loc.lat(),
-        lng: loc.lng(),
+        lat: location.lat,
+        lng: location.lng,
         zoom: 15
       };
     }

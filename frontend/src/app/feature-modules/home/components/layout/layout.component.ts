@@ -1,12 +1,12 @@
-import { MapsAPILoader, GoogleMapsAPIWrapper } from '@agm/core';
-import { Component, Input, OnInit, NgZone } from '@angular/core';
+import { MapsAPILoader } from '@agm/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatAutocompleteSelectedEvent } from '@angular/material';
 import { SidenavService } from '@app/shared/modules/side-nav-layout/services';
 import { GoogleLocation } from '@shared/models/google-location';
 import { GeoLocationService } from '@shared/services/geo-location.service';
-import { from, Observable, of, Observer } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { catchError, delay, map, startWith, switchMap, tap } from 'rxjs/operators';
-import { MatAutocompleteSelectedEvent } from '@angular/material';
 
 declare var google: any;
 
@@ -67,13 +67,28 @@ export class LayoutComponent implements OnInit {
       );
   }
 
-  setUserLocation($event: MatAutocompleteSelectedEvent) {
+  setLocation($event: MatAutocompleteSelectedEvent) {
     const location: string = $event.option.value;
     const index = this.searchedLocations.findIndex(elem => elem.formatted_address === location);
 
     if (index !== -1) {
-      this.sideNavService.setSelectedLocation(this.searchedLocations[index]);
+      const loc: google.maps.GeocoderResult = this.searchedLocations[index];
+      const selectedLocation: GoogleLocation = {
+        lat: loc.geometry.location.lat(),
+        lng: loc.geometry.location.lng(),
+        zoom: 15
+      };
+      this.sideNavService.setSelectedLocation(selectedLocation);
     }
+  }
+
+  setCurrentLocation() {
+    const userLocation: GoogleLocation = {
+      lat: this.userLocation.lat,
+      lng: this.userLocation.lng,
+      zoom: 15
+    };
+    this.sideNavService.setSelectedLocation(userLocation);
   }
 
   private initUserLocation() {

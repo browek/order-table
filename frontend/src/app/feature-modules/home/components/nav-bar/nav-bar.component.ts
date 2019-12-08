@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
 import { AuthService } from '@app/core/services';
 import { DialogService } from '@shared/services/dialog.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-nav-bar',
@@ -10,7 +10,10 @@ import { DialogService } from '@shared/services/dialog.service';
 })
 export class NavBarComponent implements OnInit {
 
-  constructor(public authService: AuthService, private dialogService: DialogService, public dialog: MatDialog) { }
+  constructor(
+    public authService: AuthService,
+    private dialogService: DialogService,
+    private toastr: ToastrService) { }
 
   ngOnInit() {
   }
@@ -40,6 +43,7 @@ export class NavBarComponent implements OnInit {
 
   logout() {
     this.authService.logout();
+    this.toastr.success('Wylogowano');
   }
 
 }

@@ -3,10 +3,9 @@
     <input matInput type="text" placeholder="Login" formControlName="login">
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="password" placeholder="Password" formControlName="password">
+    <input matInput type="password" placeholder="Hasło" formControlName="password">
   </mat-form-field>
-  <button mat-raised-button type="submit">Login</button>
+  <div class="text-center mt-2 pb-0">
+    <button mat-raised-button type="submit" color="primary">Zaloguj się</button>
+  </div>
 </form>
-<div style="font-size: 0.5rem" class="text-center">
-  <label *ngIf="loginFailed" style="color: red">Błąd logowania</label>
-</div>
