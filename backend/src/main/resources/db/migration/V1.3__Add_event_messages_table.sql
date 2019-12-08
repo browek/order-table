@@ -1,6 +1,6 @@
 CREATE TABLE `event_message` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `user_id` BIGINT(20) NOT NULL,
+  `user_id` INT NOT NULL,
   `title` VARCHAR(256) NOT NULL,
   `message` VARCHAR(768) NOT NULL,
   `date_and_time` DATETIME NOT NULL,

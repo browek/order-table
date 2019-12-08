@@ -39,7 +39,7 @@ public class VenueService {
         return venues.stream().map(venue -> {
             VenueMapDTO dto = new ModelMapper().map(venue, VenueMapDTO.class);
             dto.setId(venue.getApiId());
-            dto.setIsRegistered(userService.isRestaurateurRegistered(venue.getApiId()));
+//            dto.setIsRegistered(userService.isRestaurateurRegistered(venue.getApiId()));
             return dto;
         }).collect(Collectors.toList());
     }

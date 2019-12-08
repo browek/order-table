@@ -23,13 +23,13 @@ public class ClientService {
     @Autowired
     ReservationRequestRepository reservationRequestRepository;
 
-    public ReservationRequest sendReservationRequest(ClientReservation clientReservation) throws IncorrectRestaurantDataException {
-        User user = userRepository.findUserIdByRestaurantId(clientReservation.getApiId());
-        if (user == null) {
-            throw new IncorrectRestaurantDataException();
-        }
-        return createNewReservation(clientReservation, user);
-    }
+//    public ReservationRequest sendReservationRequest(ClientReservation clientReservation) throws IncorrectRestaurantDataException {
+//        User user = userRepository.findUserIdByRestaurantId(clientReservation.getApiId());
+//        if (user == null) {
+//            throw new IncorrectRestaurantDataException();
+//        }
+//        return createNewReservation(clientReservation, user);
+//    } // TODO
 
     private ReservationRequest createNewReservation(ClientReservation clientReservation, User user) {
         ReservationRequest reservationRequest = new ReservationRequest();
@@ -43,8 +43,8 @@ public class ClientService {
 
     private User getCurrentUser(){
         String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userRepository.findByUsername(username);
-        return user;
+        
+        return userRepository.findByUsername(username);
     }
 
 

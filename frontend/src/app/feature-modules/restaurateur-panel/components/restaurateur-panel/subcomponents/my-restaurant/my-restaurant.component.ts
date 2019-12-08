@@ -16,7 +16,7 @@ export class MyRestaurantComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.restaurService.getMyRestaurant().subscribe(res => this.restaurantDetails = res);
+    // this.restaurService.getMyRestaurant().subscribe(res => this.restaurantDetails = res);
   }
 
   unassignRestaurant() {

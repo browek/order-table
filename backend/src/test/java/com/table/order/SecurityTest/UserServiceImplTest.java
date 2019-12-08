@@ -24,93 +24,88 @@ import com.table.order.common.service.RoleService;
 import com.table.order.common.service.UserService;
 import com.table.order.common.service.helper.UserHelper;
 
-
 public class UserServiceImplTest {
 
-    @Mock
-    UserRepository userRepository;
+	@Mock
+	UserRepository userRepository;
 
-    @Mock
-    UserHelper userHelper;
+	@Mock
+	UserHelper userHelper;
 
-    @Mock
-    BCryptPasswordEncoder bcryptEncoder;
+	@Mock
+	BCryptPasswordEncoder bcryptEncoder;
 
-    @Mock
-    RoleService roleService;
+	@Mock
+	RoleService roleService;
 
-    @InjectMocks
-    UserService userService;
+	@InjectMocks
+	UserService userService;
 
+	User user;
+	UserCredentials userCredentials;
+	Role role;
+	String password;
+	User user1;
 
-    User user;
-    UserCredentials userCredentials;
-    Role role;
-    String password;
-    User user1;
+	@BeforeEach
+	void setUp() {
+		MockitoAnnotations.initMocks(this);
 
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.initMocks(this);
+		role = new Role(3L, "ROLE_USER", "User Role");
+		user = new User(1L, "name", "password", role);
+		userCredentials = new UserCredentials("name", "pd");
+		user1 = new User();
+	}
 
-        role = new Role(3L, "ROLE_USER", "User Role");
-        user = new User(1L, "name", "password", null,role);
-        userCredentials = new UserCredentials("name", "pd");
-        user1 = new User();
-    }
+	@Test
+	public void updateRestaurantIdForLoggedUser_IncorrectAuthorities_shouldThrowException() {
+		String restaurantApiId = "venueId";
 
-    @Test
-    public void updateRestaurantIdForLoggedUser_IncorrectAuthorities_shouldThrowException() {
-        String restaurantApiId = "venueId";
+		when(userHelper.isLoggedRestaurateur()).thenReturn(false);
 
-        when(userHelper.isLoggedRestaurateur()).thenReturn(false);
+		assertThrows(UnauthorizedException.class, () -> userService.assignRestaurantToLoggedUser(restaurantApiId));
+	}
 
-        assertThrows(UnauthorizedException.class, () ->
-            userService.assignRestaurantToLoggedUser(restaurantApiId)
-        );
-    }
+	@Test
+	public void updateRestaurantIdForLoggedUser_CorrectAuthorities_shouldTellDbToUpdateUser()
+			throws UnauthorizedException {
+		String restaurantApiId = "venueId";
+		String dumbo = "dumbo";
 
-    @Test
-    public void updateRestaurantIdForLoggedUser_CorrectAuthorities_shouldTellDbToUpdateUser() throws UnauthorizedException {
-        String restaurantApiId = "venueId";
-        String dumbo = "dumbo";
+		when(userHelper.getLoggedUserUsername()).thenReturn(dumbo);
+		when(userHelper.isLoggedRestaurateur()).thenReturn(true);
 
-        when(userHelper.getLoggedUserUsername()).thenReturn(dumbo);
-        when(userHelper.isLoggedRestaurateur()).thenReturn(true);
+		userService.assignRestaurantToLoggedUser(restaurantApiId);
 
-        userService.assignRestaurantToLoggedUser(restaurantApiId);
+		verify(userRepository).updateRestarantIdByUsername(dumbo, restaurantApiId);
+	}
 
-        verify(userRepository).updateRestarantIdByUsername(dumbo, restaurantApiId);
-    }
+	@Test
+	public void getAuthority_Test() {
+		assertAll(() -> assertNotNull(userService.getAuthority(user)),
+				() -> assertEquals(user.getRoles().getName(), "ROLE_USER"));
+	}
 
-    @Test
-    public void getAuthority_Test() {
-        assertAll(
-                () -> assertNotNull(userService.getAuthority(user)),
-                () -> assertEquals(user.getRoles().getName(), "ROLE_USER")
-        );
-    }
+	@Test
+	public void getAuthorityFailUserWithoutRole_Test() {
+		assertThrows(NullPointerException.class, () -> {
+			userService.getAuthority(user1);
+		});
+	}
 
-    @Test
-    public void getAuthorityFailUserWithoutRole_Test() {
-        assertThrows(NullPointerException.class, () -> {
-            userService.getAuthority(user1);
-        });
-    }
+	@Test
+	public void loadUser_Test() {
+		when(userRepository.findByUsername(anyString())).thenReturn(user);
 
-    @Test
-    public void loadUser_Test() {
-        when(userRepository.findByUsername(anyString())).thenReturn(user);
+		assertNotNull(userService.loadUserByUsername("exampleUsername"));
+	}
 
-        assertNotNull(userService.loadUserByUsername("exampleUsername"));
-    }
+	@Test
+	public void loadUserFail_Test() {
+		when(userRepository.findByUsername(anyString())).thenReturn(user1);
 
-    @Test
-    public void loadUserFail_Test() {
-        when(userRepository.findByUsername(anyString())).thenReturn(user1);
-
-        assertThrows(NullPointerException.class, () -> {
-            userService.loadUserByUsername("exampleUsername");
-        });
-    }
+		assertThrows(NullPointerException.class, () -> {
+			userService.loadUserByUsername("exampleUsername");
+		});
+	}
 }

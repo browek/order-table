@@ -25,9 +25,9 @@ export class RestaurateurService {
     });
   }
 
-  getMyRestaurant(): Observable<VenueWithDetails> {
-    return this.http.get<VenueWithDetails>(`/api/restaurants/own`);
-  }
+  // getMyRestaurant(): Observable<VenueWithDetails> {
+  //   return this.http.get<VenueWithDetails>(`/api/restaurants/own`);
+  // } // TODO
 
   unassignRestaurant(): Observable<void> {
     return this.http.put<void>(`/api/restaurants/unassign`, null);

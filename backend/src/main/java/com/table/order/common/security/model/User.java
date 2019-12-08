@@ -1,6 +1,7 @@
 package com.table.order.common.security.model;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -14,6 +15,7 @@ import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.table.order.common.model.EventMessage;
 import com.table.order.common.model.ReservationRequest;
+import com.table.order.restaurant.model.Restaurant;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -37,9 +39,6 @@ public class User {
 	@JsonIgnore
 	@NonNull
 	private String password;
-
-	@NonNull
-	private String restaurantApiId;
 	
 	private boolean enabled;
 
@@ -48,6 +47,9 @@ public class User {
 	@NonNull
 	@JoinColumn(name = "id_role")
 	private Role roles;
+	
+	@OneToMany(mappedBy = "owner")
+	private Set<Restaurant> restaurants;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "askingUser")
 	private List<ReservationRequest> sendReservationRequests;

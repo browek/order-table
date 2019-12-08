@@ -29,18 +29,18 @@ export class RestaurateurPanelComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.restaurService.getMyRestaurant().subscribe(venue => {
-      this.myRestaurant = venue;
-      this.contentLoaded = true;
-      this.noAssignedRestaurant = false;
-    }, (error: HttpResponse<any>) => {
-      if (error.status === 404) {
-        this.contentLoaded = true;
-        this.noAssignedRestaurant = true;
-      } else {
-        this.unknownError = true;
-      }
-    });
+    // this.restaurService.getMyRestaurant().subscribe(venue => {
+    //   this.myRestaurant = venue;
+    //   this.contentLoaded = true;
+    //   this.noAssignedRestaurant = false;
+    // }, (error: HttpResponse<any>) => {
+    //   if (error.status === 404) {
+    //     this.contentLoaded = true;
+    //     this.noAssignedRestaurant = true;
+    //   } else {
+    //     this.unknownError = true;
+    //   }
+    // });
   }
 
 }
