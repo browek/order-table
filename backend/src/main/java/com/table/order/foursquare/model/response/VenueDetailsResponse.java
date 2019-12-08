@@ -30,5 +30,7 @@ public class VenueDetailsResponse {
 class DetailsResponse implements Serializable {
 
 	private static final long serialVersionUID = 812589584662864950L;
+	
+	@JsonProperty(value = "venue")
 	private VenueDetails venueDetails;
 }
