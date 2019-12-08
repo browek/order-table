@@ -57,6 +57,7 @@ dependencies {
             'org.junit.platform:junit-platform-launcher:1.1.0',
             'org.junit.platform:junit-platform-runner:1.1.0'
 	)
+	compile group: 'org.modelmapper', name: 'modelmapper', version: '2.3.2'
 }
 
 test {

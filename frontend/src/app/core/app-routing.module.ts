@@ -12,7 +12,7 @@ const appRoutes: Routes = [
     loadChildren: '@features/home/home.module#HomeModule'
   },
   {
-    path: 'restaurateur/myrestaurant',
+    path: 'restaurateur',
     loadChildren: '@features/restaurateur-panel/restaurateur-panel.module#RestaurateurPanelModule'
   }
 ];

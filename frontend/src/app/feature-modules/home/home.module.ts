@@ -7,12 +7,14 @@ import {
   LoginDialogComponent,
   RegisterDialogComponent,
   MainPageComponent,
-  SideNavComponent
+  SideNavComponent,
+  ReservationDialogComponent
 } from './components';
 import { HomeRoutingModule } from './home-routing.module';
 import { SharedModule } from '@shared/modules/shared.module';
 import { CompareValidatorDirective } from '@shared/validators/compare-validator.directive';
 import { VenueService } from '@shared/services/venue.service';
+
 
 @NgModule({
   declarations: [
@@ -21,7 +23,8 @@ import { VenueService } from '@shared/services/venue.service';
     RegisterDialogComponent,
     MainPageComponent,
     SideNavComponent,
-    CompareValidatorDirective
+    CompareValidatorDirective,
+    ReservationDialogComponent
   ],
   imports: [
     SharedModule,
@@ -41,7 +44,8 @@ import { VenueService } from '@shared/services/venue.service';
   entryComponents: [
     LoginDialogComponent,
     RegisterDialogComponent,
-    SideNavComponent
+    SideNavComponent,
+    ReservationDialogComponent
   ]
 })
 export class HomeModule { }

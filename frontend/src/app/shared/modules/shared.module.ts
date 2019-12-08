@@ -16,7 +16,8 @@ import {
   MatSidenavModule,
   MatButtonToggleModule,
   MatRadioModule,
-  MatTableModule
+  MatTableModule,
+  MatGridListModule,
 } from '@angular/material';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -48,6 +49,7 @@ library.add(
     MatButtonToggleModule,
     MatRadioModule,
     MatTableModule,
+    MatGridListModule,
     FontAwesomeModule
   ]
 })

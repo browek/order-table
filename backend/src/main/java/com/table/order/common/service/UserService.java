@@ -100,5 +100,10 @@ public class UserService implements UserDetailsService {
 
         userRepository.deleteRestaurantIdFromUser(userHelper.getLoggedUserUsername());
     }
+
+    public boolean isRestaurateurRegistered(String restaurateurApiId) {
+        String restaurantIdIfExists = userRepository.findRestaurantIdIfExists(restaurateurApiId);
+        return restaurantIdIfExists != null;
+    }
 }
 

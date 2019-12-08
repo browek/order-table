@@ -4,6 +4,10 @@
       <app-assign-restaurant (onRestaurantAssigned)="onRestaurantAssigned($event)" *ngIf="contentLoaded && noAssignedRestaurant"></app-assign-restaurant>
       <app-my-restaurant *ngIf="contentLoaded && !noAssignedRestaurant" [restaurantDetails]="myRestaurant" (onUnassign)="onRestaurantUnassigned()"></app-my-restaurant>
 
+      <div class="text-center" *ngIf="contentLoaded && !noAssignedRestaurant">
+        <button mat-raised-button color="primary" [routerLink]="['/restaurateur/reservations/questions']">Pytania o rezerwacje</button>
+      </div>
+
       <div *ngIf="!contentLoaded">
         <mat-spinner class="mx-auto"></mat-spinner>
       </div>

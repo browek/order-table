@@ -4,4 +4,5 @@ export interface VenueDetails {
   lng: number;
   location?: any[];
   name?: string;
+  isRegistered?: boolean;
 }

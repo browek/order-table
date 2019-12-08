@@ -14,6 +14,7 @@ import { MyRestaurantComponent } from './components/restaurateur-panel/subcompon
 import { AssignRestaurantComponent } from './components/restaurateur-panel/subcomponents/assign-restaurant/assign-restaurant.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { RestaurantRoutingModule } from './restaurant-routing.module';
+import { ReservationRequestsComponent } from './components/reservation-requests/reservation-requests.component';
 
 @NgModule({
   imports: [
@@ -29,7 +30,7 @@ import { RestaurantRoutingModule } from './restaurant-routing.module';
     MatListModule,
     RestaurantRoutingModule
   ],
-  declarations: [RestaurateurPanelComponent, MyRestaurantComponent, AssignRestaurantComponent],
+  declarations: [RestaurateurPanelComponent, MyRestaurantComponent, AssignRestaurantComponent, ReservationRequestsComponent],
   providers: [RestaurateurService],
   exports: [RestaurateurPanelComponent]
 })

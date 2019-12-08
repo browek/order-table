@@ -2,7 +2,9 @@ package com.table.order.common.place.finder.controller;
 
 import java.util.List;
 
+import com.table.order.common.model.dto.VenueMapDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.table.order.common.place.finder.model.Request;
@@ -17,16 +19,16 @@ public class VenueController {
     private VenueService venueService;
 
     @PostMapping("/search")
-    public List<Venue> searchForFoursquare(@RequestBody Request request) {
-        return venueService.searchVenues(request);
+    public ResponseEntity<List<VenueMapDTO>> searchForFoursquare(@RequestBody Request request) {
+        return ResponseEntity.ok(venueService.searchVenues(request));
     }
 
 
     @GetMapping("/searchBy")
-    public List<Venue> searchVenuesByCity(@RequestParam(value="query", required = false) String query,
-                                          @RequestParam(value ="city") String city){
+    public ResponseEntity<List<VenueMapDTO>> searchVenuesByCity(@RequestParam(value="query", required = false) String query,
+                                                                @RequestParam(value ="city") String city){
 
-        return venueService.searchVenuesByCity(query, city);
+        return ResponseEntity.ok(venueService.searchVenuesByCity(query, city));
 
     }
 

@@ -1,0 +1,29 @@
+<form [formGroup]="reservationForm" (ngSubmit)="reservation()">
+<div class="row">
+Podaj ilość rezerwowanych miejsc
+</div>
+<div class="row">
+<input type="number" min="1" max="10000" id="quantity" formControlName="quantity">
+<mat-error *ngIf="reservationForm.controls['quantity'].hasError('required')">
+  Pole <strong>wymagane</strong>
+</mat-error>
+</div>
+<div class="row">
+Podaj datę
+</div>
+<div class="row">
+<input type="datetime-local" id="date" formControlName="date">
+<mat-error *ngIf="reservationForm.controls['date'].hasError('required')">
+  Pole <strong>wymagane</strong>
+</mat-error>
+</div>
+<div class="row">
+Wiadomość (opcionalnie)
+</div>
+<div class="row">
+<textarea rows="4" cols="50"></textarea>
+</div>
+<div class="row">
+<button mat-raised-button color="primary" type="submit">Rezerwuj</button>
+</div>
+</form>

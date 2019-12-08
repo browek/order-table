@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col-sm-10 offset-sm-1 col-md-8 offset-md-2">
+    <mat-card>
+      <div class="text-center">
+        <button mat-raised-button color="primary" [routerLink]="['/restaurateur/myrestaurant']">Wróć</button>
+      </div>
+      <h2 class="text-center">Pytania o rezerwacje</h2>
+      <div *ngIf="reservationRequests.length === 0" class="text-center">
+        <span class="mat-body-strong">Brak pytań o rezerwacje</span>
+      </div>
+
+      <div *ngFor="let request of reservationRequests" role="listitem" class="row"  style=" font-size: 0.7rem">
+        <div class="col-6 offset-3">
+          <div>
+            Liczba osób: {{request.numberOfPersons}}
+          </div>
+          <div>
+            Data rezerwacji: {{request.dateAndTime | date :'medium'}}
+          </div>
+
+          <div *ngIf="request.message">
+            Załączona wiadomość: {{request.message}}
+          </div>
+        </div>
+        <div class="col-12 text-center" >
+          <button mat-button class="primary">Przyjmij</button>
+          <button mat-button class="warn">Odrzuć</button>
+        </div>
+      </div>
+
+    </mat-card>
+  </div>
+</div>
