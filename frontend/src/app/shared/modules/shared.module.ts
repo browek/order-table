@@ -23,6 +23,8 @@ import {
   MatProgressSpinnerModule,
   MatStepperModule,
   MatCardModule,
+  MatPaginatorModule,
+  MatSortModule,
 } from '@angular/material';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -60,6 +62,8 @@ library.add(
     MatProgressSpinnerModule,
     MatStepperModule,
     MatCardModule,
+    MatPaginatorModule,
+    MatSortModule,
     FontAwesomeModule
   ]
 })

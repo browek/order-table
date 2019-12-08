@@ -8,6 +8,7 @@ import { AppComponent } from './app-component/app.component';
 
 import { SharedModule } from '@shared/modules';
 import { AuthService, AccessTokenInterceptor } from '@shared/services';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { AuthService, AccessTokenInterceptor } from '@shared/services';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    ToastrModule.forRoot(),
     SharedModule,
     HttpClientModule,
     AppRoutingModule

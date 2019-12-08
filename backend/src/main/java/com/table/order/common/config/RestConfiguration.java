@@ -6,6 +6,7 @@ import org.springframework.data.rest.core.mapping.RepositoryDetectionStrategy;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapter;
 
 import com.table.order.common.security.model.User;
+import com.table.order.restaurateur.model.Restaurant;
 
 @Configuration
 public class RestConfiguration extends RepositoryRestConfigurerAdapter {
@@ -15,6 +16,9 @@ public class RestConfiguration extends RepositoryRestConfigurerAdapter {
         config.setRepositoryDetectionStrategy(RepositoryDetectionStrategy.RepositoryDetectionStrategies.DEFAULT);
         config.setBasePath("/api");
         
-        config.exposeIdsFor(User.class);
+        config.exposeIdsFor(
+    		User.class,
+    		Restaurant.class
+        );
     }
 }
