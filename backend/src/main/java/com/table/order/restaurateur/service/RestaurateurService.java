@@ -87,13 +87,13 @@ public class RestaurateurService {
     }
 
     public ReservationRequest acceptReservation(Long reservationId) {
-        ReservationRequest reservationRequest = reservationRequestRepository.findByLongId(reservationId);
+        ReservationRequest reservationRequest = reservationRequestRepository.getOne(reservationId);
         reservationRequest.setStatus(ReservationRequestStatus.ACCEPTED);
         return reservationRequestRepository.save(reservationRequest);
     }
 
     public ReservationRequest rejectReservation(Long reservationId) {
-        ReservationRequest reservationRequest = reservationRequestRepository.findByLongId(reservationId);
+        ReservationRequest reservationRequest = reservationRequestRepository.getOne(reservationId);
         reservationRequest.setStatus(ReservationRequestStatus.REJECTED);
         return reservationRequestRepository.save(reservationRequest);
     }
