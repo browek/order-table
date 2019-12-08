@@ -20,6 +20,9 @@ import {
   MatGridListModule,
   MatToolbarModule,
   MatListModule,
+  MatProgressSpinnerModule,
+  MatStepperModule,
+  MatCardModule,
 } from '@angular/material';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -54,6 +57,9 @@ library.add(
     MatRadioModule,
     MatTableModule,
     MatGridListModule,
+    MatProgressSpinnerModule,
+    MatStepperModule,
+    MatCardModule,
     FontAwesomeModule
   ]
 })

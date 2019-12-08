@@ -16,7 +16,7 @@ const appRoutes: Routes = [
     loadChildren: '@features/admin-panel/admin-panel.module#AdminPanelModule'
   },
   {
-    path: 'restaurateur',
+    path: 'restaurant-panel',
     loadChildren: '@features/restaurateur-panel/restaurateur-panel.module#RestaurateurPanelModule'
   },
   {

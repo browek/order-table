@@ -1,5 +1,5 @@
 CREATE TABLE `restaurant` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `api_id` VARCHAR(64) NOT NULL,
   `name` VARCHAR(256) NULL,
   `city` VARCHAR(256) NULL,

@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '@app/shared/services';
-import { MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-reservation-dialog',
@@ -12,7 +10,7 @@ export class ReservationDialogComponent implements OnInit {
 
   public reservationForm: FormGroup;
 
-  constructor(private authService: AuthService, public dialogRef: MatDialogRef<ReservationDialogComponent>) { }
+  constructor() { }
 
   ngOnInit() {
     this.reservationForm = new FormGroup({
@@ -21,7 +19,4 @@ export class ReservationDialogComponent implements OnInit {
     });
   }
 
-  reservation() {
-
-  }
 }

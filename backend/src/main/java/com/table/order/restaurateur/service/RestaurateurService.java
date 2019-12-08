@@ -14,8 +14,8 @@ import com.table.order.common.util.StringUtils;
 import com.table.order.foursquare.FoursquareService;
 import com.table.order.foursquare.model.FoundVenue;
 import com.table.order.foursquare.model.VenueDetails;
-import com.table.order.restaurant.model.Restaurant;
 import com.table.order.restaurateur.exception.IncorrectRestaurantDataException;
+import com.table.order.restaurateur.model.Restaurant;
 import com.table.order.restaurateur.repository.RestaurantRepository;
 
 @Service

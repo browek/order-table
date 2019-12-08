@@ -1,8 +1,7 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
-import {environment} from '../../../environments/environment';
-import {Venue, VenueWithDetails} from '../model/resturateur-venue-models';
-import {Observable} from 'rxjs';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Venue, VenueWithDetails } from '../model/resturateur-venue-models';
 
 @Injectable({
   providedIn: 'root'
@@ -24,10 +23,6 @@ export class RestaurateurService {
       params: new HttpParams().set('foursquare_id', restaurantVenueId)
     });
   }
-
-  // getMyRestaurant(): Observable<VenueWithDetails> {
-  //   return this.http.get<VenueWithDetails>(`/api/restaurants/own`);
-  // } // TODO
 
   unassignRestaurant(): Observable<void> {
     return this.http.put<void>(`/api/restaurants/unassign`, null);

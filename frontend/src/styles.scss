@@ -1,1 +1,9 @@
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
+@import '~@angular/material/theming';
+
+$bg-color: #424242;
+
+.layout-container {
+  @include mat-elevation(5);
+  background-color: lighten($bg-color, 20%);
+}

@@ -1,11 +1,27 @@
-import { RestaurateurPanelComponent } from './components/restaurateur-panel/restaurateur-panel.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {ReservationRequestsComponent} from '@features/restaurateur-panel/components/reservation-requests/reservation-requests.component';
+import { RestaurateurLayoutComponent, ReservationRequestsComponent, AssignRestaurantComponent } from './components';
 
 const routes: Routes = [
-  { path: 'myrestaurant', pathMatch: 'full', component: RestaurateurPanelComponent },
-  { path: 'reservations/questions', component: ReservationRequestsComponent }
+  {
+    path: '',
+    component: RestaurateurLayoutComponent,
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'reservations'
+      },
+      {
+        path: 'reservations',
+        component: ReservationRequestsComponent,
+      },
+      {
+        path: 'assign-restaurant',
+        component: AssignRestaurantComponent
+      }
+    ]
+  }
 ];
 
 @NgModule({

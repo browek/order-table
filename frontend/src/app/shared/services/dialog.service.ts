@@ -1,8 +1,8 @@
+import { ReservationDialogComponent } from '@features/home/components/reservation-dialog/reservation-dialog.component';
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { LoginDialogComponent } from '@features/home/components/login-dialog/login-dialog.component';
 import { RegisterDialogComponent } from '@features/home/components/register-dialog/register-dialog.component';
-import { ReservationDialogComponent } from '@app/feature-modules/home/components/reservation-dialog/reservation-dialog.component';
 
 @Injectable({
   providedIn: 'root'
@@ -35,7 +35,5 @@ export class DialogService {
   closeAllDialogs() {
     this.dialog.closeAll();
   }
-
-
 
 }

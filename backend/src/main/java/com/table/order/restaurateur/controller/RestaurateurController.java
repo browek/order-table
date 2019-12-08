@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.table.order.restaurant.model.Restaurant;
+import com.table.order.restaurateur.model.Restaurant;
 import com.table.order.restaurateur.service.RestaurateurService;
 
 @RepositoryRestController

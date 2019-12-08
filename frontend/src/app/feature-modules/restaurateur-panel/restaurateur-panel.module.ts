@@ -1,37 +1,27 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {RestaurateurService} from '../../shared/services/restaurateur.service';
-import { RestaurateurPanelComponent } from './components/restaurateur-panel/restaurateur-panel.component';
-import {
-  MatButtonModule,
-  MatCardModule,
-  MatFormFieldModule,
-  MatInputModule, MatListModule,
-  MatProgressSpinnerModule,
-  MatStepperModule
-} from '@angular/material';
-import { MyRestaurantComponent } from './components/restaurateur-panel/subcomponents/my-restaurant/my-restaurant.component';
-import { AssignRestaurantComponent } from './components/restaurateur-panel/subcomponents/assign-restaurant/assign-restaurant.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { NgModule } from '@angular/core';
+import { SideNavLayoutModule, SharedModule } from '@app/shared/modules';
+import { RestaurateurService } from '@shared/services/restaurateur.service';
 import { RestaurantRoutingModule } from './restaurant-routing.module';
-import { ReservationRequestsComponent } from './components/reservation-requests/reservation-requests.component';
+import {
+  RestaurateurLayoutComponent,
+  AssignRestaurantComponent,
+  ReservationRequestsComponent
+} from './components';
 
 @NgModule({
+  declarations: [
+    RestaurateurLayoutComponent,
+    AssignRestaurantComponent,
+    ReservationRequestsComponent
+  ],
   imports: [
     CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatCardModule,
-    MatProgressSpinnerModule,
-    MatStepperModule,
-    MatListModule,
+    SharedModule,
+    SideNavLayoutModule,
     RestaurantRoutingModule
   ],
-  declarations: [RestaurateurPanelComponent, MyRestaurantComponent, AssignRestaurantComponent, ReservationRequestsComponent],
   providers: [RestaurateurService],
-  exports: [RestaurateurPanelComponent]
+  exports: []
 })
 export class RestaurateurPanelModule { }
