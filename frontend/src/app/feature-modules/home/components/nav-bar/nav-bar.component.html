@@ -2,9 +2,9 @@
 <mat-menu #menu="matMenu">
   <button *ngIf="!isLogged()" mat-menu-item (click)="loginDialog()">Logowanie</button>
   <button *ngIf="!isLogged()" mat-menu-item (click)="registerDialog()">Rejestracja</button>
-  <button *ngIf="isAdmin()" mat-menu-item routerLink="/admin-panel" routerLinkActive="router-link-active">Panel
-    Administracyjny</button>
-  <button *ngIf="isClient()" mat-menu-item>Panel Użytkownika</button>
+  <button *ngIf="isAdmin()" mat-menu-item routerLink="/admin-panel">Panel Administracyjny</button>
+  <button mat-menu-item routerLink="/home/map" routerLinkActive="link-active">Szukaj miejsc</button>
+  <button mat-menu-item routerLink="/home/reservations" routerLinkActive="link-active">Moje rezerwacje</button>
   <button *ngIf="isRestaurateur()" mat-menu-item routerLink="/restaurant-panel">Panel Restauratora</button>
   <button *ngIf="isLogged()" mat-menu-item (click)="logout()">Wyloguj</button>
 </mat-menu>

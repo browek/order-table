@@ -1,6 +1,9 @@
-@import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
 @import '~@angular/material/theming';
+@import 'variables';
 @import '~ngx-toastr/toastr.css';
+
+@include mat-core();
+@include angular-material-theme($darkTheme);
 
 $bg-color: #424242;
 

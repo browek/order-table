@@ -1,7 +1,10 @@
-import { LayoutComponent } from './components';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MainPageComponent } from './components';
+import {
+  MainPageComponent,
+  UserReservationsComponent,
+  LayoutComponent
+} from './components';
 
 const routes: Routes = [
   {
@@ -15,6 +18,10 @@ const routes: Routes = [
       {
         path: 'map',
         component: MainPageComponent,
+      },
+      {
+        path: 'reservations',
+        component: UserReservationsComponent
       }
     ]
   }

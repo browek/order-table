@@ -2,7 +2,7 @@
 
   <div class="row input-row-container">
     <mat-form-field class="input">
-      <input matInput placeholder="Wyszukaj miejsce" [(ngModel)]="userQuery">
+      <input matInput placeholder="Wyszukaj" [(ngModel)]="userQuery">
     </mat-form-field>
     <div class="icon">
       <button mat-icon-button (click)="findVenues()" [disabled]="!userQuery.length" color="primary">

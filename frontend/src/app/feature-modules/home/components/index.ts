@@ -4,3 +4,4 @@ export * from './nav-bar/nav-bar.component';
 export * from './register-dialog/register-dialog.component';
 export * from './reservation-dialog/reservation-dialog.component';
 export * from './layout/layout.component';
+export * from './user-reservations/user-reservations.component';

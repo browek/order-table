@@ -1,3 +1,9 @@
+@import "~@angular/material/theming";
 $sidenav-bg-color: rgba(52, 60, 95, 0.315);
 
 $bg-img-path: '/assets/background/5.jpg';
+
+$primaryDark: mat-palette($mat-pink);
+$accentDark:  mat-palette($mat-blue-grey, A200, A100, A400);
+$warnDark:    mat-palette($mat-red);
+$darkTheme: mat-dark-theme($primaryDark, $accentDark, $warnDark);

@@ -18,6 +18,7 @@ import { SharedModule } from '@shared/modules/shared.module';
 import { CompareValidatorDirective } from '@shared/validators/compare-validator.directive';
 import { VenueService } from '@shared/services/venue.service';
 import { SidenavService } from '@app/shared/modules/side-nav-layout/services';
+import { UserReservationsComponent } from './components/user-reservations/user-reservations.component';
 // import {ReservationService} from '@shared/services/reservation.service';
 
 @NgModule({
@@ -28,7 +29,8 @@ import { SidenavService } from '@app/shared/modules/side-nav-layout/services';
     MainPageComponent,
     CompareValidatorDirective,
     ReservationDialogComponent,
-    LayoutComponent
+    LayoutComponent,
+    UserReservationsComponent
   ],
   imports: [
     SharedModule,
