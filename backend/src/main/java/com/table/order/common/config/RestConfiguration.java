@@ -7,18 +7,20 @@ import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapt
 
 import com.table.order.common.security.model.User;
 import com.table.order.restaurateur.model.ActivatedRestaurant;
+import com.table.order.restaurateur.model.Restaurant;
 
 @Configuration
 public class RestConfiguration extends RepositoryRestConfigurerAdapter {
 
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
-        config.setRepositoryDetectionStrategy(RepositoryDetectionStrategy.RepositoryDetectionStrategies.DEFAULT);
+        config.setRepositoryDetectionStrategy(RepositoryDetectionStrategy.RepositoryDetectionStrategies.ANNOTATED);
         config.setBasePath("/api");
         
         config.exposeIdsFor(
     		User.class,
-    		ActivatedRestaurant.class
+    		ActivatedRestaurant.class,
+    		Restaurant.class
         );
     }
 }

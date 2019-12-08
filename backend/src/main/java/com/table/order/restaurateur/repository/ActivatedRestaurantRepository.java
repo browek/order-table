@@ -17,6 +17,7 @@ public interface ActivatedRestaurantRepository extends JpaRepository<ActivatedRe
     boolean existsByApiId(String apiId);
     
     @Override
-    @Query("SELECT r FROM Restaurant r WHERE r.owner.username = ?#{ authentication?.name }")
+    @Query("SELECT r FROM Restaurant r WHERE r.owner.username = ?#{ authentication?.name } "
+    		+ "AND r.active = true")
     Page<ActivatedRestaurant> findAll(Pageable pageable);
 }
