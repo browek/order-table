@@ -1,7 +1,7 @@
 package com.table.order.common.model;
 
 import com.table.order.common.security.model.User;
-import com.table.order.restaurateur.model.Restaurant;
+import com.table.order.restaurateur.model.ActivatedRestaurant;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,7 +30,7 @@ public class ReservationRequest implements Activated {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "restaurant_id")
-    private Restaurant restaurant;
+    private ActivatedRestaurant restaurant;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservation")
     private Set<Notification> notifications;

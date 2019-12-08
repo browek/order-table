@@ -6,7 +6,7 @@ import org.springframework.data.rest.core.mapping.RepositoryDetectionStrategy;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapter;
 
 import com.table.order.common.security.model.User;
-import com.table.order.restaurateur.model.Restaurant;
+import com.table.order.restaurateur.model.ActivatedRestaurant;
 
 @Configuration
 public class RestConfiguration extends RepositoryRestConfigurerAdapter {
@@ -18,7 +18,7 @@ public class RestConfiguration extends RepositoryRestConfigurerAdapter {
         
         config.exposeIdsFor(
     		User.class,
-    		Restaurant.class
+    		ActivatedRestaurant.class
         );
     }
 }

@@ -1,7 +1,7 @@
 package com.table.order.common.service;
 
 import com.table.order.common.repository.NotificationRepository;
-import com.table.order.restaurateur.model.Restaurant;
+import com.table.order.restaurateur.model.ActivatedRestaurant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ public class NotificationService {
 
     private NotificationRepository notificationRepository;
 
-    public void sendReservationRecived(Restaurant restaurant) {
+    public void sendReservationRecived(ActivatedRestaurant restaurant) {
         log.error(getClass().getSimpleName() + "sendReservationReceived not implemented yey.");
     }
 

@@ -1,70 +1,66 @@
 package com.table.order.restaurateur.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.table.order.common.model.Activated;
-import com.table.order.common.model.ReservationRequest;
-import com.table.order.common.security.model.User;
-import lombok.Data;
-import org.hibernate.annotations.Where;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Objects;
-import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.table.order.common.security.model.User;
+
+import lombok.Data;
 
 @Entity
 @Data
-@Where(clause = "active='1'")
-public class Restaurant implements Activated {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(discriminatorType = DiscriminatorType.INTEGER, name = "restaurant_type_id", columnDefinition = "BIT(1)")
+@DiscriminatorValue("0")
+public class Restaurant {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 
-    @Column(unique = true, name = "api_id")
-    private String apiId;
+	@Column(unique = true, name = "api_id")
+	private String apiId;
 
-    private String name;
+	private String name;
 
-    private String city;
+	private String city;
 
-    private String street;
+	private String street;
 
-    @NotNull
-    @ManyToOne(optional = false)
-    @JsonIgnore
-    private User owner;
+	private boolean active;
+	
+	@NotNull
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JsonIgnore
+	private User owner;
+	
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		Restaurant that = (Restaurant) o;
+		return Objects.equals(id, that.id);
+	}
 
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurant")
-    private Set<ReservationRequest> reservationRequests;
+	@Override
+	public int hashCode() {
 
-    private boolean active = true;
-
-    @Override
-    public boolean isActive() {
-        return this.active;
-    }
-
-    @Override
-    public void setActive(boolean value) {
-        this.active = value;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Restaurant that = (Restaurant) o;
-        return Objects.equals(id, that.id);
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(id);
-    }
-
+		return Objects.hash(id);
+	}
 }

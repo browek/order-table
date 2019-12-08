@@ -1,7 +1,7 @@
 package com.table.order.restaurateur.controller;
 
-import com.table.order.common.exceptions.VenueException;
-import com.table.order.foursquare.model.FoundVenue;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.http.HttpStatus;
@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.table.order.common.exceptions.VenueException;
+import com.table.order.foursquare.model.FoundVenue;
 import com.table.order.restaurateur.model.Restaurant;
 import com.table.order.restaurateur.service.RestaurateurService;
-
-import java.util.Set;
 
 @RepositoryRestController
 @RequestMapping("/api/restaurants")
@@ -33,7 +33,7 @@ public class RestaurateurController {
     public ResponseEntity<Restaurant> assignRestaurantToRestauretur(
     		@RequestParam("foursquare_id") String foursquareRestaurantId) throws VenueException {
 
-        Restaurant restaurant = restaurateurService.saveRestaurantWithCurrentUser(foursquareRestaurantId);
+    	Restaurant restaurant = restaurateurService.saveRestaurantWithCurrentUser(foursquareRestaurantId);
     	return new ResponseEntity<>(restaurant, HttpStatus.OK);
     }
 

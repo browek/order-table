@@ -1,12 +1,11 @@
 package com.table.order.restaurateur.service;
 
 import java.util.Set;
-import java.util.stream.Collectors;
 
-import com.table.order.client.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.table.order.client.service.ClientService;
 import com.table.order.common.exceptions.VenueException;
 import com.table.order.common.model.ReservationRequest;
 import com.table.order.common.model.ReservationRequestStatus;
@@ -18,7 +17,9 @@ import com.table.order.foursquare.FoursquareService;
 import com.table.order.foursquare.model.FoundVenue;
 import com.table.order.foursquare.model.VenueDetails;
 import com.table.order.restaurateur.exception.IncorrectRestaurantDataException;
+import com.table.order.restaurateur.model.ActivatedRestaurant;
 import com.table.order.restaurateur.model.Restaurant;
+import com.table.order.restaurateur.repository.ActivatedRestaurantRepository;
 import com.table.order.restaurateur.repository.RestaurantRepository;
 
 @Service
@@ -26,19 +27,21 @@ public class RestaurateurService {
 
     private FoursquareService foursquareService;
     private UserHelper userHelper;
-    private RestaurantRepository restaurantRepository; 
+    private ActivatedRestaurantRepository activatedRestaurantRepository;
+    private RestaurantRepository restaurantRepository;
     private ReservationRequestRepository reservationRequestRepository;
+    private ClientService clientService;
 
     @Autowired
-    ClientService clientService;
-
-    @Autowired
-    public RestaurateurService(FoursquareService foursquareService, UserHelper userHelper,
-			RestaurantRepository restaurantRepository, ReservationRequestRepository reservationRequestRepository) {
+    public RestaurateurService(FoursquareService foursquareService, UserHelper userHelper, 
+    		RestaurantRepository restaurantRepository,  ClientService clientService,
+			ActivatedRestaurantRepository activatedRestaurantRepository, ReservationRequestRepository reservationRequestRepository) {
 		this.foursquareService = foursquareService;
 		this.userHelper = userHelper;
+		this.activatedRestaurantRepository = activatedRestaurantRepository;
 		this.restaurantRepository = restaurantRepository;
 		this.reservationRequestRepository = reservationRequestRepository;
+		this.clientService = clientService;
 	}
 
 	public Set<FoundVenue> searchForRestaurant(String restaurant, String city) throws VenueException {
@@ -53,7 +56,8 @@ public class RestaurateurService {
             throw new IncorrectRestaurantDataException();
         }
         
-        Restaurant restaurant = findRestaurantOrGetNewIfNotExists(venueId);
+        Restaurant restaurant = findRestaurantOrCreateIfNotExists(venueId);
+        restaurant.setActive(true);
         User loggedUser = userHelper.getLoggedUser();
         
         restaurant.setOwner(loggedUser);
@@ -61,7 +65,7 @@ public class RestaurateurService {
 		return restaurantRepository.save(restaurant);
     }
     
-    private Restaurant findRestaurantOrGetNewIfNotExists(String venueId) throws VenueException {
+    private Restaurant findRestaurantOrCreateIfNotExists(String venueId) throws VenueException {
     	Restaurant restaurant = restaurantRepository.findByApiId(venueId);
     	
     	if (restaurant != null)
@@ -82,8 +86,8 @@ public class RestaurateurService {
         return restaurant;
     }
 
-    public Restaurant getRestaurantByApiId(String apiId) {
-        return restaurantRepository.findByApiId(apiId);
+    public ActivatedRestaurant getRestaurantByApiId(String apiId) {
+        return activatedRestaurantRepository.findByApiId(apiId);
     }
 
     public ReservationRequest acceptReservation(Long reservationId) {
@@ -99,13 +103,13 @@ public class RestaurateurService {
     }
 
     public boolean restaurantIsRegistered(String venueApiId) {
-        return restaurantRepository.existsByApiId(venueApiId);
+        return activatedRestaurantRepository.existsByApiId(venueApiId);
     }
 
-    public Restaurant deleteRestaurant(Restaurant restaurant) {
+    public ActivatedRestaurant deleteRestaurant(ActivatedRestaurant restaurant) {
         restaurant.setActive(false);
-        restaurant.getReservationRequests().stream().map(r -> clientService.deleteReservation(r)).collect(Collectors.toList());
-        return restaurantRepository.save(restaurant);
+        restaurant.getReservationRequests().forEach(r -> clientService.deleteReservation(r));
+        return activatedRestaurantRepository.save(restaurant);
     }
 
 }

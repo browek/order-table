@@ -5,7 +5,7 @@ import com.table.order.common.model.ReservationRequest;
 import com.table.order.common.model.ReservationRequestStatus;
 import com.table.order.common.repository.ReservationRequestRepository;
 import com.table.order.common.security.model.User;
-import com.table.order.restaurateur.model.Restaurant;
+import com.table.order.restaurateur.model.ActivatedRestaurant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +15,7 @@ public class ReservationService {
     private ReservationRequestRepository reservationRequestRepository;
     private NotificationService notificationService;
 
-    public ReservationRequest saveNew(NewReservation newReservation, User client, Restaurant restaurant) {
+    public ReservationRequest saveNew(NewReservation newReservation, User client, ActivatedRestaurant restaurant) {
         ReservationRequest reservationRequest = new ReservationRequest();
         reservationRequest.setClient(client);
         reservationRequest.setRestaurant(restaurant);

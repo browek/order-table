@@ -1,13 +1,7 @@
 package com.table.order.common.service;
 
-import com.google.common.collect.Sets;
-import com.table.order.client.service.ClientService;
-import com.table.order.common.exceptions.UsernameAlreadyExistsException;
-import com.table.order.common.repository.UserRepository;
-import com.table.order.common.security.model.Role;
-import com.table.order.common.security.model.User;
-import com.table.order.common.security.model.UserCredentials;
-import com.table.order.restaurateur.service.RestaurateurService;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,8 +10,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
-import java.util.stream.Collectors;
+import com.google.common.collect.Sets;
+import com.table.order.client.service.ClientService;
+import com.table.order.common.exceptions.UsernameAlreadyExistsException;
+import com.table.order.common.repository.UserRepository;
+import com.table.order.common.security.model.Role;
+import com.table.order.common.security.model.User;
+import com.table.order.common.security.model.UserCredentials;
+import com.table.order.restaurateur.service.RestaurateurService;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -81,13 +81,14 @@ public class UserService implements UserDetailsService {
     }
 
     public User deleteUser(Long id) {
-        User user = userRepository.findByLongId(id);
-        if (!user.isActive()) {
+        User user = userRepository.getOne(id);
+        if (user == null || !user.isActive()) {
             throw new UsernameNotFoundException("User does not exist");
         }
         user.setActive(false);
-        user.getRestaurants().stream().map(restaurant -> restaurateurService.deleteRestaurant(restaurant)).collect(Collectors.toList());
-        user.getSendReservationRequests().stream().map(reservation -> clientService.deleteReservation(reservation)).collect(Collectors.toList());
+        user.getRestaurants().forEach(restaurant -> restaurateurService.deleteRestaurant(restaurant));
+        user.getSendReservationRequests().forEach(reservation -> clientService.deleteReservation(reservation));
+        
         return userRepository.save(user);
     }
 
