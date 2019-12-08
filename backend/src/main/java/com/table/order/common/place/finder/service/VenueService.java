@@ -1,5 +1,14 @@
 package com.table.order.common.place.finder.service;
 
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
 import com.table.order.common.model.dto.VenueMapDTO;
 import com.table.order.common.place.finder.model.Location;
 import com.table.order.common.place.finder.model.Request;
@@ -9,15 +18,6 @@ import com.table.order.common.place.finder.model.froursquare.dto.Item;
 import com.table.order.common.place.finder.model.froursquare.dto.ResponseFromFoursquare;
 import com.table.order.common.place.finder.model.froursquare.dto.VenueDTO;
 import com.table.order.common.service.UserService;
-import org.checkerframework.checker.units.qual.A;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 public class VenueService {

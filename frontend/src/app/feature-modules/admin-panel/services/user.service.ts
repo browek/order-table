@@ -18,8 +18,12 @@ export class UserService {
     return this.http.delete(`/api/users/${id}`);
   }
 
-  banUser(user: User) {
-    return this.http.put(`/api/users/${user.id}`, user);
+  disableUser(userId: number) {
+    const params = {
+      userId: userId + ''
+    };
+
+    return this.http.get('/api/users/search/disableUserAccount', { params: params });
   }
 
 }

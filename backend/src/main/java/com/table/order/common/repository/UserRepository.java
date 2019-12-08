@@ -10,6 +10,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 @RepositoryRestResource(collectionResourceRel = "users", path = "users")
 public interface UserRepository extends CrudRepository<User, Long> {
 
@@ -37,4 +39,9 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     @Query("SELECT U.restaurantApiId FROM User U WHERE U.restaurantApiId = :restaurantId")
     String findRestaurantIdIfExists(@Param("restaurantId") String restaurantId);
+    
+    @Transactional
+	@Modifying
+	@Query("UPDATE User user SET user.enabled = 0 WHERE user.id = :userId")
+    public int disableUserAccount(@Param("userId") Long id);
 }

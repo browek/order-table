@@ -1,9 +1,13 @@
 package com.table.order.SecurityTest;
 
-import com.table.order.common.security.exception.UnauthorizedException;
-import com.table.order.common.service.RoleService;
-import com.table.order.common.service.UserService;
-import com.table.order.common.service.helper.UserHelper;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -11,16 +15,14 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.table.order.common.repository.UserRepository;
+import com.table.order.common.security.exception.UnauthorizedException;
 import com.table.order.common.security.model.Role;
 import com.table.order.common.security.model.User;
 import com.table.order.common.security.model.UserCredentials;
-import com.table.order.common.repository.UserRepository;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import com.table.order.common.service.RoleService;
+import com.table.order.common.service.UserService;
+import com.table.order.common.service.helper.UserHelper;
 
 
 public class UserServiceImplTest {

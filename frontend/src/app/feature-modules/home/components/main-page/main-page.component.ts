@@ -47,20 +47,15 @@ export class MainPageComponent implements OnInit {
       query: this.userQuery
     }).subscribe(response => {
       this.arrVenues = response;
-      console.log(this.arrVenues);
     });
   }
 
   getLocation() {
     if (this.geo) {
       this.geo.getCurrentPosition((location) => {
-        console.log('Szerokość ' + location.coords.latitude);
-        console.log('Długość ' + location.coords.longitude);
         this.latitude = location.coords.latitude;
         this.longitude = location.coords.longitude;
       });
-    } else {
-      console.log('niedostępny');
     }
   }
 

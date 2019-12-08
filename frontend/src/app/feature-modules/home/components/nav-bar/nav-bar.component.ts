@@ -42,19 +42,6 @@ export class NavBarComponent implements OnInit {
     this.authService.logout();
   }
 
-  openAdminPanel(): void { // TODO remove that
-    console.log('TODO remove that');
-  //   const dialogRef = this.dialog.open(AdminPanelComponent, {
-  //     width: '700px',
-
-  //   });
-
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     console.log('The dialog was closed');
-
-  //   });
-  }
-
 }
 
 

@@ -12,8 +12,17 @@ const appRoutes: Routes = [
     loadChildren: '@features/home/home.module#HomeModule'
   },
   {
+    path: 'admin-panel',
+    loadChildren: '@features/admin-panel/admin-panel.module#AdminPanelModule'
+  },
+  {
     path: 'restaurateur',
     loadChildren: '@features/restaurateur-panel/restaurateur-panel.module#RestaurateurPanelModule'
+  },
+  {
+    path: '**',
+    redirectTo: 'home',
+    pathMatch: 'full'
   }
 ];
 
