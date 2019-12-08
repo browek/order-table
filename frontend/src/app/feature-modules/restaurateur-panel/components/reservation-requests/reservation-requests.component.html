@@ -1,0 +1,28 @@
+<div class="container p-4 mt-4 layout-container">
+  <h2 class="text-center">Pytania o rezerwacje</h2>
+  <div *ngIf="reservationRequests.length === 0" class="text-center">
+    <span class="mat-body-strong">Brak pytań o rezerwacje</span>
+  </div>
+
+  <div class="row">
+
+    <div class="col-12 col-md-4 mt-3" *ngFor="let request of reservationRequests">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-subtitle>Data rezerwacji: {{request.dateAndTime | date :'medium'}}</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+          <p>Liczba osób: {{request.numberOfPersons}}</p>
+          <p>Załączona wiadomość: {{request.message}}</p>
+        </mat-card-content>
+
+        <mat-card-actions>
+          <button mat-raised-button color="primary">LIKE</button>
+          <button mat-raised-button color="warn">Odrzuć</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+
+  </div>
+</div>

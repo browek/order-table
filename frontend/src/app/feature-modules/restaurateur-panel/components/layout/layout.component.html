@@ -1,0 +1,12 @@
+<app-layout [toolbarColor]="'accent'">
+  <span header>Panel restauratora</span>
+
+  <div nav-list-items>
+    <a mat-list-item routerLink="reservations">Rezerwacje</a>
+    <a mat-list-item routerLink="assign-restaurant">Dodaj restauracje</a>
+  </div>
+
+  <div sidenav-content>
+    <router-outlet></router-outlet>
+  </div>
+</app-layout>
