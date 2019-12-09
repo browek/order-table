@@ -43,7 +43,7 @@ export class RestaurantsComponent implements OnInit {
         map((data: any) => {
           this.resultsLength = data.page.totalElements;
 
-          return data._embedded.restaurants;
+          return data._embedded.activatedRestaurants;
         }),
         catchError(() => {
           return of([]);

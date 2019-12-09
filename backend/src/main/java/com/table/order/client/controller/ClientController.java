@@ -2,10 +2,13 @@ package com.table.order.client.controller;
 
 
 import com.table.order.client.model.NewReservation;
+import com.table.order.common.model.dto.NotificationDTO;
 import com.table.order.client.service.ClientService;
 import com.table.order.common.security.exception.UnauthorizedException;
 import com.table.order.restaurateur.exception.IncorrectRestaurantDataException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,6 +20,12 @@ public class ClientController {
 
     @Autowired
     private ClientService clientService;
+
+    @PreAuthorize("hasAuthority('ROLE_CLIENT')")
+    @GetMapping("/notifications")
+    public ResponseEntity<Page<NotificationDTO>> getNotifications(Pageable pageable) {
+        return ResponseEntity.ok(this.clientService.getNotifications(pageable));
+    }
 
     @PreAuthorize("hasAuthority('ROLE_CLIENT')")
     @PostMapping("/sendReservationRequest")

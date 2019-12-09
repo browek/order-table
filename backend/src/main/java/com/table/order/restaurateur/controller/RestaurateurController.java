@@ -4,10 +4,13 @@ import java.util.List;
 import java.util.Set;
 
 import com.table.order.common.model.ReservationRequestStatus;
+import com.table.order.common.model.dto.NotificationDTO;
 import com.table.order.common.model.dto.ReservationDTO;
 import com.table.order.common.security.exception.UnauthorizedException;
 import com.table.order.restaurateur.model.dto.AcceptRejectReservationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +31,12 @@ public class RestaurateurController {
     @Autowired
     public RestaurateurController(RestaurateurService restaurateurService) {
         this.restaurateurService = restaurateurService;
+    }
+
+    @PreAuthorize("hasRole('ROLE_RESTAURATEUR')")
+    @GetMapping("/notifications")
+    public ResponseEntity<Page<NotificationDTO>> getNotifications(Pageable pageable) {
+        return ResponseEntity.ok(this.restaurateurService.getNotifications(pageable));
     }
 
     @PreAuthorize("hasRole('ROLE_RESTAURATEUR')")

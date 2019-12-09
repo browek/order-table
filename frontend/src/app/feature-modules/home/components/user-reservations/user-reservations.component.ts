@@ -22,7 +22,6 @@ export class UserReservationsComponent implements OnInit {
     this.reservationService.getClientReservations()
       .subscribe((response: any) => {
         this.arrReservations = response._embedded.reservationRequests || [];
-        console.log(this.arrReservations);
       });
   }
 

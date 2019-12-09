@@ -28,7 +28,7 @@ export class ReservationRequestsComponent implements OnInit {
   ngOnInit() {
     this.restaurateurService.getRestaurants()
       .subscribe((restaurants: any) => {
-        this.restaurants = restaurants._embedded.restaurants;
+        this.restaurants = restaurants._embedded.activatedRestaurants;
 
         this.restaurantsLoading = false;
         this.restaurantsLoadingError = false;

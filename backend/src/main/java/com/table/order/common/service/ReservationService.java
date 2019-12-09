@@ -4,6 +4,7 @@ import com.table.order.client.model.NewReservation;
 import com.table.order.common.model.ReservationRequest;
 import com.table.order.common.model.ReservationRequestStatus;
 import com.table.order.common.repository.ReservationRequestRepository;
+import com.table.order.common.security.exception.UnauthorizedException;
 import com.table.order.common.security.model.User;
 import com.table.order.restaurateur.model.ActivatedRestaurant;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,16 @@ public class ReservationService {
 
         notificationService.sendReservationRecived(restaurant);
         return savedReservation;
+    }
+
+    public ReservationRequest changeStateOfReservation(Long id, ReservationRequestStatus status, String message) throws UnauthorizedException {
+        ReservationRequest reservationRequest = reservationRequestRepository.getOne(id);
+        reservationRequest.setStatus(status);
+        reservationRequest.setMessage(message);
+
+        notificationService.sendForClient(reservationRequest);
+
+        return reservationRequestRepository.save(reservationRequest);
     }
 
     private String validateMessage(String message) {

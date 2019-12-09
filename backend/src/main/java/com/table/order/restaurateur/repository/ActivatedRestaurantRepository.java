@@ -9,7 +9,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import com.table.order.restaurateur.model.ActivatedRestaurant;
 
-@RepositoryRestResource(collectionResourceRel = "restaurants", path = "restaurants")
+@RepositoryRestResource(path = "restaurants")
 public interface ActivatedRestaurantRepository extends PagingAndSortingRepository<ActivatedRestaurant, Integer> {
 
 	ActivatedRestaurant findByApiId(@Param("apiId") String apiId);

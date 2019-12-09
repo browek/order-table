@@ -1,5 +1,6 @@
 package com.table.order.common.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -34,4 +35,15 @@ public interface ReservationRequestRepository extends JpaRepository<ReservationR
     List<ReservationDTO> findAllByRestaurantIdAndStatus(@Param("restaurantId") Integer restaurantId,
                                                         @Param("status") ReservationRequestStatus status,
                                                         @Param("ownerUsername") String ownerUsername);
+    
+    @Query("SELECT r FROM ReservationRequest r "
+    		+ "WHERE r.restaurant.owner.username = ?#{ authentication?.name } "
+    		+ "AND (r.reservationDateTime >= :dateFrom "
+    		+ "AND r.reservationDateTime <= :dateTo "
+    		+ "AND r.restaurant.id = :restaurantId)")
+    List<ReservationRequest> findAllByDateFromAndDateToAndRestaurantId(
+    		@Param("dateFrom") Date dateFrom,
+            @Param("dateTo") Date dateTo,
+            @Param("restaurantId") int restaurantId
+    );
 }
