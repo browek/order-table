@@ -4,4 +4,5 @@ export interface ReservationRequest {
   clientUsername: string;
   dateAndTime: Date;
   message?: string;
+  backMessage?: string;
 }

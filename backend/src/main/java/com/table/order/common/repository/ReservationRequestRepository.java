@@ -1,25 +1,23 @@
 package com.table.order.common.repository;
 
-import com.table.order.common.model.ReservationRequestStatus;
-import com.table.order.common.model.dto.ReservationDTO;
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import com.table.order.common.model.ReservationRequest;
+import com.table.order.common.model.ReservationRequestStatus;
+import com.table.order.common.model.dto.ReservationDTO;
 
-import java.util.List;
-import java.util.Set;
-
-@Repository
+@RepositoryRestResource
 public interface ReservationRequestRepository extends JpaRepository<ReservationRequest, Long> {
 
-    @Override
     @Query("SELECT r FROM ReservationRequest r WHERE r.client.username = ?#{ authentication?.name }")
-    Page<ReservationRequest> findAll(Pageable pageable);
+    Page<ReservationRequest> findByCurrentClient(Pageable pageable);
 
     boolean existsByRestaurantOwnerUsernameAndId(String username, Long id);
 

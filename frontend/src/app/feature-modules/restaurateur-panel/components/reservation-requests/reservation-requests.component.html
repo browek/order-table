@@ -29,11 +29,13 @@
         </mat-form-field>
       </div>
 
-      <div *ngIf="reservationRequests.length === 0 && !!selectedRestaurantId && !reservationRequestsLoading" class="text-center mt-2">
-        <span class="mat-subheading-2">
-          Brak pytań o rezerwacje
-        </span>
-      </div>
+      <ng-container>
+        <div *ngIf="reservationRequests.length === 0 && !!selectedRestaurantId && !reservationRequestsLoading" class="text-center mt-2">
+          <span class="mat-subheading-2">
+            Brak pytań o rezerwacje
+          </span>
+        </div>
+      </ng-container>
 
       <ng-container *ngIf="reservationRequestsLoadingError">
         <div class="mat-body-strong mat-error text-center">
@@ -42,9 +44,9 @@
       </ng-container>
 
       <ng-container *ngIf="reservationRequestsLoading && !reservationRequestsLoadingError">
-        <div>
-          <mat-spinner class="mx-auto"></mat-spinner>
-        </div>
+          <div>
+            <mat-spinner class="mx-auto"></mat-spinner>
+            </div>
       </ng-container>
 
       <ng-container *ngIf="!!reservationRequests.length">
@@ -61,12 +63,18 @@
               <mat-card-content>
                 <p>Liczba osób: {{request.numberOfPersons}}</p>
                 <p>Rezerwujący: {{request.clientUsername}}</p>
-                <p>Załączona wiadomość: <span class="font-italic">{{request.message || 'Brak'}}</span></p>
+                <p>Załączona wiadomość użytkownika:</p>
+                <div>
+                  <span class="font-italic">{{request.message || 'Brak'}}</span>
+                </div>
+                <mat-form-field class="form-field mt-2">
+                  <textarea matInput placeholder="Wiadomość dla użytkownika" [(ngModel)]="request.backMessage"></textarea>
+                </mat-form-field>
               </mat-card-content>
 
-              <mat-card-actions class="text-center">
-                <button mat-raised-button color="primary" (click)="acceptReservation(request.id)">Akceptuj</button>
-                <button mat-raised-button color="warn" (click)="rejectReservation(request.id)">Odrzuć</button>
+              <mat-card-actions class="text-center mt-0 pt-0">
+                <button mat-raised-button color="primary" (click)="acceptReservation(request.id, request.backMessage)">Akceptuj</button>
+                <button mat-raised-button color="warn" (click)="rejectReservation(request.id, request.backMessage)">Odrzuć</button>
               </mat-card-actions>
             </mat-card>
           </div>

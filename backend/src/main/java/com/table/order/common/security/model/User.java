@@ -29,7 +29,7 @@ import lombok.RequiredArgsConstructor;
 @Entity
 @RequiredArgsConstructor
 @NoArgsConstructor
-@Where(clause = "active='1'")
+@Where(clause = "active = true")
 public class User implements Activated {
 
     @Id

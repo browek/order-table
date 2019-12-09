@@ -5,6 +5,7 @@ import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.core.mapping.RepositoryDetectionStrategy;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapter;
 
+import com.table.order.common.model.ReservationRequest;
 import com.table.order.common.security.model.User;
 import com.table.order.restaurateur.model.ActivatedRestaurant;
 import com.table.order.restaurateur.model.Restaurant;
@@ -20,7 +21,8 @@ public class RestConfiguration extends RepositoryRestConfigurerAdapter {
         config.exposeIdsFor(
     		User.class,
     		ActivatedRestaurant.class,
-    		Restaurant.class
+    		Restaurant.class,
+    		ReservationRequest.class
         );
     }
 }

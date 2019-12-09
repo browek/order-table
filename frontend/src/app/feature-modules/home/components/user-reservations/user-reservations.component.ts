@@ -1,7 +1,7 @@
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { HttpErrorResponse } from '@angular/common/http';
-
+import { ReservationResponse, ReservationStatus } from '@app/shared/models/reservation-response';
+import { ReservationService } from '@app/shared/services/reservation.service';
 
 @Component({
   selector: 'app-user-reservations',
@@ -10,21 +10,47 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class UserReservationsComponent implements OnInit {
 
+  constructor (private reservationService: ReservationService) { }
 
-  constructor (private httpService: HttpClient) { }
-
-  arrReservations: string [];
+  arrReservations: ReservationResponse [];
 
   ngOnInit () {
-    this.httpService.get('./assets/json/reservations.json').subscribe(
-      data => {
-        this.arrReservations = data as string [];
-          console.log(this.arrReservations);
-      },
-      (err: HttpErrorResponse) => {
-        console.log (err.message);
-      }
-    );
+    this.fetchClientReservations();
   }
 
+  fetchClientReservations() {
+    this.reservationService.getClientReservations()
+      .subscribe((response: any) => {
+        this.arrReservations = response._embedded.reservationRequests || [];
+        console.log(this.arrReservations);
+      });
+  }
+
+
+  getReservationStatusMessage(status: ReservationStatus): ReservationStatusMessage {
+    switch (status) {
+      case ReservationStatus.ACCEPTED_BY_RESTAURANT:
+        return {
+          message: 'Zaakceptowana',
+          class: 'badge-success'
+        };
+
+      case ReservationStatus.REJECTED_BY_RESTAURANT:
+        return {
+          message: 'Odrzucona',
+          class: 'badge-danger'
+        };
+
+      case ReservationStatus.SEND:
+        return {
+          message: 'Oczekująca',
+          class: 'badge-info'
+        };
+    }
+  }
+}
+
+interface ReservationStatusMessage {
+  message: string;
+  class: string;
 }

@@ -9,14 +9,8 @@
 
     <mat-form-field class="col-12">
       <mat-select placeholder="Wybierz restaurację">
-        <mat-option>
-          x1
-        </mat-option>
-        <mat-option>
-          x2
-        </mat-option>
-        <mat-option>
-          x3
+        <mat-option *ngFor="let restaurant of restaurants" [value]="restaurant.id">
+          {{restaurant.name}} - {{restaurant?.city}} - {{restaurant?.street}}
         </mat-option>
       </mat-select>
     </mat-form-field>

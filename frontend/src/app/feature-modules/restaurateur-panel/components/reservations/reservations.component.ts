@@ -1,4 +1,6 @@
+import { RestaurateurService } from '@shared/services/restaurateur.service';
 import { Component, OnInit } from '@angular/core';
+import { Restaurant } from '../../models';
 
 @Component({
   selector: 'app-reservations',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReservationsComponent implements OnInit {
 
-  constructor() { }
+  restaurants: Restaurant[] = [];
+
+  constructor(private restaurantService: RestaurateurService) { }
 
   ngOnInit() {
+    this.fetchRestaurants();
   }
 
+  fetchRestaurants = () => {
+    this.restaurantService.getRestaurants()
+      .subscribe((response: any) => {
+        this.restaurants = response._embedded.restaurants || [];
+      });
+  }
 }

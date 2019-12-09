@@ -1,35 +1,42 @@
-<div class="container mt-5 mat-elevation-z10">
+<div class="container mt-5">
+
   <div class="row">
-    <div class="col-12">
-      <mat-accordion *ngIf=arrReservations>
-        <mat-expansion-panel *ngFor="let reservation of arrReservations">
+    <div class="col-12" *ngIf="arrReservations && !!arrReservations.length; else reservationsNotExist">
+      <mat-accordion>
+        <mat-expansion-panel *ngFor="let reservation of arrReservations" [disabled]="!reservation.notifications.length">
           <mat-expansion-panel-header>
-            <mat-panel-title class="row">
-              <div class="col">
-                <h4>
-                  <span *ngIf="reservation.status === 'ACCEPTED'" class="badge badge-pill badge-success">Akceptowano</span>
-                  <span *ngIf="reservation.status === 'REJECTED'" class="badge badge-pill badge-danger">Anulowano</span>
-                </h4>
-              </div>
-              <div class="col">
+            <mat-panel-title>
+              <span class="d-inline-block badge badge-pill p-2 {{getReservationStatusMessage(reservation.status).class}}">
+                {{getReservationStatusMessage(reservation.status).message}}
+              </span>
+              <span class="d-inline-block ml-5">
                 {{reservation.restaurant.name}}
-              </div>
+              </span>
             </mat-panel-title>
-            <mat-panel-description class="row">
-              <div class="col">
-                {{reservation.restaurant.location.city}}, {{reservation.restaurant.location.street}}
-              </div>
-              <div class="col">
+            <mat-panel-description>
+              <span class="d-inline-block">
+                {{reservation.restaurant?.city}}, {{reservation.restaurant?.street}}
+              </span>
+              <span class="d-inline-block">
                 {{reservation.reservationDateTime | date:'dd/MM/yyyy'}}
-              </div>
+              </span>
             </mat-panel-description>
           </mat-expansion-panel-header>
+
           <div>
-            <p>Wiadomość od restauratora:</p> {{reservation.message}}
+            <p>Wiadomość restauratora:</p> {{reservation.message}}
           </div>
+
         </mat-expansion-panel>
+
       </mat-accordion>
-      <div *ngIf=!arrReservations>Brak rezerwacji</div>
     </div>
   </div>
 </div>
+<ng-template #reservationsNotExist>
+  <div class="container layout-container">
+    <div class="row p-2 m-2">
+      <div class="col-12 mat-h1">Brak rezerwacji</div>
+    </div>
+  </div>
+</ng-template>
