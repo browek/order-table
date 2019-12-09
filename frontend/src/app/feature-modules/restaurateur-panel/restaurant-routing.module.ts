@@ -6,6 +6,7 @@ import {
   AssignRestaurantComponent,
   RestaurantsComponent
 } from './components';
+import {ReservationsComponent} from '@features/restaurateur-panel/components/reservations/reservations.component';
 
 const routes: Routes = [
   {
@@ -18,7 +19,7 @@ const routes: Routes = [
         redirectTo: 'reservations'
       },
       {
-        path: 'reservations',
+        path: 'reservationRequests',
         component: ReservationRequestsComponent,
       },
       {
@@ -28,6 +29,10 @@ const routes: Routes = [
       {
         path: 'restaurants',
         component: RestaurantsComponent
+      },
+      {
+        path: 'reservations',
+        component: ReservationsComponent
       }
     ]
   }

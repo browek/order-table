@@ -1,5 +1,7 @@
 <ng-container *ngIf="restaurantsLoadingError">
-  Błąd podczas pobierania danych o restauracjach
+  <div class="text-center mat-error">
+    Błąd podczas pobierania danych o restauracjach
+  </div>
 </ng-container>
 
 <ng-container *ngIf="restaurantsLoading && !restaurantsLoadingError">
@@ -35,9 +37,9 @@
     </div>
 
     <ng-container *ngIf="reservationRequestsLoadingError">
-      <span class="mat-body-strong">
+      <div class="mat-body-strong mat-error text-center">
         Błąd podczas pobierania pytań o rezerwacje
-      </span>
+      </div>
     </ng-container>
 
     <ng-container *ngIf="reservationRequestsLoading && !reservationRequestsLoadingError">
