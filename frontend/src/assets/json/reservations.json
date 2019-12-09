@@ -1,0 +1,43 @@
+[{
+    "id": 1,
+    "numberOfPersons": 1,
+    "reservationDateTime": "2222-12-12T12:12:00.000+0100",
+    "message": "Lorem ipsum dolor amet post-ironic gluten-free blue bottle cloud bread vinyl. Flexitarian sriracha raclette lomo pork belly air plant salvia. Kinfolk keffiyeh succulents cornhole man bun flannel fixie live-edge plaid 8-bit kitsch af vaporware air plant. Selfies crucifix truffaut, palo santo messenger bag put a bird on it tofu adaptogen.",
+    "status": "ACCEPTED",
+    "restaurant": {
+      "name": "KFC",
+      "location": {
+        "city": "Rzeszow",
+        "street": "Kopisto 1"
+      }
+    }
+  },
+  {
+    "id": 2,
+    "numberOfPersons": 13,
+    "reservationDateTime": "02/02/2019",
+    "message": "Mustache 3 wolf moon adaptogen edison bulb hammock scenester retro pour-over. Meditation taxidermy normcore godard before they sold out asymmetrical activated charcoal. Brunch migas vexillologist leggings PBR&B. Leggings vape chartreuse polaroid kickstarter, food truck truffaut small batch poutine. Hexagon meggings hot chicken shoreditch chillwave. Messenger bag keytar crucifix tofu distillery waistcoat. Pabst squid yuccie plaid irony cloud bread.",
+    "status": "REJECTED",
+    "restaurant": {
+      "name": "KFC",
+      "location": {
+        "city": "Rzeszow",
+        "street": "Al. Witosa 21"
+      }
+    }
+  },
+  {
+    "id": 3,
+    "numberOfPersons": 17,
+    "reservationDateTime": "03/03/2019",
+    "message": "Truffaut williamsburg marfa migas typewriter. Tote bag iPhone fingerstache, 90's edison bulb asymmetrical trust fund authentic vaporware farm-to-table franzen four loko. Hammock knausgaard blue bottle 90's thundercats activated charcoal. Pabst glossier raclette, fixie leggings edison bulb skateboard pok pok beard taiyaki forage gastropub meh iPhone humblebrag.",
+    "status": "ACCEPTED",
+    "restaurant": {
+      "name": "KFC",
+      "location": {
+        "city": "Rzeszow",
+        "street": "Galeria Rzeszow"
+      }
+    }
+  }
+]

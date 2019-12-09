@@ -1,23 +1,36 @@
 package com.table.order.common.model;
 
-import com.table.order.common.security.model.User;
-import com.table.order.restaurateur.model.ActivatedRestaurant;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Where;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.Where;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.table.order.common.security.model.User;
+import com.table.order.restaurateur.model.ActivatedRestaurant;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Where(clause = "active='1'")
+@Where(clause = "active = true")
 public class ReservationRequest implements Activated {
 
     @Id
@@ -28,7 +41,7 @@ public class ReservationRequest implements Activated {
     @JoinColumn(name = "client_id")
     private User client;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "restaurant_id")
     private ActivatedRestaurant restaurant;
 

@@ -9,13 +9,15 @@ import {
   ReservationRequestsComponent
 } from './components';
 import { RestaurantsComponent } from './components/restaurants/restaurants.component';
+import { ReservationsComponent } from './components/reservations/reservations.component';
 
 @NgModule({
   declarations: [
     RestaurateurLayoutComponent,
     AssignRestaurantComponent,
     ReservationRequestsComponent,
-    RestaurantsComponent
+    RestaurantsComponent,
+    ReservationsComponent
   ],
   imports: [
     CommonModule,

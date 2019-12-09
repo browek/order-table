@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Venue, VenueWithDetails, RestaurantToSearch } from '../models';
+import { Restaurant } from '@app/feature-modules/restaurateur-panel/models';
 
 @Injectable()
 export class RestaurateurService {
@@ -32,7 +33,7 @@ export class RestaurateurService {
     return this.http.put<void>(`${this.RESTAURANTS_PATH}/unassign`, null);
   }
 
-  getRestaurants(httpParams?: HttpParams | any) {
+  getRestaurants(httpParams?: HttpParams | any): Observable<any> {
     return this.http.get(`${this.RESTAURANTS_PATH}/search/findAllByCurrentUser`, { params: httpParams });
   }
 
@@ -43,13 +44,17 @@ export class RestaurateurService {
     return this.http.get(`${this.RESTAURANTS_PATH}/reservations`, { params: params});
   }
 
-  acceptReservation(id: number) {
-    console.log(id);
-    return this.http.put(`${this.RESTAURANTS_PATH}/reservations/accept`, {}, {params: new HttpParams().set('reservation_id', `${id}`)});
+  acceptReservation(id: number, message: string) {
+    return this.http.put(`${this.RESTAURANTS_PATH}/reservations/accept`, {
+      reservationId: id,
+      message: message
+    });
   }
 
-  rejectReservation(id: number) {
-    console.log(id);
-    return this.http.put(`${this.RESTAURANTS_PATH}/reservations/reject`, {}, {params: new HttpParams().set('reservation_id', `${id}`)});
+  rejectReservation(id: number, message: string) {
+    return this.http.put(`${this.RESTAURANTS_PATH}/reservations/reject`, {
+      reservationId: id,
+      message: message
+    });
   }
 }

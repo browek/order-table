@@ -14,9 +14,19 @@ export interface NewReservation {
 })
 export class ReservationService {
 
+  private readonly RESERVATIONS_PATH = 'reservationRequests';
+
   constructor(private http: HttpClient) { }
 
   sendReservation(reservationData: NewReservation): Observable<any> {
     return this.http.post<any>('/api/client/sendReservationRequest', reservationData);
+  }
+
+  getClientReservations(): Observable<any> {
+    const httpParams = {
+      projection: 'withRestaurant'
+    };
+
+    return this.http.get(`/api/${this.RESERVATIONS_PATH}/search/findByCurrentClient`, { params: httpParams });
   }
 }

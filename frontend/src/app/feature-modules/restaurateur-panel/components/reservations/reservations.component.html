@@ -1,0 +1,30 @@
+<div class="container mt-3">
+  <div class="row">
+    <div class="col-12">
+      <app-header [currentPageName]="'Harmonogram rezerwacji'"></app-header>
+    </div>
+  </div>
+
+  <div class="container p-3 layout-container">
+
+    <mat-form-field class="col-12">
+      <mat-select placeholder="Wybierz restaurację">
+        <mat-option *ngFor="let restaurant of restaurants" [value]="restaurant.id">
+          {{restaurant.name}} - {{restaurant?.city}} - {{restaurant?.street}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="col-6">
+      <input matInput type="date" placeholder="Data od">
+    </mat-form-field>
+    <mat-form-field class="col-6">
+      <input matInput type="date" placeholder="Data do">
+    </mat-form-field>
+
+    <div class="text-center">
+      <button mat-raised-button color="primary">Pobierz rezerwacje</button>
+    </div>
+
+  </div>
+</div>

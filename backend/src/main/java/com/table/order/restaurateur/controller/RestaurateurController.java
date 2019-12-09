@@ -6,6 +6,7 @@ import java.util.Set;
 import com.table.order.common.model.ReservationRequestStatus;
 import com.table.order.common.model.dto.ReservationDTO;
 import com.table.order.common.security.exception.UnauthorizedException;
+import com.table.order.restaurateur.model.dto.AcceptRejectReservationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.http.HttpStatus;
@@ -65,9 +66,9 @@ public class RestaurateurController {
 
     @PreAuthorize("hasAuthority('ROLE_RESTAURATEUR')")
     @PutMapping("/reservations/accept")
-    public ResponseEntity<?> acceptReservation(@RequestParam("reservation_id") Long reservationId) {
+    public ResponseEntity<?> acceptReservation(@RequestBody AcceptRejectReservationDTO reservationData) {
         try {
-            restaurateurService.acceptReservation(reservationId);
+            restaurateurService.acceptReservation(reservationData);
         } catch (UnauthorizedException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
@@ -76,9 +77,9 @@ public class RestaurateurController {
 
     @PreAuthorize("hasAuthority('ROLE_RESTAURATEUR')")
     @PutMapping("/reservations/reject")
-    public ResponseEntity<?> rejectReservation(@RequestParam("reservation_id") Long reservationId) {
+    public ResponseEntity<?> rejectReservation(@RequestBody AcceptRejectReservationDTO reservationData) {
         try {
-            restaurateurService.rejectReservation(reservationId);
+            restaurateurService.rejectReservation(reservationData);
         } catch (UnauthorizedException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }

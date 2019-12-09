@@ -27,7 +27,9 @@ import {
   MatSortModule,
   MatAutocompleteModule,
   MatTooltipModule,
-  MatSelectModule
+  MatSelectModule,
+  MatExpansionModule,
+  MatChipsModule
 } from '@angular/material';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -70,7 +72,9 @@ library.add(
     MatAutocompleteModule,
     MatTooltipModule,
     MatSelectModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    MatExpansionModule,
+    MatChipsModule
   ]
 })
 export class SharedModule { }

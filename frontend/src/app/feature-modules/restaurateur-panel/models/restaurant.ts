@@ -4,4 +4,5 @@ export interface Restaurant {
   street: string;
   city: string;
   apiId: string;
+  active?: boolean;
 }

@@ -5,9 +5,9 @@ import java.util.Set;
 
 import com.table.order.common.model.dto.ReservationDTO;
 import com.table.order.common.security.exception.UnauthorizedException;
+import com.table.order.restaurateur.model.dto.AcceptRejectReservationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.table.order.client.service.ClientService;
@@ -30,6 +30,9 @@ import com.table.order.restaurateur.repository.RestaurantRepository;
 @Service
 public class RestaurateurService {
 
+    private String DEFAULT_RESERVATION_REJECT_MSG;
+    private String DEFAULT_RESERVATION_ACCEPT_MSG;
+
     private FoursquareService foursquareService;
     private UserHelper userHelper;
     private ActivatedRestaurantRepository activatedRestaurantRepository;
@@ -41,15 +44,22 @@ public class RestaurateurService {
     }
 
     @Autowired
-    public RestaurateurService(FoursquareService foursquareService, UserHelper userHelper, 
-    		RestaurantRepository restaurantRepository,  ClientService clientService,
-			ActivatedRestaurantRepository activatedRestaurantRepository, ReservationRequestRepository reservationRequestRepository) {
+    public RestaurateurService(FoursquareService foursquareService,
+                               UserHelper userHelper,
+                               RestaurantRepository restaurantRepository,
+                               ClientService clientService,
+			                    ActivatedRestaurantRepository activatedRestaurantRepository,
+                               ReservationRequestRepository reservationRequestRepository,
+                               @Value("${restaurants.reservations.messages.accept}") String defaultReservationAcceptMsg,
+                               @Value("${restaurants.reservations.messages.reject}") String defaultReservationRejectMsg) {
 		this.foursquareService = foursquareService;
 		this.userHelper = userHelper;
 		this.activatedRestaurantRepository = activatedRestaurantRepository;
 		this.restaurantRepository = restaurantRepository;
 		this.reservationRequestRepository = reservationRequestRepository;
 		this.clientService = clientService;
+		this.DEFAULT_RESERVATION_ACCEPT_MSG = defaultReservationAcceptMsg;
+		this.DEFAULT_RESERVATION_REJECT_MSG = defaultReservationRejectMsg;
 	}
 
 	public Set<FoundVenue> searchForRestaurant(String restaurant, String city) throws VenueException {
@@ -98,21 +108,45 @@ public class RestaurateurService {
         return activatedRestaurantRepository.findByApiId(apiId);
     }
 
-    public ReservationRequest acceptReservation(Long reservationId) throws UnauthorizedException {
-        checkReservationOwner(reservationId);
+    public ReservationRequest acceptReservation(AcceptRejectReservationDTO reservationData) throws UnauthorizedException {
+        String message = resolveAcceptMessage(reservationData.getMessage());
+        return changeStateOfReservation(
+                reservationData.getReservationId(),
+                ReservationRequestStatus.ACCEPTED_BY_RESTAURANT,
+                message
+        );
+    }
 
-        ReservationRequest reservationRequest = reservationRequestRepository.getOne(reservationId);
-        reservationRequest.setStatus(ReservationRequestStatus.ACCEPTED);
+    private String resolveAcceptMessage(String message) {
+        if (message == null || message.isEmpty())
+            return DEFAULT_RESERVATION_ACCEPT_MSG;
+        else return message;
+    }
+
+    private ReservationRequest changeStateOfReservation(Long id, ReservationRequestStatus status, String message) throws UnauthorizedException {
+        checkReservationOwner(id);
+
+        ReservationRequest reservationRequest = reservationRequestRepository.getOne(id);
+        reservationRequest.setStatus(status);
+        reservationRequest.setMessage(message);
         return reservationRequestRepository.save(reservationRequest);
     }
 
-    public ReservationRequest rejectReservation(Long reservationId) throws UnauthorizedException {
-        checkReservationOwner(reservationId);
-
-        ReservationRequest reservationRequest = reservationRequestRepository.getOne(reservationId);
-        reservationRequest.setStatus(ReservationRequestStatus.REJECTED);
-        return reservationRequestRepository.save(reservationRequest);
+    public ReservationRequest rejectReservation(AcceptRejectReservationDTO reservationData) throws UnauthorizedException {
+        String message = resolveRejectMessage(reservationData.getMessage());
+        return changeStateOfReservation(
+                reservationData.getReservationId(),
+                ReservationRequestStatus.REJECTED_BY_RESTAURANT,
+                message
+        );
     }
+
+    private String resolveRejectMessage(String message) {
+        if (message == null || message.isEmpty())
+            return DEFAULT_RESERVATION_REJECT_MSG;
+        else return message;
+    }
+
 
     private void checkReservationOwner(Long reservationId) throws UnauthorizedException {
         String loggedUserUsername = userHelper.getLoggedUserUsername();
@@ -142,7 +176,6 @@ public class RestaurateurService {
                 loggedUserUsername
         );
     }
-
 
     @Autowired
     public void setFoursquareService(FoursquareService foursquareService) {
