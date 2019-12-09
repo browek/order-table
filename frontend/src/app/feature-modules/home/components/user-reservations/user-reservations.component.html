@@ -17,14 +17,19 @@
               <span class="d-inline-block">
                 {{reservation.restaurant?.city}}, {{reservation.restaurant?.street}}
               </span>
-              <span class="d-inline-block">
-                {{reservation.reservationDateTime | date:'dd/MM/yyyy'}}
+              <span class="d-inline-block ml-4">
+                {{reservation.reservationDateTime | date:'dd/MM/yyyy HH:mm'}}
               </span>
             </mat-panel-description>
           </mat-expansion-panel-header>
 
           <div>
-            <p>Wiadomość restauratora:</p> {{reservation.message}}
+            <p>Powiadomienia: </p>
+            <ol>
+              <li *ngFor="let reservationNotification of reservation.notifications">
+                {{reservationNotification.message}}
+              </li>
+            </ol>
           </div>
 
         </mat-expansion-panel>

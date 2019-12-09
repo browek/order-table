@@ -1,9 +1,12 @@
 package com.table.order.common.model;
 
+import com.table.order.common.model.dto.NotificationDTO;
+import com.table.order.common.model.dto.RestaurantDTO;
 import com.table.order.common.security.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -48,5 +51,19 @@ public class Notification {
     public int hashCode() {
 
         return Objects.hash(id);
+    }
+
+    public static NotificationDTO convertToDTO(Notification notification) {
+        NotificationDTO dto = new ModelMapper().map(notification, NotificationDTO.class);
+        dto.setReservationRequestId(notification.getReservation().getId());
+        dto.setReservationRequestStatus(notification.getReservation().getStatus());
+        dto.setReservationDate(notification.getReservation().getReservationDateTime());
+
+        RestaurantDTO restaurantDTO =
+                new ModelMapper().map(notification.getReservation().getRestaurant(), RestaurantDTO.class);
+
+        dto.setRestaurant(restaurantDTO);
+
+        return dto;
     }
 }

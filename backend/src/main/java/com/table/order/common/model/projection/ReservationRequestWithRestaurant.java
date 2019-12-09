@@ -4,8 +4,8 @@ import java.util.Date;
 import java.util.Set;
 
 import org.springframework.data.rest.core.config.Projection;
-import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.table.order.common.model.Notification;
 import com.table.order.common.model.ReservationRequest;
 import com.table.order.common.model.ReservationRequestStatus;
@@ -20,7 +20,7 @@ public interface ReservationRequestWithRestaurant {
 
 	int getNumberOfPersons();
 
-	@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
+	@JsonFormat(pattern = "yyyy-MM-dd hh:mm")
 	Date getReservationDateTime();
 	
 	Set<Notification> getNotifications();
