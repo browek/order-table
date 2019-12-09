@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {ReservationRequest} from '@shared/models';
-import {Restaurant} from '@features/restaurateur-panel/models';
-import {RestaurateurService} from '@shared/services';
+import { Component, OnInit } from '@angular/core';
+import { ReservationRequest } from '@shared/models';
+import { Restaurant } from '@features/restaurateur-panel/models';
+import { RestaurateurService } from '@shared/services';
 
 @Component({
   selector: 'app-reservation-requests',
@@ -53,7 +53,7 @@ export class ReservationRequestsComponent implements OnInit {
         this.reservationRequestsLoading = false;
         this.reservationRequestsLoadingError = true;
       });
-  };
+  }
 
   acceptReservation = id => {
     this.restaurateurService.acceptReservation(id)
@@ -61,7 +61,7 @@ export class ReservationRequestsComponent implements OnInit {
         this.removeReservationById(id);
         console.log('accepted');
       });
-  };
+  }
 
   private removeReservationById(id) {
     this.reservationRequests = this.reservationRequests.filter(request => request.id !== id);
@@ -73,6 +73,6 @@ export class ReservationRequestsComponent implements OnInit {
         this.removeReservationById(id);
         console.log('rejected');
       });
-  };
+  }
 
 }

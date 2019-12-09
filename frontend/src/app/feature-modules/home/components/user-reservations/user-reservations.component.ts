@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-user-reservations',
@@ -7,9 +10,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserReservationsComponent implements OnInit {
 
-  constructor() { }
 
-  ngOnInit() {
+  constructor (private httpService: HttpClient) { }
+
+  arrReservations: string [];
+
+  ngOnInit () {
+    this.httpService.get('./assets/json/reservations.json').subscribe(
+      data => {
+        this.arrReservations = data as string [];
+          console.log(this.arrReservations);
+      },
+      (err: HttpErrorResponse) => {
+        console.log (err.message);
+      }
+    );
   }
 
 }

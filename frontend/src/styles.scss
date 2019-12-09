@@ -13,5 +13,5 @@ html, body {
 
 .layout-container {
   @include mat-elevation(5);
-  background-color: lighten($bg-color, 20%);
+  background-color: lighten($bg-color, 10%);
 }
