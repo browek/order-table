@@ -1,4 +1,4 @@
-FROM anapsix/alpine-java
+FROM java:openjdk-8-alpine
 ENV ARTIFACT_NAME=order-table-0.0.1-SNAPSHOT.jar
 ENV APP_HOME=/app
 WORKDIR $APP_HOME

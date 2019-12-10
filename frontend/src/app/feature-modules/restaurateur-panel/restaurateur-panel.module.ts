@@ -1,15 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { SideNavLayoutModule, SharedModule, PageHeaderModule } from '@app/shared/modules';
+import { PageHeaderModule, SharedModule, SideNavLayoutModule } from '@app/shared/modules';
 import { RestaurateurService } from '@shared/services/restaurateur.service';
-import { RestaurantRoutingModule } from './restaurant-routing.module';
-import {
-  RestaurateurLayoutComponent,
-  AssignRestaurantComponent,
-  ReservationRequestsComponent
-} from './components';
-import { RestaurantsComponent } from './components/restaurants/restaurants.component';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { AssignRestaurantComponent, ReservationRequestsComponent, RestaurateurLayoutComponent } from './components';
 import { ReservationsComponent } from './components/reservations/reservations.component';
+import { RestaurantsComponent } from './components/restaurants/restaurants.component';
+import { RestaurantRoutingModule } from './restaurant-routing.module';
 
 @NgModule({
   declarations: [
@@ -21,6 +19,10 @@ import { ReservationsComponent } from './components/reservations/reservations.co
   ],
   imports: [
     CommonModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory
+    }),
     SharedModule,
     SideNavLayoutModule,
     RestaurantRoutingModule,

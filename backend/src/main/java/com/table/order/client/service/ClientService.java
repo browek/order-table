@@ -1,12 +1,18 @@
 package com.table.order.client.service;
 
 
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
 import com.table.order.client.model.NewReservation;
-import com.table.order.common.model.dto.NotificationDTO;
-import com.table.order.common.model.dto.RestaurantDTO;
 import com.table.order.common.model.Notification;
 import com.table.order.common.model.ReservationRequest;
 import com.table.order.common.model.ReservationRequestStatus;
+import com.table.order.common.model.dto.NotificationDTO;
 import com.table.order.common.repository.ReservationRequestRepository;
 import com.table.order.common.repository.UserRepository;
 import com.table.order.common.security.exception.UnauthorizedException;
@@ -17,13 +23,6 @@ import com.table.order.common.service.helper.UserHelper;
 import com.table.order.restaurateur.exception.IncorrectRestaurantDataException;
 import com.table.order.restaurateur.model.ActivatedRestaurant;
 import com.table.order.restaurateur.service.RestaurateurService;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
 
 @Service
 public class ClientService {

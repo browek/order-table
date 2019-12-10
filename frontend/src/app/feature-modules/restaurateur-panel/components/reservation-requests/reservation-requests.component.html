@@ -56,7 +56,7 @@
               <mat-card-header>
                 <mat-card-subtitle>
                   <div>Data rezerwacji: </div>
-                  <div class="font-italic">{{request.dateAndTime | date :'dd/MM/yyyy HH:mm'}}</div>
+                  <div class="font-italic">{{request.reservationDateTime | date :'dd/MM/yyyy HH:mm'}}</div>
                 </mat-card-subtitle>
               </mat-card-header>
 
@@ -65,7 +65,7 @@
                 <p>Rezerwujący: {{request.clientUsername}}</p>
                 <p>Załączona wiadomość użytkownika:</p>
                 <div>
-                  <span class="font-italic">{{request.message || 'Brak'}}</span>
+                  <span class="font-italic">{{request.clientMessage || 'Brak'}}</span>
                 </div>
                 <mat-form-field class="form-field mt-2">
                   <textarea matInput placeholder="Wiadomość dla użytkownika" [(ngModel)]="request.backMessage"></textarea>

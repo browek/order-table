@@ -1,5 +1,5 @@
-<button mat-raised-button [matMenuTriggerFor]="menu">Menu</button>
-<mat-menu #menu="matMenu" class="mt-1">
+<button mat-raised-button [matMenuTriggerFor]="navigationMenu">Menu</button>
+<mat-menu #navigationMenu class="mt-1">
   <button *ngIf="isRestaurateur()" mat-menu-item routerLink="/restaurant-panel">Panel Restauratora</button>
   <button *ngIf="isAdmin()" mat-menu-item routerLink="/admin-panel">Panel Administracyjny</button>
 
@@ -16,9 +16,9 @@
 </mat-menu>
 
 <button mat-icon-button *ngIf="isLogged()">
-  <mat-icon matBadge="{{notificationsCount}}" matBadgeColor="warn" [matMenuTriggerFor]="menu2">notifications</mat-icon>
+  <mat-icon matBadge="{{notificationsCount}}" matBadgeColor="warn" [matMenuTriggerFor]="notificationMenu">notifications</mat-icon>
 </button>
 
-<mat-menu #menu2="matMenu">
-  <app-reservation-notifications (notificationReaded)="handleNotificationReaded($event)"></app-reservation-notifications>
+<mat-menu #notificationMenu>
+  <app-reservation-notifications *ngIf="isLogged()" (notificationReaded)="handleNotificationReaded($event)"></app-reservation-notifications>
 </mat-menu>

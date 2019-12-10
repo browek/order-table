@@ -62,7 +62,7 @@ public class NotificationService {
                 reservationRequest.getClient(),
                 reservationRequest,
                 "drop_me_plx",
-                reservationRequest.getMessage(),
+                reservationRequest.getRestaurateurMessage(),
                 new Date(),
                 false
         );

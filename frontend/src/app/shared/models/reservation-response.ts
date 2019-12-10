@@ -4,7 +4,8 @@ export interface ReservationResponse {
   id: number;
   numberOfPersons: number;
   reservationDateTime: Date;
-  message: string;
+  clientMessage: string;
+  restaurateurMessage: string;
   status: ReservationStatus;
   active: boolean;
   restaurant?: Restaurant;

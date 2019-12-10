@@ -30,7 +30,9 @@ import {
   MatSelectModule,
   MatExpansionModule,
   MatChipsModule,
-  MatBadgeModule
+  MatBadgeModule,
+  MatDatepickerModule,
+  MatNativeDateModule
 } from '@angular/material';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -79,7 +81,9 @@ library.add(
     FontAwesomeModule,
     MatExpansionModule,
     MatChipsModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatNativeDateModule,
+    MatDatepickerModule
   ]
 })
 export class SharedModule { }

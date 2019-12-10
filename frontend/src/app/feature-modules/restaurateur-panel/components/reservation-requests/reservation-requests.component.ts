@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ReservationRequest } from '@shared/models';
+import { ReservationRequest, ReservationResponse } from '@shared/models';
 import { Restaurant } from '@features/restaurateur-panel/models';
 import { RestaurateurService } from '@shared/services';
 import { ToastrService } from 'ngx-toastr';
@@ -20,7 +20,7 @@ export class ReservationRequestsComponent implements OnInit {
   selectedRestaurantId: number;
 
   restaurants: Restaurant[] = [];
-  reservationRequests: ReservationRequest[] = [];
+  reservationRequests: ReservationResponse[] = [];
 
   constructor(private restaurateurService: RestaurateurService, private toastr: ToastrService) {
   }
@@ -28,7 +28,7 @@ export class ReservationRequestsComponent implements OnInit {
   ngOnInit() {
     this.restaurateurService.getRestaurants()
       .subscribe((response: any) => {
-        this.restaurants = response._embedded.restaurants;
+        this.restaurants = response._embedded.activatedRestaurants;
 
         this.restaurantsLoading = false;
         this.restaurantsLoadingError = false;
@@ -45,8 +45,8 @@ export class ReservationRequestsComponent implements OnInit {
     this.selectedRestaurantId = event.value;
     this.restaurateurService
       .getReservationRequests(this.selectedRestaurantId)
-      .subscribe((reservations: any) => {
-        this.reservationRequests = reservations;
+      .subscribe((response: any) => {
+        this.reservationRequests = ( response._embedded && response._embedded.reservationRequests) || [];
 
         this.reservationRequestsLoading = false;
         this.reservationRequestsLoadingError = false;

@@ -6,7 +6,10 @@ import { RestaurantToSearch, Venue, VenueWithDetails } from '../models';
 @Injectable()
 export class RestaurateurService {
 
+  private readonly ACTIVATED_RESTAURANTS_PATH = '/api/activatedRestaurants';
   private readonly RESTAURANTS_PATH = '/api/restaurants';
+
+  private readonly RESERVATIONS_PATH = '/api/reservationRequests';
 
   constructor(private http: HttpClient) {
   }
@@ -33,14 +36,15 @@ export class RestaurateurService {
   }
 
   getRestaurants(httpParams?: HttpParams | any): Observable<any> {
-    return this.http.get(`${this.RESTAURANTS_PATH}/search/findAllByCurrentUser`, { params: httpParams });
+    return this.http.get(`${this.ACTIVATED_RESTAURANTS_PATH}/search/findAllByCurrentUser`, { params: httpParams });
   }
 
   getReservationRequests(restaurantId: number) {
     const params = new HttpParams()
       .set('restaurantId', `${restaurantId}`)
-      .set('status', 'SEND');
-    return this.http.get(`${this.RESTAURANTS_PATH}/reservations`, { params: params});
+      .set('status', 'SEND')
+      .set('projection', 'withUsername');
+    return this.http.get(`${this.RESERVATIONS_PATH}/search/findByStatusAndId`, { params: params});
   }
 
   acceptReservation(id: number, message: string) {

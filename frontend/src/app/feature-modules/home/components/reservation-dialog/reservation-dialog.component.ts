@@ -25,17 +25,17 @@ export class ReservationDialogComponent implements OnInit {
     this.reservationForm = new FormGroup({
       numberOfPersons: new FormControl(null, [Validators.required, Validators.min(1), Validators.max(1000)]),
       date: new FormControl(null, [Validators.required]),
-      message: new FormControl(null)
+      clientMessage: new FormControl(null)
     });
   }
 
   sendReservation() {
     const numberOfPersons: number = this.reservationForm.controls['numberOfPersons'].value;
     const dateAndTime: Date = this.reservationForm.controls['date'].value;
-    const message: string = this.reservationForm.controls['message'].value;
+    const clientMessage: string = this.reservationForm.controls['clientMessage'].value;
 
     this.reservationService
-      .sendReservation({ restaurantApiId: this.data.restaurantApiId, numberOfPersons, dateAndTime, message })
+      .sendReservation({ restaurantApiId: this.data.restaurantApiId, numberOfPersons, dateAndTime, clientMessage })
       .subscribe(reservation => {
         this.dialogRef.close();
         this.toastr.success('Prośba o rezerwacje została wysłana');

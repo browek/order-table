@@ -14,5 +14,6 @@ public interface ReservationDTO {
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
     @JsonProperty("dateAndTime")
     Date getReservationDateTime();
-    String getMessage();
+    String getClienMessage();
+    String getRestaurateurMessage();
 }

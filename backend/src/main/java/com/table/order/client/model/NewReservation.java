@@ -18,5 +18,5 @@ public class NewReservation {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
     private Date dateAndTime;
-    private String message;
+    private String clientMessage;
 }

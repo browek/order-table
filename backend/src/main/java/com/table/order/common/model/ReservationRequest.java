@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Where;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -52,10 +53,15 @@ public class ReservationRequest implements Activated {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
     private Date reservationDateTime;
-    private String message;
+    
+    private String clientMessage;
+    private String restaurateurMessage;
 
     @Enumerated(EnumType.STRING)
     private ReservationRequestStatus status;
+    
+    @CreationTimestamp
+    private Date createdDate;
 
     private boolean active = true;
 

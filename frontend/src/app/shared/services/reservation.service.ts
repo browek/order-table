@@ -1,12 +1,14 @@
+import { map, catchError } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { ReservationsRange, ReservationResponse } from '../models';
 
 export interface NewReservation {
   restaurantApiId:  string;
   numberOfPersons:  number;
   dateAndTime:      Date;
-  message:          string;
+  clientMessage:          string;
 }
 
 @Injectable({
@@ -30,20 +32,24 @@ export class ReservationService {
     return this.http.get(`/api/${this.RESERVATIONS_PATH}/search/findByCurrentClient`, { params: httpParams });
   }
 
-  getReservationFromRestaurant(reservationsRangeDto: ReservationsRangeDto): Observable<any> {
+  getReservationsByRange(reservationsRangeDto: ReservationsRange): Observable<ReservationResponse[]> {
     const httpParams = {
       dateFrom: reservationsRangeDto.dateFrom,
       dateTo: reservationsRangeDto.dateTo,
       restaurantId: reservationsRangeDto.restaurantId
     };
 
-    return this.http.get(`/api/${this.RESERVATIONS_PATH}/search/findAllByDateFromAndDateToAndRestaurantId`,
-      { params: httpParams });
-  }
-}
+    return this.http.get<ReservationResponse[]>(`/api/${this.RESERVATIONS_PATH}/search/findAllByDatesBetweenAndRestaurantId`,
+      { params: httpParams })
+      .pipe(
+        map((response: any) => {
+          const reservations = (response._embedded && response._embedded.reservationRequests) || [];
 
-interface ReservationsRangeDto {
-  dateFrom: string;
-  dateTo: string;
-  restaurantId: string;
+          return reservations;
+        }),
+        catchError((error: any) => {
+          return of([]);
+        }),
+      );
+  }
 }

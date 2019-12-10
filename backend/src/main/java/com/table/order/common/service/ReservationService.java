@@ -23,7 +23,7 @@ public class ReservationService {
         reservationRequest.setReservationDateTime(newReservation.getDateAndTime());
         reservationRequest.setNumberOfPersons(newReservation.getNumberOfPersons());
         reservationRequest.setStatus(ReservationRequestStatus.SEND);
-        reservationRequest.setMessage(validateMessage(newReservation.getMessage()));
+        reservationRequest.setClientMessage(validateMessage(newReservation.getClientMessage()));
 
         ReservationRequest savedReservation = reservationRequestRepository.save(reservationRequest);
 
@@ -34,7 +34,7 @@ public class ReservationService {
     public ReservationRequest changeStateOfReservation(Long id, ReservationRequestStatus status, String message) throws UnauthorizedException {
         ReservationRequest reservationRequest = reservationRequestRepository.getOne(id);
         reservationRequest.setStatus(status);
-        reservationRequest.setMessage(message);
+        reservationRequest.setRestaurateurMessage(message);
 
         notificationService.sendForClient(reservationRequest);
 
