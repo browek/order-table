@@ -25,7 +25,6 @@ export class UserReservationsComponent implements OnInit {
       });
   }
 
-
   getReservationStatusMessage(status: ReservationStatus): ReservationStatusMessage {
     switch (status) {
       case ReservationStatus.ACCEPTED_BY_RESTAURANT:

@@ -20,6 +20,7 @@ import { VenueService } from '@shared/services/venue.service';
 import { SidenavService } from '@app/shared/modules/side-nav-layout/services';
 import { UserReservationsComponent } from './components/user-reservations/user-reservations.component';
 import { UserNotificationsComponent } from './components/user-notifications/user-notifications.component';
+import { ReservationNotificationsComponent } from './components/reservation-notifications/reservation-notifications.component';
 // import {ReservationService} from '@shared/services/reservation.service';
 
 @NgModule({
@@ -32,7 +33,8 @@ import { UserNotificationsComponent } from './components/user-notifications/user
     ReservationDialogComponent,
     LayoutComponent,
     UserReservationsComponent,
-    UserNotificationsComponent
+    UserNotificationsComponent,
+    ReservationNotificationsComponent
   ],
   imports: [
     SharedModule,

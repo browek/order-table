@@ -2,7 +2,7 @@ package com.table.order.foursquare.repository;
 
 import java.util.Set;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
@@ -13,7 +13,7 @@ import com.table.order.foursquare.model.VenueDetails;
 import com.table.order.foursquare.model.response.FoundVenueResponse;
 import com.table.order.foursquare.model.response.VenueDetailsResponse;
 
-@Repository
+@Component
 public class FoursquareRepository {
 
 	private FoursquareApiComponent foursquareApiComponent;

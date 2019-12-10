@@ -16,6 +16,6 @@ public interface ActivatedRestaurantRepository extends PagingAndSortingRepositor
 
 	boolean existsByApiId(String apiId);
 
-	@Query("SELECT r FROM Restaurant r WHERE r.owner.username = ?#{ authentication?.name } AND active = true")
+	@Query("SELECT r FROM ActivatedRestaurant r WHERE r.owner.username = ?#{ authentication?.name }")
 	Page<ActivatedRestaurant> findAllByCurrentUser(Pageable pageable);
 }

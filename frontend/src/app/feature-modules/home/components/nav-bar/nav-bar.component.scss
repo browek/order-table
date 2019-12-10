@@ -1,34 +1,10 @@
 @import '~@angular/material/theming';
 @import 'variables';
 
-.navbar {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  width: 100%;
-}
-
 .link-active {
   background-color: rgba($color: mat-color($primaryDark), $alpha: 0.6);
 }
 
 button[mat-menu-item]:hover {
   background-color: darken(mat-color($primaryDark), 0.6);
-}
-
-mat-card-footer {
-  font-size: 12px;
-}
-
-mat-card {
-  border-bottom: 1px solid #CCCCCC;
-}
-
-
-
-#acceptMessage {
-  color: greenyellow;
-}
-#rejectMessage {
-  color: #FF2244;
 }

@@ -1,8 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Venue, VenueWithDetails, RestaurantToSearch } from '../models';
-import { Restaurant } from '@app/feature-modules/restaurateur-panel/models';
+import { RestaurantToSearch, Venue, VenueWithDetails } from '../models';
 
 @Injectable()
 export class RestaurateurService {
