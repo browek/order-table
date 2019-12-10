@@ -29,7 +29,8 @@ import {
   MatTooltipModule,
   MatSelectModule,
   MatExpansionModule,
-  MatChipsModule
+  MatChipsModule,
+  MatBadgeModule
 } from '@angular/material';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -37,13 +38,16 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 
 import {
   faSearch,
-  faWrench
+  faWrench,
+  faEnvelope
+
 } from '@fortawesome/free-solid-svg-icons';
 
 // Add an icon to the library for convenient access in other components
 library.add(
   faSearch,
-  faWrench
+  faWrench,
+  faEnvelope
 );
 
 @NgModule({
@@ -74,7 +78,8 @@ library.add(
     MatSelectModule,
     FontAwesomeModule,
     MatExpansionModule,
-    MatChipsModule
+    MatChipsModule,
+    MatBadgeModule
   ]
 })
 export class SharedModule { }

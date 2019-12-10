@@ -10,7 +10,8 @@
         "city": "Rzeszow",
         "street": "Kopisto 1"
       }
-    }
+    },
+    "checked": false
   },
   {
     "id": 2,
@@ -24,7 +25,8 @@
         "city": "Rzeszow",
         "street": "Al. Witosa 21"
       }
-    }
+    },
+    "checked": false
   },
   {
     "id": 3,
@@ -38,6 +40,7 @@
         "city": "Rzeszow",
         "street": "Galeria Rzeszow"
       }
-    }
+    },
+    "checked": false
   }
 ]

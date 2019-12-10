@@ -22,7 +22,7 @@ export class ReservationsComponent implements OnInit {
   fetchRestaurants = () => {
     this.restaurantService.getRestaurants()
       .subscribe((response: any) => {
-        this.restaurants = response._embedded.activatedRestaurants || [];
+        this.restaurants = response._embedded.restaurants || [];
       });
   }
 }

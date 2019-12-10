@@ -1,0 +1,31 @@
+<div *ngFor="let notification of arrNotifications">
+  <mat-card *ngIf="notification.displayed === false" class="card">
+    <mat-card-header>
+      <button mat-icon-button>
+        <mat-icon (click)="setAsDisplayed(notification.id)">clear</mat-icon>
+      </button>
+      <mat-card-title>
+        <span>{{notification.restaurant.name}} </span>
+      </mat-card-title>
+      <mat-card-subtitle>
+        <p>Data otrzymania: {{notification.notificationDate | date:'dd/MM/yyyy'}}</p>
+        <p>{{notification.restaurant.city}}, {{notification.restaurant.street}}</p>
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>Data rezerwacji: {{notification.reservationDate | date:'dd/MM/yyyy'}}</p>
+      <h6 id="acceptMessage" *ngIf="notification.reservationStatus === 'ACCEPTED'">
+        Twoja rezerwacja została zakceptowana
+      </h6>
+      <h6 id="rejectMessage" *ngIf="notification.reservationStatus === 'REJECTED'">
+        Twoja rezerwacja została odrzucona
+      </h6>
+    </mat-card-content>
+    <!-- <mat-card-actions>
+          <button mat-raised-button color="primary">Akceptuj</button>
+          <button mat-raised-button color="warn">Odrzuć</button>
+        </mat-card-actions> -->
+    <mat-card-footer>
+    </mat-card-footer>
+  </mat-card>
+</div>
