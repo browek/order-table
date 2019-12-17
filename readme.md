@@ -62,5 +62,16 @@ Diagram stanów
 Diagram wdrożenia
 ![image info](img/deploy.png)
 
+Zrzuty ekranu z aplikacji
+![image info](img/1.JPG)
+![image info](img/2.JPG)
+![image info](img/3.JPG)
+![image info](img/4.JPG)
+![image info](img/5.JPG)
+![image info](img/6.JPG)
+![image info](img/7.JPG)
+![image info](img/8.JPG)
+
+
 
 
